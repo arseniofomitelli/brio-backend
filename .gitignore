@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+*.log
+uploads/menu/*
+uploads/gallery/*
+!uploads/menu/.gitkeep
+!uploads/gallery/.gitkeep
+coverage/
+.nyc_output/
+*.tsbuildinfo
