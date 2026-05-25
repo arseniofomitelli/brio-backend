@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brio — Итальянское кафе</title>
+  <meta name="description" content="Brio — итальянское кафе. Меню, галерея, контакты." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ─── НАВИГАЦИЯ ─────────────────────────────────────────────── -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#hero" class="nav__logo">Brio</a>
+      <button class="nav__burger" id="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#menu" class="nav__link">Меню</a></li>
+        <li><a href="#gallery" class="nav__link">Галерея</a></li>
+        <li><a href="#contacts" class="nav__link">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ─── HERO ──────────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content container">
+      <p class="hero__sub">Добро пожаловать в</p>
+      <h1 class="hero__title">Brio</h1>
+      <p class="hero__tagline">Итальянское кафе</p>
+      <div class="hero__btns">
+        <a href="#menu" class="btn btn--primary">Смотреть меню</a>
+        <a href="#contacts" class="btn btn--outline">Как добраться</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ─── О НАС ──────────────────────────────────────────────────── -->
+  <section class="about">
+    <div class="container about__grid">
+      <div class="about__text">
+        <span class="section__label">Наша история</span>
+        <h2 class="section__title">Вкус Италии<br/>в каждом блюде</h2>
+        <p>Кафе Brio — это место, где итальянские традиции встречаются с современной кухней. Мы используем только свежие ингредиенты и готовим каждое блюдо с любовью.</p>
+        <p>Наши повара прошли обучение в лучших ресторанах Милана и Рима, чтобы каждый гость мог почувствовать подлинный вкус Италии.</p>
+      </div>
+      <div class="about__features">
+        <div class="feature">
+          <div class="feature__icon">🍝</div>
+          <h3>Свежая паста</h3>
+          <p>Готовим каждый день из муки твёрдых сортов</p>
+        </div>
+        <div class="feature">
+          <div class="feature__icon">🍕</div>
+          <h3>Дровяная печь</h3>
+          <p>Пицца на тонком тесте по неаполитанскому рецепту</p>
+        </div>
+        <div class="feature">
+          <div class="feature__icon">🍷</div>
+          <h3>Итальянские вина</h3>
+          <p>Тщательно подобранная карта вин из лучших регионов</p>
+        </div>
+        <div class="feature">
+          <div class="feature__icon">☕</div>
+          <h3>Кофе по-итальянски</h3>
+          <p>Эспрессо на зёрнах из Ломбардии</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── МЕНЮ ──────────────────────────────────────────────────── -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <span class="section__label">Что приготовить?</span>
+      <h2 class="section__title">Наше меню</h2>
+
+      <!-- Категории -->
+      <div class="menu__tabs" id="menuTabs">
+        <div class="menu__tabs-loader">Загружаем меню...</div>
+      </div>
+
+      <!-- Блюда -->
+      <div class="menu__grid" id="menuGrid">
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ГАЛЕРЕЯ ────────────────────────────────────────────────── -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <span class="section__label">Атмосфера</span>
+      <h2 class="section__title">Галерея</h2>
+      <div class="gallery__grid" id="galleryGrid">
+        <!-- Заглушки пока нет фото -->
+        <div class="gallery__placeholder">
+          <p>📸 Фотографии появятся здесь после добавления через панель управления</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── КОНТАКТЫ ──────────────────────────────────────────────── -->
+  <section class="contacts-section" id="contacts">
+    <div class="container contacts__grid">
+      <div class="contacts__info">
+        <span class="section__label">Найдите нас</span>
+        <h2 class="section__title">Контакты</h2>
+
+        <div class="contact-item" id="contactPhone">
+          <div class="contact-item__icon">📞</div>
+          <div>
+            <p class="contact-item__label">Телефон</p>
+            <p class="contact-item__value">Загружается...</p>
+          </div>
+        </div>
+
+        <div class="contact-item" id="contactEmail">
+          <div class="contact-item__icon">✉️</div>
+          <div>
+            <p class="contact-item__label">Email</p>
+            <p class="contact-item__value">Загружается...</p>
+          </div>
+        </div>
+
+        <div class="contact-item" id="contactAddress">
+          <div class="contact-item__icon">📍</div>
+          <div>
+            <p class="contact-item__label">Адрес</p>
+            <p class="contact-item__value">Загружается...</p>
+          </div>
+        </div>
+
+        <div class="hours" id="workingHours">
+          <h3 class="hours__title">⏰ Часы работы</h3>
+          <div class="hours__grid" id="hoursGrid">Загружается...</div>
+        </div>
+
+        <div class="socials" id="socials"></div>
+      </div>
+
+      <div class="contacts__map" id="contactsMap">
+        <div class="map-placeholder">
+          <p>🗺️ Карта</p>
+          <p id="mapAddress"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__logo">Brio</p>
+      <p class="footer__copy">© 2024 Brio — Итальянское кафе. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox для галереи -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose">✕</button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
