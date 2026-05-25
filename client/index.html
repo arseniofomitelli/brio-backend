@@ -23,11 +23,9 @@
         aria-label="Открыть меню навигации"
         aria-expanded="false"
         aria-controls="navLinks">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect y="4"  width="24" height="2" rx="1" fill="currentColor"/>
-          <rect y="11" width="24" height="2" rx="1" fill="currentColor"/>
-          <rect y="18" width="24" height="2" rx="1" fill="currentColor"/>
-        </svg>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
       </button>
 
       <ul class="nav__links" id="navLinks" role="list">
@@ -41,21 +39,50 @@
   <!-- ─── HERO ────────────────────────────────────────────────── -->
   <section class="hero" id="hero" aria-label="Добро пожаловать в кафе Brio">
     <div class="hero__bg" aria-hidden="true"></div>
+
+    <!-- Плавающие орбы -->
+    <div class="hero__orbs" aria-hidden="true">
+      <span class="orb orb--1"></span>
+      <span class="orb orb--2"></span>
+      <span class="orb orb--3"></span>
+      <span class="orb orb--4"></span>
+    </div>
+
+    <!-- Плавающие частицы -->
+    <div class="hero__particles" aria-hidden="true">
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+    </div>
+
     <div class="hero__content container">
       <img
         src="images/logo.jpg"
         alt="Brio — Итальянское кафе"
-        class="hero__logo"
+        class="hero__logo hero__logo--animate"
       />
-      <div class="hero__actions">
-        <a href="#menu"     class="btn btn--primary">Смотреть меню</a>
-        <a href="#contacts" class="btn btn--ghost">Как добраться</a>
+      <div class="hero__actions hero__actions--animate">
+        <a href="#menu"     class="btn btn--primary ripple-btn">Смотреть меню</a>
+        <a href="#contacts" class="btn btn--ghost  ripple-btn">Как добраться</a>
       </div>
     </div>
+
     <div class="hero__scroll" aria-hidden="true">
       <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
         <rect x="1" y="1" width="22" height="38" rx="11" stroke="white" stroke-opacity=".4" stroke-width="2"/>
         <circle class="hero__scroll-dot" cx="12" cy="10" r="3" fill="white" fill-opacity=".6"/>
+      </svg>
+    </div>
+
+    <!-- Волновой переход к следующей секции -->
+    <div class="hero__wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 35 Q180 0 360 35 Q540 70 720 35 Q900 0 1080 35 Q1260 70 1440 35 L1440 70 L0 70 Z" fill="var(--surface)"/>
       </svg>
     </div>
   </section>
@@ -63,14 +90,14 @@
   <!-- ─── О НАС ───────────────────────────────────────────────── -->
   <section class="about" aria-labelledby="about-title">
     <div class="container about__grid">
-      <div class="about__text">
+      <div class="about__text reveal reveal--left">
         <span class="eyebrow">Наша история</span>
         <h2 class="section-title" id="about-title">Вкус Италии<br/>в каждом блюде</h2>
         <p>Кафе Brio — это место, где итальянские традиции встречаются с современной кухней. Мы используем только свежие ингредиенты и готовим каждое блюдо с любовью.</p>
         <p>Наши повара прошли обучение в лучших ресторанах Милана и Рима.</p>
       </div>
       <ul class="features" role="list">
-        <li class="feature">
+        <li class="feature reveal reveal--up" style="--i:0">
           <div class="feature__icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2C8 2 4 5 4 9c0 5 8 13 8 13s8-8 8-13c0-4-4-7-8-7z"/>
@@ -79,7 +106,7 @@
           <h3>Свежая паста</h3>
           <p>Готовим каждый день из муки твёрдых сортов</p>
         </li>
-        <li class="feature">
+        <li class="feature reveal reveal--up" style="--i:1">
           <div class="feature__icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
@@ -88,7 +115,7 @@
           <h3>Дровяная печь</h3>
           <p>Пицца на тонком тесте по неаполитанскому рецепту</p>
         </li>
-        <li class="feature">
+        <li class="feature reveal reveal--up" style="--i:2">
           <div class="feature__icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M8 3v2m8-2v2M3 8h18M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
@@ -97,7 +124,7 @@
           <h3>Итальянские вина</h3>
           <p>Тщательно подобранная карта из лучших регионов</p>
         </li>
-        <li class="feature">
+        <li class="feature reveal reveal--up" style="--i:3">
           <div class="feature__icon" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/>
@@ -110,6 +137,31 @@
     </div>
   </section>
 
+  <!-- ─── СТАТИСТИКА ────────────────────────────────────────── -->
+  <section class="stats-section" aria-label="Наши достижения">
+    <div class="container stats__grid">
+      <div class="stat-item reveal reveal--up" style="--i:0">
+        <span class="stat__number" data-count="7">0</span><span class="stat__suffix">+</span>
+        <p class="stat__label">Лет традиций</p>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item reveal reveal--up" style="--i:1">
+        <span class="stat__number" data-count="60">0</span><span class="stat__suffix">+</span>
+        <p class="stat__label">Блюд в меню</p>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item reveal reveal--up" style="--i:2">
+        <span class="stat__number" data-count="12000">0</span><span class="stat__suffix">+</span>
+        <p class="stat__label">Довольных гостей</p>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item reveal reveal--up" style="--i:3">
+        <span class="stat__number" data-count="4">0</span><span class="stat__suffix">.9★</span>
+        <p class="stat__label">Средняя оценка</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ─── МЕНЮ ─────────────────────────────────────────────────── -->
   <section class="menu-section" id="menu" aria-labelledby="menu-title">
     <div class="container">
@@ -117,12 +169,15 @@
       <h2 class="section-title" id="menu-title" style="text-align:center">Наше меню</h2>
 
       <!-- Вкладки категорий -->
-      <div class="menu__tabs" id="menuTabs" role="tablist" aria-label="Категории меню">
-        <!-- Скелетон -->
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
+      <div class="menu__tabs-wrap">
+        <div class="menu__tabs" id="menuTabs" role="tablist" aria-label="Категории меню">
+          <!-- Скелетон -->
+          <div class="skeleton skeleton--tab" aria-hidden="true"></div>
+          <div class="skeleton skeleton--tab" aria-hidden="true"></div>
+          <div class="skeleton skeleton--tab" aria-hidden="true"></div>
+          <div class="skeleton skeleton--tab" aria-hidden="true"></div>
+        </div>
+        <div class="menu__tab-ink" id="menuTabInk" aria-hidden="true"></div>
       </div>
 
       <!-- Карточки блюд -->
@@ -140,6 +195,12 @@
 
   <!-- ─── ГАЛЕРЕЯ ──────────────────────────────────────────────── -->
   <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
+    <!-- Волновой переход из меню -->
+    <div class="gallery__wave-top" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 35 Q180 70 360 35 Q540 0 720 35 Q900 70 1080 35 Q1260 0 1440 35 L1440 0 L0 0 Z" fill="var(--bg)"/>
+      </svg>
+    </div>
     <div class="container">
       <span class="eyebrow" style="text-align:center;display:block;color:rgba(255,255,255,.6)">Атмосфера</span>
       <h2 class="section-title section-title--light" id="gallery-title" style="text-align:center">Галерея</h2>
@@ -153,12 +214,18 @@
         </div>
       </div>
     </div>
+    <!-- Волновой переход к контактам -->
+    <div class="gallery__wave-bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 35 Q180 0 360 35 Q540 70 720 35 Q900 0 1080 35 Q1260 70 1440 35 L1440 70 L0 70 Z" fill="var(--surface)"/>
+      </svg>
+    </div>
   </section>
 
   <!-- ─── КОНТАКТЫ ─────────────────────────────────────────────── -->
   <section class="contacts-section" id="contacts" aria-labelledby="contacts-title">
     <div class="container contacts__grid">
-      <div class="contacts__info">
+      <div class="contacts__info reveal reveal--left">
         <span class="eyebrow">Найдите нас</span>
         <h2 class="section-title" id="contacts-title">Контакты</h2>
 
@@ -177,7 +244,7 @@
         <nav class="socials" id="socials" aria-label="Мы в соцсетях"></nav>
       </div>
 
-      <div class="contacts__map" id="contactsMap" aria-label="Карта">
+      <div class="contacts__map reveal reveal--right" id="contactsMap" aria-label="Карта">
         <div class="map-placeholder" id="mapPlaceholder">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".5" aria-hidden="true">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
@@ -191,6 +258,12 @@
 
   <!-- ─── FOOTER ────────────────────────────────────────────────── -->
   <footer class="footer" role="contentinfo">
+    <!-- Волновой переход от контактов -->
+    <div class="footer__wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 25 Q360 0 720 25 Q1080 50 1440 25 L1440 0 L0 0 Z" fill="var(--surface)"/>
+      </svg>
+    </div>
     <div class="container footer__inner">
       <img src="images/logo.jpg" alt="Brio" class="footer__logo-img" />
       <p class="footer__copy">© 2024 Brio. Все права защищены.</p>
@@ -207,6 +280,9 @@
     </button>
     <img class="lightbox__img" id="lightboxImg" src="" alt="" />
   </div>
+
+  <!-- ─── CURSOR GLOW ───────────────────────────────────────────── -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
   <script src="js/app.js"></script>
 </body>

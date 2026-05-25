@@ -8,7 +8,7 @@ const DAYS = {
   sunday:    'Воскресенье',
 };
 
-/* ─── SVG ICONS (no emoji) ───────────────────────────────── */
+/* ─── SVG ICONS ──────────────────────────────────────────── */
 const ICONS = {
   phone:    `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 2 .7 2.9a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.9.6 2.9.7A2 2 0 0122 16.9z"/></svg>`,
   email:    `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
@@ -21,6 +21,47 @@ const ICONS = {
   zoom:     `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>`,
   food:     `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".4" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>`,
 };
+
+/* ─── CURSOR GLOW ────────────────────────────────────────── */
+const cursorGlow = document.getElementById('cursorGlow');
+let mouseX = 0, mouseY = 0;
+let glowX = 0, glowY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animateCursor() {
+  glowX += (mouseX - glowX) * 0.08;
+  glowY += (mouseY - glowY) * 0.08;
+  if (cursorGlow) {
+    cursorGlow.style.left = glowX + 'px';
+    cursorGlow.style.top  = glowY + 'px';
+  }
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hide glow on mobile
+if ('ontouchstart' in window && cursorGlow) {
+  cursorGlow.style.display = 'none';
+}
+
+/* ─── RIPPLE EFFECT ──────────────────────────────────────── */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.ripple-btn, .btn');
+  if (!btn) return;
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 2;
+  const x = e.clientX - rect.left - size / 2;
+  const y = e.clientY - rect.top  - size / 2;
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  ripple.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
+  btn.appendChild(ripple);
+  ripple.addEventListener('animationend', () => ripple.remove());
+});
 
 /* ─── HEADER SCROLL ──────────────────────────────────────── */
 const header = document.getElementById('header');
@@ -45,15 +86,63 @@ burger.addEventListener('click', toggleNav);
 navLinks.querySelectorAll('.nav__link').forEach(l => l.addEventListener('click', closeNav));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
 
-/* ─── REVEAL ON SCROLL ───────────────────────────────────── */
+/* ─── SCROLL REVEAL ──────────────────────────────────────── */
 const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.about__text, .features, .contacts__info, .contacts__map').forEach(el => {
-  el.classList.add('reveal');
-  revealObserver.observe(el);
-});
+// Observe all reveal elements
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ─── COUNT-UP ANIMATION ─────────────────────────────────── */
+function animateCount(el, target, duration = 1600) {
+  const start = performance.now();
+  const isDecimal = target % 1 !== 0;
+
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = eased * target;
+
+    el.textContent = isDecimal
+      ? value.toFixed(1)
+      : Math.floor(value).toLocaleString('ru-RU');
+
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = isDecimal ? target.toFixed(1) : target.toLocaleString('ru-RU');
+  }
+
+  requestAnimationFrame(update);
+}
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el    = entry.target;
+    const count = parseFloat(el.dataset.count);
+    animateCount(el, count);
+    statsObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat__number[data-count]').forEach(el => statsObserver.observe(el));
+
+/* ─── PARALLAX HERO ──────────────────────────────────────── */
+const heroBg = document.querySelector('.hero__bg');
+window.addEventListener('scroll', () => {
+  if (!heroBg) return;
+  const y = window.scrollY;
+  if (y < window.innerHeight) {
+    heroBg.style.transform = `translateY(${y * 0.35}px)`;
+  }
+}, { passive: true });
 
 /* ─── MENU ───────────────────────────────────────────────── */
 async function loadMenu() {
@@ -93,7 +182,17 @@ async function loadMenu() {
         tabsEl.querySelectorAll('.menu__tab').forEach(t => t.setAttribute('aria-selected', 'false'));
         tab.setAttribute('aria-selected', 'true');
         const cat = categories.find(c => c.id === Number(tab.dataset.id));
-        renderDishes(cat, gridEl);
+
+        // Fade out, swap, fade in
+        gridEl.style.transition = 'opacity 150ms ease-out, transform 150ms ease-out';
+        gridEl.style.opacity = '0';
+        gridEl.style.transform = 'translateY(8px)';
+
+        setTimeout(() => {
+          renderDishes(cat, gridEl);
+          gridEl.style.opacity = '1';
+          gridEl.style.transform = 'none';
+        }, 150);
       });
     });
 
@@ -111,8 +210,7 @@ function renderDishes(cat, gridEl) {
   }
 
   gridEl.innerHTML = cat.menuItems.map((d, i) => `
-    <article class="dish-card" role="listitem"
-      style="animation-delay:${i * 40}ms">
+    <article class="dish-card" role="listitem">
       <div class="dish-card__img">
         ${d.image
           ? `<img src="${API.replace('/api/v1','')}${d.image}" alt="${d.nameRu}" loading="lazy" width="280" height="200"/>`
@@ -135,16 +233,16 @@ function renderDishes(cat, gridEl) {
     </article>
   `).join('');
 
-  // Stagger entrance
+  // Stagger entrance animation
   gridEl.querySelectorAll('.dish-card').forEach((card, i) => {
     card.style.opacity = '0';
-    card.style.transform = 'translateY(16px)';
+    card.style.transform = 'translateY(20px) scale(.98)';
     requestAnimationFrame(() => {
       setTimeout(() => {
-        card.style.transition = 'opacity 220ms ease-out, transform 220ms ease-out';
+        card.style.transition = 'opacity 280ms ease-out, transform 280ms cubic-bezier(0.34,1.56,0.64,1)';
         card.style.opacity = '1';
         card.style.transform = 'none';
-      }, i * 40);
+      }, i * 50);
     });
   });
 }
@@ -153,8 +251,12 @@ function renderTags(d) {
   const tags = [];
   if (d.isSpecial) tags.push('<span class="tag tag--special">Спецпредложение</span>');
   (d.tags || []).forEach(t => {
-    const map = { vegetarian: ['tag--vegetarian','Вегетарианское'], vegan: ['tag--vegan','Веганское'],
-                  spicy: ['tag--spicy','Острое'], 'gluten-free': ['tag--gluten-free','Без глютена'] };
+    const map = {
+      vegetarian:   ['tag--vegetarian',  'Вегетарианское'],
+      vegan:        ['tag--vegan',        'Веганское'],
+      spicy:        ['tag--spicy',        'Острое'],
+      'gluten-free':['tag--gluten-free',  'Без глютена'],
+    };
     if (map[t]) tags.push(`<span class="tag ${map[t][0]}">${map[t][1]}</span>`);
   });
   return tags.length ? `<div class="dish-card__tags" aria-label="Теги">${tags.join('')}</div>` : '';
@@ -185,10 +287,23 @@ async function loadGallery() {
       </button>
     `).join('');
 
-    // Open lightbox
-    gridEl.querySelectorAll('.gallery__item').forEach(btn => {
-      btn.addEventListener('click', () => openLightbox(btn.dataset.full, btn.getAttribute('aria-label')));
+    // Stagger gallery items with IntersectionObserver
+    const galleryObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, idx * 80);
+          galleryObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    gridEl.querySelectorAll('.gallery__item').forEach(item => {
+      galleryObserver.observe(item);
+      item.addEventListener('click', () => openLightbox(item.dataset.full, item.getAttribute('aria-label')));
     });
+
   } catch (err) {
     console.error('Gallery load error:', err);
   }
@@ -205,10 +320,12 @@ function openLightbox(src, alt) {
   lightboxImg.alt = alt || '';
   lightbox.removeAttribute('hidden');
   lightboxClose.focus();
+  document.body.style.overflow = 'hidden';
 }
 function closeLightbox() {
   lightbox.setAttribute('hidden', '');
   lightboxImg.src = '';
+  document.body.style.overflow = '';
 }
 
 lightboxClose.addEventListener('click', closeLightbox);
@@ -223,7 +340,6 @@ async function loadContacts() {
     const { data } = await res.json();
     if (!data) return;
 
-    // Address list
     const listEl = document.getElementById('contactsList');
     listEl.innerHTML = `
       <div class="contact-item">
@@ -252,16 +368,14 @@ async function loadContacts() {
       </div>
     `;
 
-    // Map
     document.getElementById('mapAddress').textContent = data.addressRu || data.address;
     if (data.mapUrl) {
       document.getElementById('contactsMap').innerHTML =
         `<iframe src="${data.mapUrl}" title="Карта расположения кафе Brio" allowfullscreen loading="lazy"></iframe>`;
     }
 
-    // Working hours
     if (data.workingHours) {
-      const hoursEl = document.getElementById('workingHours');
+      const hoursEl   = document.getElementById('workingHours');
       const hoursGrid = document.getElementById('hoursGrid');
       hoursGrid.innerHTML = Object.entries(data.workingHours).map(([day, h]) => `
         <div class="hours__row">
@@ -275,7 +389,6 @@ async function loadContacts() {
       hoursEl.removeAttribute('hidden');
     }
 
-    // Social links
     const socialsEl = document.getElementById('socials');
     const links = [
       { url: data.instagramUrl, icon: ICONS.instagram, label: 'Instagram' },
@@ -297,12 +410,32 @@ async function loadContacts() {
   }
 }
 
-/* ─── INIT ───────────────────────────────────────────────── */
-// Screen-reader only utility class
-const style = document.createElement('style');
-style.textContent = '.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}';
-document.head.appendChild(style);
+/* ─── ACTIVE NAV LINK ────────────────────────────────────── */
+const sections = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nav__link');
 
+const activeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navAnchors.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav__link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(s => activeObserver.observe(s));
+
+// Active link style
+const activeStyle = document.createElement('style');
+activeStyle.textContent = `
+  .nav__link.active { color: var(--white); }
+  .nav__link.active::after { width: 100%; }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+`;
+document.head.appendChild(activeStyle);
+
+/* ─── INIT ───────────────────────────────────────────────── */
 loadMenu();
 loadGallery();
 loadContacts();
