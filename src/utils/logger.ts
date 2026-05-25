@@ -25,14 +25,8 @@ const format = winston.format.combine(
   winston.format.printf(({ timestamp, level, message }) => `${timestamp} [${level}]: ${message}`)
 );
 
+// Render and other cloud platforms capture stdout/stderr — no file logging needed
 const transports: winston.transport[] = [new winston.transports.Console()];
-
-if (config.env === 'production') {
-  transports.push(
-    new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'logs/combined.log' })
-  );
-}
 
 export const logger = winston.createLogger({
   level: config.env === 'development' ? 'debug' : 'warn',
