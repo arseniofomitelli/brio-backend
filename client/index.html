@@ -15,7 +15,9 @@
   <!-- ─── НАВИГАЦИЯ ──────────────────────────────────────────── -->
   <header class="header" id="header" role="banner">
     <nav class="nav container" aria-label="Главная навигация">
-      <a href="#hero" class="nav__logo" aria-label="Brio — на главную">Brio</a>
+      <a href="#hero" class="nav__logo" aria-label="Brio — на главную">
+        <img src="images/logo.jpg" alt="Brio — Итальянское кафе" class="nav__logo-img" />
+      </a>
 
       <button class="nav__burger" id="burger"
         aria-label="Открыть меню навигации"
@@ -40,9 +42,11 @@
   <section class="hero" id="hero" aria-label="Добро пожаловать в кафе Brio">
     <div class="hero__bg" aria-hidden="true"></div>
     <div class="hero__content container">
-      <p class="hero__eyebrow">Добро пожаловать в</p>
-      <h1 class="hero__title">Brio</h1>
-      <p class="hero__tagline">Итальянское кафе</p>
+      <img
+        src="images/logo.jpg"
+        alt="Brio — Итальянское кафе"
+        class="hero__logo"
+      />
       <div class="hero__actions">
         <a href="#menu"     class="btn btn--primary">Смотреть меню</a>
         <a href="#contacts" class="btn btn--ghost">Как добраться</a>
@@ -188,7 +192,7 @@
   <!-- ─── FOOTER ────────────────────────────────────────────────── -->
   <footer class="footer" role="contentinfo">
     <div class="container footer__inner">
-      <p class="footer__logo" aria-label="Brio — итальянское кафе">Brio</p>
+      <img src="images/logo.jpg" alt="Brio" class="footer__logo-img" />
       <p class="footer__copy">© 2024 Brio. Все права защищены.</p>
     </div>
   </footer>
