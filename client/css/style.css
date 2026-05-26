@@ -641,9 +641,9 @@ ul,ol{list-style:none}
 }
 .footer__inner{display:flex;flex-direction:column;align-items:center;gap:var(--sp-6);text-align:center}
 .footer__logo-img{
-  height:46px;width:auto;opacity:.8;
-  -webkit-mask-image:linear-gradient(to right,transparent 0%,black 18%,black 82%,transparent 100%);
-  mask-image:linear-gradient(to right,transparent 0%,black 18%,black 82%,transparent 100%);
+  width:80px;height:80px;object-fit:cover;
+  border-radius:16px;
+  opacity:.9;
   transition:opacity var(--dur-fast),transform var(--dur) var(--spring);
 }
 .footer__logo-img:hover{opacity:1;transform:scale(1.04)}
