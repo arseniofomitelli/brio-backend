@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "outputDirectory": "client",
-  "buildCommand": "",
-  "installCommand": "",
   "framework": null,
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "buildCommand": "cp -r client public",
+  "outputDirectory": "public",
+  "installCommand": "echo skip",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
   "headers": [
     {
-      "source": "/index.html",
+      "source": "/(.*).html",
       "headers": [
         { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
       ]
