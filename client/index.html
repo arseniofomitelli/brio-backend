@@ -12,10 +12,6 @@
 </head>
 <body>
 
-  <!-- ─── ТЕАТРАЛЬНАЯ ШТОРКА (Rosa-style loader) ──────── -->
-  <div class="page-curtain" aria-hidden="true"
-       style="position:fixed;top:0;left:0;right:0;bottom:0;background:#0d1f1e;z-index:9999;will-change:transform"></div>
-
   <!-- ─── НАВИГАЦИЯ ─────────────────────────────────── -->
   <header class="header" id="header" role="banner">
     <nav class="nav container" aria-label="Главная навигация">
@@ -50,18 +46,11 @@
       <span class="particle"></span><span class="particle"></span>
     </div>
     <div class="hero__content">
-      <div class="hero__welcome-clip">
-        <p class="hero__welcome" aria-hidden="true">Benvenuti</p>
+      <p class="hero__welcome" aria-hidden="true">Benvenuti</p>
+      <div class="hero__logo-wrap">
+        <img src="images/logo.jpg" alt="Brio — Итальянское кафе" class="hero__logo" />
       </div>
-      <!-- Маска на outer, clip на inner, анимация только на img — без мерцания -->
-      <div class="hero__logo-outer">
-        <div class="hero__logo-clip">
-          <img src="images/logo.jpg" alt="Brio — Итальянское кафе" class="hero__logo" />
-        </div>
-      </div>
-      <div class="hero__tagline-clip">
-        <p class="hero__tagline">Итальянская кухня · С 2018 года</p>
-      </div>
+      <p class="hero__tagline">Итальянская кухня · С 2018 года</p>
       <div class="hero__actions">
         <a href="#menu"     class="btn btn--light">Смотреть меню</a>
         <a href="#contacts" class="btn btn--ghost">Как добраться</a>
