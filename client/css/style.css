@@ -101,13 +101,18 @@ ul,ol{list-style:none}
 }
 .section-title--light{color:var(--white)}
 .section-header{margin-bottom:var(--sp-12);text-align:center}
+.section-header .section-title::after{
+  content:'';display:block;
+  width:48px;height:2px;
+  background:linear-gradient(to right,var(--teal-300),var(--teal-500));
+  border-radius:2px;margin:var(--sp-4) auto 0;
+  transform:scaleX(0);transform-origin:center;
+  transition:transform 700ms cubic-bezier(0.22,1,0.36,1) 300ms;
+}
+.section-header.visible .section-title::after{transform:scaleX(1)}
 
 /* ─── KEYFRAMES ─────────────────────────────────────── */
 @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
-@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-@keyframes orbDrift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.1)}100%{transform:translate(-20px,20px) scale(.95)}}
-@keyframes orbDrift2{0%{transform:translate(0,0)}50%{transform:translate(-35px,25px) scale(1.08)}100%{transform:translate(20px,-18px) scale(.93)}}
-@keyframes particleFly{0%{transform:translateY(0) scale(1);opacity:.8}100%{transform:translateY(-100px) scale(0);opacity:0}}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* Плавное появление снизу вверх с растворением */
@@ -121,13 +126,39 @@ ul,ol{list-style:none}
   to   { opacity: 1; }
 }
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
-
 @keyframes lightboxIn{0%{opacity:0;transform:scale(.88)}100%{opacity:1;transform:scale(1)}}
 @keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes sweepShine{0%{transform:translateX(-250%)}100%{transform:translateX(350%)}}
-@keyframes rotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes scaleInX{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+
+/* ── Автоматические анимации (работают без hover, видны на мобильном) ── */
+@keyframes sweepShine{
+  0%{transform:translateX(-250%)}
+  100%{transform:translateX(350%)}
+}
+@keyframes rotateSlow{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+@keyframes floatY{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+@keyframes gentlePulse{
+  0%,100%{opacity:.5}
+  50%{opacity:.85}
+}
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes scaleInX{
+  from{transform:scaleX(0);transform-origin:left}
+  to{transform:scaleX(1);transform-origin:left}
+}
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(109,196,191,0)}
+  50%{box-shadow:0 0 28px 6px rgba(109,196,191,.22)}
+}
 
 /* ─── SCROLL PROGRESS ───────────────────────────────── */
 .scroll-progress{
@@ -238,13 +269,13 @@ ul,ol{list-style:none}
     radial-gradient(ellipse 70% 50% at 20% 60%,rgba(255,255,255,.04) 0%,transparent 60%),
     radial-gradient(ellipse 50% 50% at 80% 20%,rgba(109,196,191,.08) 0%,transparent 60%);
 }
-/* Медленный световой блик — только transform, без blur */
+/* Световой блик — sweep раз в 10 секунд */
 .hero__bg::before{
   content:'';position:absolute;
-  top:0;bottom:0;left:0;width:140px;
-  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.035) 50%,transparent 100%);
-  animation:sweepShine 18s ease-in-out infinite;
-  animation-delay:3s;
+  top:0;bottom:0;left:0;width:180px;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.07) 50%,transparent 100%);
+  animation:sweepShine 10s ease-in-out infinite;
+  animation-delay:2s;
   pointer-events:none;z-index:1;
 }
 
@@ -319,14 +350,19 @@ ul,ol{list-style:none}
   text-transform: uppercase;
   color: rgba(255,255,255,.5);
   margin-bottom: var(--sp-10);
-  animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 800ms both;
+  animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 800ms both,
+             gentlePulse 4s ease-in-out 2s infinite;
 }
 .hero__actions {
   display: flex;
   gap: var(--sp-3);
   justify-content: center;
   flex-wrap: wrap;
-  animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1100ms both;
+  animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 1100ms both;
+}
+/* Главная кнопка — мягкий пульс-свет */
+.hero__actions .btn--light{
+  animation: glowPulse 3s ease-in-out 2.5s infinite;
 }
 
 /* Scroll indicator */
@@ -389,8 +425,9 @@ ul,ol{list-style:none}
 }
 .about__quote-mark{
   display:block;font-family:var(--font-serif);font-size:8rem;line-height:.6;
-  /* кавычка в тоне sage */
   color:var(--sage-light);margin-bottom:var(--sp-4);user-select:none;
+  animation:floatY 5s ease-in-out infinite;
+  display:inline-block;
 }
 .about__quote blockquote{
   font-family:var(--font-serif);font-style:italic;
@@ -416,7 +453,9 @@ ul,ol{list-style:none}
 
 /* ─── STATS ─────────────────────────────────────────── */
 .stats-section{
-  background:var(--sage-dark); /* ← чистая серо-зелёная полоса Cheeky Grey */
+  background:linear-gradient(135deg,var(--sage-dark) 0%,var(--teal-800) 50%,var(--sage-dark) 100%);
+  background-size:300% 300%;
+  animation:gradientShift 9s ease-in-out infinite;
   padding:var(--sp-20) 0;
   position:relative;overflow:hidden;
 }
@@ -527,7 +566,9 @@ ul,ol{list-style:none}
 
 /* ─── CTA BAND ──────────────────────────────────────── */
 .cta-band{
-  background: var(--sage-dark);
+  background:linear-gradient(135deg,var(--teal-900) 0%,var(--sage-dark) 50%,var(--teal-800) 100%);
+  background-size:300% 300%;
+  animation:gradientShift 12s ease-in-out infinite;
   padding:var(--sp-32) 0;
   text-align:center;position:relative;overflow:hidden;
 }
@@ -681,11 +722,9 @@ ul,ol{list-style:none}
 .footer__inner{display:flex;flex-direction:column;align-items:center;gap:var(--sp-6);text-align:center}
 .footer__logo-img{
   width:80px;height:80px;object-fit:cover;
-  border-radius:16px;
-  opacity:.9;
-  transition:opacity var(--dur-fast),transform var(--dur) var(--spring);
+  border-radius:16px;opacity:.9;
+  animation:floatY 4s ease-in-out infinite;
 }
-.footer__logo-img:hover{opacity:1;transform:scale(1.04)}
 .footer__nav{display:flex;gap:var(--sp-8);flex-wrap:wrap;justify-content:center}
 .footer__nav a{
   font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
@@ -735,7 +774,7 @@ ul,ol{list-style:none}
   .map-placeholder{min-height:280px}
   .gallery__grid{columns:2}
 
-  .cta-band__deco{display:none}
+  .cta-band__deco{width:180px;height:180px;right:-50px;opacity:.25}
 }
 
 @media(max-width:480px){
