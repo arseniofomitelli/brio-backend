@@ -109,7 +109,16 @@ ul,ol{list-style:none}
 @keyframes orbDrift2{0%{transform:translate(0,0)}50%{transform:translate(-35px,25px) scale(1.08)}100%{transform:translate(20px,-18px) scale(.93)}}
 @keyframes particleFly{0%{transform:translateY(0) scale(1);opacity:.8}100%{transform:translateY(-100px) scale(0);opacity:0}}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes heroIn{0%{opacity:0;transform:scale(.92) translateY(24px);filter:blur(8px)}100%{opacity:1;transform:none;filter:blur(0)}}
+/* Логотип: выезд снизу из clip-контейнера — без blur, без мерцания */
+@keyframes logoWipeUp {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+/* Текст: выезд снизу из clip-контейнера */
+@keyframes textWipeUp {
+  from { transform: translateY(120%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
 @keyframes fadeUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 @keyframes lightboxIn{0%{opacity:0;transform:scale(.88)}100%{opacity:1;transform:scale(1)}}
@@ -237,25 +246,54 @@ ul,ol{list-style:none}
 
 .hero__content{position:relative;z-index:1;padding-top:72px;padding-bottom:var(--sp-20)}
 
+/* ── Clip-обёртки: overflow:hidden — внутри элемент выезжает снизу ── */
+.hero__welcome-clip {
+  overflow: hidden;
+  margin-bottom: var(--sp-4);
+}
 .hero__welcome{
   font-family:var(--font-script);font-size:clamp(2rem,4vw,3rem);
-  color:rgba(255,255,255,.65);margin-bottom:var(--sp-4);
-  animation:fadeUp 700ms var(--ease) 100ms both;
+  color:rgba(255,255,255,.65);
+  /* выезжает снизу из clip — delay 0ms */
+  animation: textWipeUp 700ms cubic-bezier(0.16,1,0.3,1) 50ms both;
+}
+
+/* Обёртка логотипа — ключевой Rosa-эффект */
+.hero__logo-clip {
+  overflow: hidden;
+  width: min(580px, 88vw);
+  margin: 0 auto var(--sp-5);
+  /* небольшой padding чтобы mask-fade не обрезался */
+  padding: 0 4px;
 }
 .hero__logo{
-  width:min(580px,88vw);height:auto;margin:0 auto var(--sp-5);object-fit:contain;
-  -webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
-  mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
-  animation:heroIn 900ms var(--spring) 250ms both;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  /* маска: горизонтальное растворение краёв */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  /* только transform — никакого blur/opacity = нет мерцания */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Expo-Out: резкий старт → плавная остановка, как у Rosa */
+  animation: logoWipeUp 1000ms cubic-bezier(0.16,1,0.3,1) 180ms both;
+}
+
+.hero__tagline-clip {
+  overflow: hidden;
+  margin-bottom: var(--sp-10);
 }
 .hero__tagline{
   font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(255,255,255,.5);margin-bottom:var(--sp-10);
-  animation:fadeUp 600ms var(--ease) 750ms both;
+  color:rgba(255,255,255,.5);
+  animation: textWipeUp 700ms cubic-bezier(0.16,1,0.3,1) 650ms both;
 }
 .hero__actions{
   display:flex;gap:var(--sp-3);justify-content:center;flex-wrap:wrap;
-  animation:fadeUp 600ms var(--ease) 950ms both;
+  animation:fadeUp 600ms var(--ease) 900ms both;
 }
 
 /* Scroll indicator */

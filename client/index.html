@@ -46,9 +46,16 @@
       <span class="particle"></span><span class="particle"></span>
     </div>
     <div class="hero__content">
-      <p class="hero__welcome" aria-hidden="true">Benvenuti</p>
-      <img src="images/logo.jpg" alt="Brio — Итальянское кафе" class="hero__logo" />
-      <p class="hero__tagline">Итальянская кухня · С 2018 года</p>
+      <div class="hero__welcome-clip">
+        <p class="hero__welcome" aria-hidden="true">Benvenuti</p>
+      </div>
+      <!-- Обёртка-шторка: overflow:hidden, логотип выезжает снизу -->
+      <div class="hero__logo-clip">
+        <img src="images/logo.jpg" alt="Brio — Итальянское кафе" class="hero__logo" />
+      </div>
+      <div class="hero__tagline-clip">
+        <p class="hero__tagline">Итальянская кухня · С 2018 года</p>
+      </div>
       <div class="hero__actions">
         <a href="#menu"     class="btn btn--light">Смотреть меню</a>
         <a href="#contacts" class="btn btn--ghost">Как добраться</a>
