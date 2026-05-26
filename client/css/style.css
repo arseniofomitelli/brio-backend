@@ -155,10 +155,9 @@ ul,ol{list-style:none}
   transition:background var(--dur) var(--ease),padding var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
 }
 .header.scrolled{
-  background:rgba(21,47,46,.94);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:var(--teal-900); /* чистый тёмный тил, не размытый */
   padding:var(--sp-3) 0;
-  box-shadow:0 1px 0 rgba(255,255,255,.06),0 4px 24px rgba(10,25,24,.3);
+  box-shadow:0 1px 0 rgba(255,255,255,.06),0 4px 24px rgba(10,25,24,.4);
 }
 .nav{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-6)}
 
@@ -209,23 +208,21 @@ ul,ol{list-style:none}
 }
 .hero__bg{
   position:absolute;inset:0;z-index:0;
-  /* Тёмный тил → sage → намёк на дерево в углу */
-  background:linear-gradient(155deg,var(--teal-900) 0%,var(--sage-dark) 50%,var(--teal-800) 100%);
+  background:var(--teal-900); /* чистый тёмный тил, без смешивания */
 }
 .hero__bg::after{
   content:'';position:absolute;inset:0;
+  /* только лёгкий свет, никаких других цветов */
   background:
-    radial-gradient(ellipse 70% 50% at 15% 60%,rgba(255,255,255,.04) 0%,transparent 70%),
-    radial-gradient(ellipse 50% 60% at 85% 25%,rgba(86,120,118,.18) 0%,transparent 70%),
-    /* намёк на обожжённое дерево снизу-справа */
-    radial-gradient(ellipse 40% 30% at 90% 90%,rgba(36,20,9,.4) 0%,transparent 60%);
+    radial-gradient(ellipse 70% 50% at 20% 60%,rgba(255,255,255,.04) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 20%,rgba(109,196,191,.08) 0%,transparent 60%);
 }
 
 /* Orbs */
 .hero__orbs{position:absolute;inset:0;z-index:0;pointer-events:none}
-.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.14;will-change:transform}
-.orb--1{width:520px;height:520px;background:var(--sage-mid);top:-100px;left:-100px;animation:orbDrift 16s ease-in-out infinite alternate}
-.orb--2{width:380px;height:380px;background:rgba(255,255,255,.7);bottom:5%;right:5%;animation:orbDrift2 20s ease-in-out infinite}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.12;will-change:transform}
+.orb--1{width:520px;height:520px;background:var(--teal-700);top:-100px;left:-100px;animation:orbDrift 16s ease-in-out infinite alternate}
+.orb--2{width:380px;height:380px;background:rgba(255,255,255,.6);bottom:5%;right:5%;animation:orbDrift2 20s ease-in-out infinite}
 .orb--3{width:260px;height:260px;background:var(--teal-500);top:35%;left:58%;animation:orbDrift 13s ease-in-out infinite alternate-reverse}
 
 /* Particles */
@@ -275,12 +272,9 @@ ul,ol{list-style:none}
 
 /* ─── MARQUEE ───────────────────────────────────────── */
 .marquee-band{
-  /* sage тёмный — переход от hero */
-  background:linear-gradient(90deg,var(--wood) 0%,var(--sage-dark) 30%,var(--sage-dark) 70%,var(--wood) 100%);
+  background:var(--wood); /* ← коричневая полоса */
   padding:var(--sp-5) 0;
   overflow:hidden;
-  border-top:1px solid rgba(255,255,255,.05);
-  border-bottom:1px solid rgba(184,112,72,.12); /* wood accent */
 }
 .marquee__track{
   display:flex;gap:var(--sp-10);align-items:center;
@@ -292,7 +286,7 @@ ul,ol{list-style:none}
   font-size:clamp(1rem,2vw,1.25rem);
   color:rgba(255,255,255,.55);white-space:nowrap;
 }
-.marquee__sep{color:var(--teal-500);font-style:normal;font-size:.9rem}
+.marquee__sep{color:var(--wood-warm);font-style:normal;font-size:.9rem}
 .marquee-band:hover .marquee__track{animation-play-state:paused}
 
 /* ─── ABOUT ─────────────────────────────────────────── */
@@ -329,17 +323,9 @@ ul,ol{list-style:none}
 
 /* ─── STATS ─────────────────────────────────────────── */
 .stats-section{
-  /* Sage тёмный фон — мягче, чем чистый teal */
-  background:linear-gradient(135deg,var(--sage-dark) 0%,var(--teal-900) 60%,var(--wood) 100%);
+  background:var(--sage-dark); /* ← чистая серо-зелёная полоса Cheeky Grey */
   padding:var(--sp-20) 0;
   position:relative;overflow:hidden;
-}
-.stats-section::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 50% 80% at 0% 50%,rgba(86,120,118,.12) 0%,transparent 60%),
-    radial-gradient(ellipse 40% 70% at 100% 50%,rgba(36,20,9,.3) 0%,transparent 60%);
-  pointer-events:none;
 }
 .stats__grid{
   display:grid;grid-template-columns:repeat(4,1fr);gap:0;
@@ -438,17 +424,9 @@ ul,ol{list-style:none}
 
 /* ─── CTA BAND ──────────────────────────────────────── */
 .cta-band{
-  /* обожжённое дерево + sage — самое «деревянное» место на сайте */
-  background:linear-gradient(135deg,var(--wood) 0%,var(--sage-dark) 50%,var(--wood-dark) 100%);
+  background:var(--wood); /* ← коричневая полоса, как marquee и footer */
   padding:var(--sp-32) 0;
   text-align:center;position:relative;overflow:hidden;
-}
-.cta-band::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 60% at 50% 50%,rgba(86,120,118,.15) 0%,transparent 70%),
-    radial-gradient(ellipse 40% 40% at 0% 100%,rgba(122,74,42,.2) 0%,transparent 50%);
-  pointer-events:none;
 }
 .cta-band__deco{
   position:absolute;right:-80px;top:50%;transform:translateY(-50%);
@@ -484,17 +462,9 @@ ul,ol{list-style:none}
 
 /* ─── GALLERY ───────────────────────────────────────── */
 .gallery-section{
-  /* sage тёмный как основа галереи */
-  background:linear-gradient(160deg,var(--sage-dark) 0%,var(--teal-900) 60%,var(--wood-dark) 100%);
+  background:var(--teal-900); /* ← чистый тёмный тил */
   padding:var(--sp-32) 0;
   position:relative;overflow:hidden;
-}
-.gallery-section::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 40% at 30% 60%,rgba(86,120,118,.1) 0%,transparent 60%),
-    radial-gradient(ellipse 30% 30% at 80% 80%,rgba(36,20,9,.5) 0%,transparent 50%);
-  pointer-events:none;
 }
 .gallery-section .container{position:relative;z-index:1}
 .gallery-eyebrow{
@@ -595,21 +565,19 @@ ul,ol{list-style:none}
 .contacts__map iframe{width:100%;height:100%;min-height:420px;border:0}
 .map-placeholder{
   width:100%;min-height:420px;border-radius:var(--r-lg);
-  background:linear-gradient(145deg,var(--sage-dark),var(--wood));
+  background:var(--sage-dark); /* ← чистый sage */
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:var(--sp-4);color:rgba(255,255,255,.45);text-align:center;padding:var(--sp-8);
 }
 
 /* ─── FOOTER ────────────────────────────────────────── */
 .footer{
-  /* дерево + sage — тёплый, уютный конец страницы */
-  background:linear-gradient(135deg,var(--wood) 0%,var(--sage-dark) 50%,var(--wood-dark) 100%);
+  background:var(--wood); /* ← коричневая полоса, замыкает страницу */
   padding:var(--sp-16) 0 var(--sp-10);position:relative;
 }
 .footer::before{
   content:'';display:block;width:100%;height:1px;
-  /* тёплая линия дерева сверху */
-  background:linear-gradient(to right,transparent,rgba(184,112,72,.3),transparent);
+  background:rgba(255,255,255,.08); /* тонкий разделитель */
   position:absolute;top:0;left:0;
 }
 .footer__inner{display:flex;flex-direction:column;align-items:center;gap:var(--sp-6);text-align:center}
