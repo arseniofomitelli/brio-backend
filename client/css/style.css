@@ -266,12 +266,12 @@ ul,ol{list-style:none}
   height: 8px;
   background: linear-gradient(
     to bottom,
-    var(--wood-warm)  0px,
-    var(--wood-warm)  1px,
-    var(--wood-mid)   1px,
-    var(--wood-mid)   6px,
-    var(--wood-dark)  6px,
-    var(--wood-dark)  8px
+    #5a3018  0px,
+    #5a3018  1px,
+    #2e1508  1px,
+    #2e1508  6px,
+    #0d0703  6px,
+    #0d0703  8px
   );
   flex-shrink: 0;
 }
@@ -326,12 +326,12 @@ ul,ol{list-style:none}
   height: 8px;
   background: linear-gradient(
     to bottom,
-    var(--wood-warm)  0px,
-    var(--wood-warm)  1px,
-    var(--wood-mid)   1px,
-    var(--wood-mid)   6px,
-    var(--wood-dark)  6px,
-    var(--wood-dark)  8px
+    #5a3018  0px,
+    #5a3018  1px,
+    #2e1508  1px,
+    #2e1508  6px,
+    #0d0703  6px,
+    #0d0703  8px
   );
   flex-shrink: 0;
 }
