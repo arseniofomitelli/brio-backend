@@ -350,9 +350,9 @@ ul,ol{list-style:none}
 .marquee__track span{
   font-family:var(--font-serif);font-style:italic;
   font-size:clamp(1rem,2vw,1.25rem);
-  color:var(--sage-dark);white-space:nowrap;
+  color:var(--teal-500);white-space:nowrap;
 }
-.marquee__sep{color:var(--sage-dark);opacity:.5;font-style:normal;font-size:.9rem}
+.marquee__sep{color:var(--teal-500);opacity:.5;font-style:normal;font-size:.9rem}
 .marquee-band:hover .marquee__track{animation-play-state:paused}
 
 /* ─── ABOUT ─────────────────────────────────────────── */
