@@ -108,7 +108,10 @@ async function loadMenu() {
   try {
     const res = await fetch(`${API}/menu/categories`);
     if (!res.ok) throw new Error(res.statusText);
-    const { data: cats } = await res.json();
+    let { data: cats } = await res.json();
+
+    // Убираем пиццу из меню
+    cats = cats.filter(c => c.slug !== 'pizza');
 
     if (!cats?.length) {
       tabsEl.innerHTML = '';
