@@ -117,9 +117,8 @@ ul,ol{list-style:none}
 }
 /* Логотип — плавное появление снизу */
 @keyframes logoReveal {
-  0%   { opacity: 0; transform: translateY(60px) scale(0.93); }
-  60%  { opacity: 1; }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
@@ -257,17 +256,42 @@ ul,ol{list-style:none}
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
 }
 
+/* Логотип — полная полоса на всю ширину, края растворяются */
 .hero__logo-wrap {
-  width: min(580px, 88vw);
-  margin: 0 auto var(--sp-5);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  /* Выбиваемся за контейнер на всю ширину экрана */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--sp-5);
+  /* Маска: левый и правый края плавно растворяются в фоне */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
 }
 .hero__logo {
   width: 100%;
-  height: auto;
+  height: 190px;           /* фиксированная высота полосы */
+  object-fit: contain;     /* логотип целиком, без обрезки */
+  object-position: center;
   display: block;
-  animation: logoReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
+  /* GPU-слой без scale — нет мерцания */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  animation: logoReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
 }
 
 .hero__tagline {
@@ -298,17 +322,21 @@ ul,ol{list-style:none}
   animation:scrollLine 2s ease-in-out infinite;
 }
 
-/* ─── МОЛДИНГ — коричневая линия-разделитель ─────────── */
+/* ─── МОЛДИНГ — декоративная коричневая полоса между секциями ── */
 .molding {
-  height: 8px;
+  height: 14px;
   background: linear-gradient(
     to bottom,
-    var(--wood-warm)  0px,
+    var(--wood-dark)  0px,
+    var(--wood-dark)  1px,
     var(--wood-warm)  1px,
-    var(--wood-mid)   1px,
-    var(--wood-mid)   6px,
-    var(--wood-dark)  6px,
-    var(--wood-dark)  8px
+    var(--wood-warm)  3px,
+    var(--wood-mid)   3px,
+    var(--wood-mid)   11px,
+    var(--wood-warm)  11px,
+    var(--wood-warm)  13px,
+    var(--wood-dark)  13px,
+    var(--wood-dark)  14px
   );
   flex-shrink: 0;
 }
