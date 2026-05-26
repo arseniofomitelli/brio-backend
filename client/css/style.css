@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
    BRIO — Rosa-inspired editorial restaurant design
-   Palette: teal + sage (Dulux Cheeky Grey) + burnt wood
+   Palette: teal + gold + dark
 ═══════════════════════════════════════════════════════ */
 
 /* ─── TOKENS ───────────────────────────────────────── */
@@ -15,40 +15,45 @@
   --teal-800: #1f5e5b;
   --teal-900: #152f2e;
 
-  /* Sage — Dulux Cheeky Grey 78GG 19/078 */
-  --sage:       #567876;   /* сам цвет со стены */
-  --sage-dark:  #3d5654;   /* темнее, для фонов */
-  --sage-mid:   #6b8f8c;   /* чуть светлее */
-  --sage-light: #e8efee;   /* очень светлый, для фонов */
-  --sage-pale:  #f2f6f5;   /* почти белый с зеленоватым */
+  /* Gold — Rosa-style акцент */
+  --gold:       #c9a96e;
+  --gold-light: #e8cc9a;
+  --gold-dark:  #a07840;
+
+  /* Sage — Dulux Cheeky Grey */
+  --sage:       #567876;
+  --sage-dark:  #3d5654;
+  --sage-mid:   #6b8f8c;
+  --sage-light: #e8efee;
+  --sage-pale:  #f2f6f5;
 
   /* Wood — обожжённое дерево */
-  --wood:       #241409;   /* очень тёмный, почти чёрный с коричневым */
-  --wood-dark:  #1a0e06;   /* ещё темнее — для акцентов фона */
-  --wood-mid:   #7a4a2a;   /* средний — для цен и деталей */
-  --wood-warm:  #b87048;   /* тёплый — для маленьких акцентов */
-  --wood-light: #e8d5c0;   /* светлый бежевый-дерево */
+  --wood:       #241409;
+  --wood-dark:  #1a0e06;
+  --wood-mid:   #7a4a2a;
+  --wood-warm:  #b87048;
+  --wood-light: #e8d5c0;
 
   --white:    #ffffff;
-  --cream:    #faf7f3;     /* чуть теплее, с намёком на дерево */
-  --gray-100: #ede9e4;     /* тёплый серый */
+  --cream:    #faf7f3;
+  --gray-100: #ede9e4;
   --gray-200: #d5cfc8;
   --gray-400: #8a8078;
   --gray-600: #4a433b;
-  --gray-900: #1c1510;     /* тёмно-коричневый вместо чёрного */
+  --gray-900: #1c1510;
 
   --bg:       var(--cream);
   --surface:  var(--white);
   --text:     var(--gray-900);
   --text-2:   var(--gray-600);
   --text-3:   var(--gray-400);
-  --accent:   var(--teal-500);
+  --accent:   var(--gold);
 
   --sp-1:4px; --sp-2:8px;  --sp-3:12px; --sp-4:16px;
   --sp-5:20px;--sp-6:24px; --sp-8:32px; --sp-10:40px;
   --sp-12:48px;--sp-16:64px;--sp-20:80px;--sp-24:96px;--sp-32:128px;
 
-  --r-sm:4px; --r-md:10px; --r-lg:18px; --r-full:9999px;
+  --r-sm:2px; --r-md:4px; --r-lg:8px; --r-full:9999px;
 
   --shadow-sm: 0 1px 4px rgba(15,40,39,.07);
   --shadow-md: 0 4px 20px rgba(15,40,39,.10);
@@ -87,11 +92,53 @@ ul,ol{list-style:none}
 
 /* ─── UTILS ─────────────────────────────────────────── */
 .container{width:min(1140px,100% - var(--sp-8));margin-inline:auto}
+
+/* ─── ROSA-стиль заголовков ─────────────────────────── */
+/* Золотой скрипт сверху, затем капс, затем орнамент ✦  */
+.rosa-heading { text-align:center; margin-bottom: var(--sp-12); }
+.rosa-heading__script {
+  display: block;
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: var(--sp-1);
+}
+.rosa-heading__caps {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: var(--sp-5);
+}
+.rosa-heading__caps--light { color: var(--white); }
+.ornament {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: .3em;
+  margin-bottom: var(--sp-6);
+}
+/* Золотые текстовые ссылки — Rosa стиль */
+.gold-link {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 2px;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+.gold-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
 .eyebrow{
   display:block;font-size:.7rem;font-weight:600;letter-spacing:.18em;
-  text-transform:uppercase;
-  /* sage как цвет eyebrow — спокойнее, изысканнее */
-  color:var(--sage);margin-bottom:var(--sp-3);
+  text-transform:uppercase;color:var(--gold);margin-bottom:var(--sp-3);
 }
 .section-title{
   font-family:var(--font-serif);
@@ -134,27 +181,28 @@ ul,ol{list-style:none}
 .skeleton--tab{height:40px;width:110px;border-radius:var(--r-full)}
 .skeleton--line{height:20px;width:80%;margin-bottom:var(--sp-4)}
 
-/* ─── BUTTONS ───────────────────────────────────────── */
+/* ─── BUTTONS — Rosa стиль: маленькие, прямые углы ─── */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
-  min-height:50px;padding:0 var(--sp-8);border-radius:var(--r-full);
-  font-family:var(--font-sans);font-size:.875rem;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;border:1.5px solid transparent;
+  min-height:42px;padding:0 var(--sp-8);border-radius:0;
+  font-family:var(--font-sans);font-size:.72rem;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;border:1px solid transparent;
   cursor:pointer;position:relative;overflow:hidden;
   transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease),
-             border-color var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease),
-             box-shadow var(--dur-fast) var(--ease);
+             border-color var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease);
   white-space:nowrap;
 }
-.btn:active{transform:scale(.97)}
+.btn:active{transform:scale(.98)}
 .btn .ripple{
   position:absolute;border-radius:50%;transform:scale(0);pointer-events:none;
   animation:rippleAnim 500ms linear;background:rgba(255,255,255,.3);
 }
-.btn--light{background:var(--white);color:var(--teal-900)}
-.btn--light:hover{background:var(--teal-100);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.25)}
-.btn--ghost{border-color:rgba(255,255,255,.45);color:var(--white)}
-.btn--ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.8);transform:translateY(-2px)}
+.btn--light{background:var(--white);color:var(--teal-900);border-color:var(--white)}
+.btn--light:hover{background:transparent;color:var(--white)}
+.btn--ghost{border-color:rgba(255,255,255,.6);color:var(--white)}
+.btn--ghost:hover{background:rgba(255,255,255,.1);border-color:var(--white)}
+.btn--gold{background:transparent;border-color:var(--gold);color:var(--gold)}
+.btn--gold:hover{background:var(--gold);color:var(--wood)}
 .btn--teal{background:var(--teal-500);color:var(--white);border-color:var(--teal-500)}
 .btn--teal:hover{background:var(--teal-700);border-color:var(--teal-700);transform:translateY(-2px);box-shadow:0 8px 24px rgba(62,163,158,.35)}
 .btn--outline-light{border-color:rgba(255,255,255,.5);color:var(--white)}
@@ -251,10 +299,11 @@ ul,ol{list-style:none}
 /* ── Hero элементы — плавное появление по очереди ── */
 .hero__welcome {
   font-family: var(--font-script);
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: rgba(255,255,255,.65);
-  margin-bottom: var(--sp-4);
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  color: var(--gold);          /* золотой как у Rosa */
+  margin-bottom: var(--sp-2);
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+  text-shadow: 0 2px 20px rgba(201,169,110,.25);
 }
 
 .hero__logo-wrap {
@@ -446,8 +495,7 @@ ul,ol{list-style:none}
 }
 .menu-list__price{
   font-family:var(--font-serif);font-size:1.0625rem;font-weight:700;
-  /* цвет обожжённого дерева — тёплый, как чернила в старом меню */
-  color:var(--wood-mid);white-space:nowrap;
+  color:var(--gold-dark);white-space:nowrap;
 }
 .menu-list__weight{font-size:.75rem;color:var(--text-3);white-space:nowrap}
 .menu-list__tags{display:flex;gap:var(--sp-1);flex-wrap:wrap;margin-top:var(--sp-2)}
