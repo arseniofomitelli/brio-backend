@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "cp -r client public",
+  "buildCommand": "mkdir -p public && cp -r client/. public/",
   "outputDirectory": "public",
   "installCommand": "echo skip",
   "rewrites": [
@@ -9,19 +9,7 @@
   ],
   "headers": [
     {
-      "source": "/(.*).html",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/css/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/js/(.*)",
+      "source": "/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
       ]
