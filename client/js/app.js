@@ -111,7 +111,11 @@ async function loadMenu() {
     let { data: cats } = await res.json();
 
     // Убираем пиццу из меню
-    cats = cats.filter(c => c.slug !== 'pizza');
+    cats = cats.filter(c =>
+      c.slug !== 'pizza' &&
+      c.nameRu !== 'Пицца' &&
+      c.nameIt !== 'Pizza'
+    );
 
     if (!cats?.length) {
       tabsEl.innerHTML = '';

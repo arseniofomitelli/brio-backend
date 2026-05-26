@@ -112,13 +112,14 @@ ul,ol{list-style:none}
 
 /* Плавное появление снизу вверх с растворением */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
+  from { opacity: 0; transform: translateY(36px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-/* Логотип — чуть дальше и с лёгким масштабом */
+/* Логотип — плавное появление снизу */
 @keyframes logoReveal {
-  from { opacity: 0; transform: translateY(20px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0)    scale(1); }
+  0%   { opacity: 0; transform: translateY(60px) scale(0.93); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
@@ -266,7 +267,7 @@ ul,ol{list-style:none}
   width: 100%;
   height: auto;
   display: block;
-  animation: logoReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) 450ms both;
+  animation: logoReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
 }
 
 .hero__tagline {
