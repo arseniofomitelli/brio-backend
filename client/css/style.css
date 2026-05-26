@@ -266,12 +266,12 @@ ul,ol{list-style:none}
   height: 8px;
   background: linear-gradient(
     to bottom,
-    #5a3018  0px,
-    #5a3018  1px,
-    #2e1508  1px,
-    #2e1508  6px,
-    #0d0703  6px,
-    #0d0703  8px
+    #8a5030  0px,
+    #8a5030  1px,
+    #4e2810  1px,
+    #4e2810  6px,
+    #1a0e06  6px,
+    #1a0e06  8px
   );
   flex-shrink: 0;
 }
@@ -326,12 +326,12 @@ ul,ol{list-style:none}
   height: 8px;
   background: linear-gradient(
     to bottom,
-    #5a3018  0px,
-    #5a3018  1px,
-    #2e1508  1px,
-    #2e1508  6px,
-    #0d0703  6px,
-    #0d0703  8px
+    #8a5030  0px,
+    #8a5030  1px,
+    #4e2810  1px,
+    #4e2810  6px,
+    #1a0e06  6px,
+    #1a0e06  8px
   );
   flex-shrink: 0;
 }
