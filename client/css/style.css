@@ -66,7 +66,7 @@
 
 /* ─── RESET ─────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
 body{
   font-family:var(--font-sans);font-size:1rem;line-height:1.65;
   color:var(--text);background:var(--bg);
@@ -266,12 +266,12 @@ ul,ol{list-style:none}
   height: 8px;
   background: linear-gradient(
     to bottom,
-    #8a5030  0px,
-    #8a5030  1px,
-    #4e2810  1px,
-    #4e2810  6px,
-    #1a0e06  6px,
-    #1a0e06  8px
+    #6dc4bf  0px,
+    #6dc4bf  1px,
+    #3ea39e  1px,
+    #3ea39e  6px,
+    #2a7a76  6px,
+    #2a7a76  8px
   );
   flex-shrink: 0;
 }
@@ -326,12 +326,12 @@ ul,ol{list-style:none}
   height: 8px;
   background: linear-gradient(
     to bottom,
-    #8a5030  0px,
-    #8a5030  1px,
-    #4e2810  1px,
-    #4e2810  6px,
-    #1a0e06  6px,
-    #1a0e06  8px
+    #6dc4bf  0px,
+    #6dc4bf  1px,
+    #3ea39e  1px,
+    #3ea39e  6px,
+    #2a7a76  6px,
+    #2a7a76  8px
   );
   flex-shrink: 0;
 }
