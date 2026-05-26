@@ -270,9 +270,26 @@ ul,ol{list-style:none}
   animation:scrollLine 2s ease-in-out infinite;
 }
 
+/* ─── МОЛДИНГ — коричневая линия-разделитель ─────────── */
+.molding {
+  height: 8px;
+  /* Имитация объёмной деревянной планки:
+     светлая полоска сверху → тёмное тело → тень снизу */
+  background: linear-gradient(
+    to bottom,
+    var(--wood-warm)  0px,
+    var(--wood-warm)  1px,
+    var(--wood-mid)   1px,
+    var(--wood-mid)   6px,
+    rgba(0,0,0,.45)   6px,
+    rgba(0,0,0,.45)   8px
+  );
+  flex-shrink: 0;
+}
+
 /* ─── MARQUEE ───────────────────────────────────────── */
 .marquee-band{
-  background:var(--wood); /* ← коричневая полоса */
+  background: var(--teal-900);
   padding:var(--sp-5) 0;
   overflow:hidden;
 }
@@ -286,7 +303,7 @@ ul,ol{list-style:none}
   font-size:clamp(1rem,2vw,1.25rem);
   color:rgba(255,255,255,.55);white-space:nowrap;
 }
-.marquee__sep{color:var(--wood-warm);font-style:normal;font-size:.9rem}
+.marquee__sep{color:var(--teal-300);font-style:normal;font-size:.9rem}
 .marquee-band:hover .marquee__track{animation-play-state:paused}
 
 /* ─── ABOUT ─────────────────────────────────────────── */
@@ -424,7 +441,7 @@ ul,ol{list-style:none}
 
 /* ─── CTA BAND ──────────────────────────────────────── */
 .cta-band{
-  background:var(--wood); /* ← коричневая полоса, как marquee и footer */
+  background: var(--sage-dark);
   padding:var(--sp-32) 0;
   text-align:center;position:relative;overflow:hidden;
 }
@@ -436,8 +453,7 @@ ul,ol{list-style:none}
 .cta-band__inner{position:relative;z-index:1}
 .cta-band__eyebrow{
   display:block;font-family:var(--font-script);font-size:1.75rem;
-  /* тёплый древесный оттенок */
-  color:var(--wood-warm);margin-bottom:var(--sp-4);
+  color:var(--teal-300);margin-bottom:var(--sp-4);
 }
 .cta-band__title{
   font-family:var(--font-serif);
@@ -453,8 +469,7 @@ ul,ol{list-style:none}
 .cta-band__phone{
   display:block;font-family:var(--font-serif);font-style:italic;
   font-size:clamp(1.5rem,3vw,2.25rem);
-  /* дерево тёплое — как надпись на деревянной таблице */
-  color:var(--wood-warm);margin-bottom:var(--sp-8);
+  color:var(--teal-200);margin-bottom:var(--sp-8);
   letter-spacing:.02em;
   transition:color var(--dur-fast);
 }
@@ -572,13 +587,8 @@ ul,ol{list-style:none}
 
 /* ─── FOOTER ────────────────────────────────────────── */
 .footer{
-  background:var(--wood); /* ← коричневая полоса, замыкает страницу */
+  background:var(--teal-900);
   padding:var(--sp-16) 0 var(--sp-10);position:relative;
-}
-.footer::before{
-  content:'';display:block;width:100%;height:1px;
-  background:rgba(255,255,255,.08); /* тонкий разделитель */
-  position:absolute;top:0;left:0;
 }
 .footer__inner{display:flex;flex-direction:column;align-items:center;gap:var(--sp-6);text-align:center}
 .footer__logo-img{
