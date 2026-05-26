@@ -124,6 +124,18 @@ ul,ol{list-style:none}
 
 @keyframes lightboxIn{0%{opacity:0;transform:scale(.88)}100%{opacity:1;transform:scale(1)}}
 @keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes sweepShine{0%{transform:translateX(-250%)}100%{transform:translateX(350%)}}
+@keyframes rotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes scaleInX{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+
+/* ─── SCROLL PROGRESS ───────────────────────────────── */
+.scroll-progress{
+  position:fixed;top:0;left:0;height:2px;width:0;
+  background:linear-gradient(to right,var(--teal-300),var(--teal-500),var(--wood-warm));
+  z-index:201;pointer-events:none;
+  transition:width 80ms linear;
+}
 
 /* ─── SKELETON ──────────────────────────────────────── */
 .skeleton{
@@ -222,10 +234,18 @@ ul,ol{list-style:none}
 }
 .hero__bg::after{
   content:'';position:absolute;inset:0;
-  /* только лёгкий свет, никаких других цветов */
   background:
     radial-gradient(ellipse 70% 50% at 20% 60%,rgba(255,255,255,.04) 0%,transparent 60%),
     radial-gradient(ellipse 50% 50% at 80% 20%,rgba(109,196,191,.08) 0%,transparent 60%);
+}
+/* Медленный световой блик — только transform, без blur */
+.hero__bg::before{
+  content:'';position:absolute;
+  top:0;bottom:0;left:0;width:140px;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.035) 50%,transparent 100%);
+  animation:sweepShine 18s ease-in-out infinite;
+  animation-delay:3s;
+  pointer-events:none;z-index:1;
 }
 
 /* Orbs */
@@ -384,8 +404,15 @@ ul,ol{list-style:none}
 .about__feature{
   display:flex;align-items:center;gap:var(--sp-3);
   font-size:.9375rem;color:var(--text-2);
+  transition:transform 280ms cubic-bezier(.34,1.56,.64,1),color 220ms;
+  cursor:default;
 }
-.about__feature svg{flex-shrink:0;color:var(--sage)}
+.about__feature:hover{transform:translateX(8px);color:var(--teal-700)}
+.about__feature svg{
+  flex-shrink:0;color:var(--sage);
+  transition:transform 280ms cubic-bezier(.34,1.56,.64,1),color 220ms;
+}
+.about__feature:hover svg{transform:scale(1.25) rotate(-10deg);color:var(--teal-500)}
 
 /* ─── STATS ─────────────────────────────────────────── */
 .stats-section{
@@ -400,13 +427,18 @@ ul,ol{list-style:none}
 .stat-item{
   text-align:center;padding:var(--sp-8);
   border-right:1px solid rgba(255,255,255,.08);
+  transition:transform 350ms cubic-bezier(.34,1.56,.64,1);
+  cursor:default;
 }
 .stat-item:last-child{border-right:none}
+.stat-item:hover{transform:translateY(-6px)}
 .stat__number{
   display:block;font-family:var(--font-serif);
   font-size:clamp(2.5rem,5vw,4rem);font-weight:700;
   color:var(--white);line-height:1;
+  transition:color 300ms;
 }
+.stat-item:hover .stat__number{color:var(--teal-200)}
 .stat__suffix{
   font-family:var(--font-serif);font-size:clamp(1.2rem,2.5vw,1.8rem);
   font-weight:700;color:var(--wood-warm); /* тёплый акцент дерева */
@@ -447,12 +479,17 @@ ul,ol{list-style:none}
 }
 .menu-list__item{
   display:flex;align-items:flex-start;justify-content:space-between;
-  gap:var(--sp-4);padding:var(--sp-5) 0;
+  gap:var(--sp-4);padding:var(--sp-5) 0 var(--sp-5) var(--sp-1);
   border-bottom:1px solid var(--gray-100);
-  transition:background var(--dur-fast);
+  border-left:2px solid transparent;
+  transition:background 220ms var(--ease),padding-left 220ms var(--ease),border-color 220ms;
 }
-.menu-list__item:hover{background:linear-gradient(to right,var(--sage-pale),transparent)}
-.menu-list__item:hover{padding-left:var(--sp-3);border-radius:var(--r-sm) 0 0 var(--r-sm)}
+.menu-list__item:hover{
+  background:linear-gradient(to right,var(--sage-pale),transparent);
+  padding-left:var(--sp-4);
+  border-left-color:var(--teal-500);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;
+}
 
 .menu-list__info{flex:1;min-width:0}
 .menu-list__name{
@@ -498,7 +535,7 @@ ul,ol{list-style:none}
   position:absolute;right:-80px;top:50%;transform:translateY(-50%);
   width:400px;height:400px;opacity:.5;pointer-events:none;
 }
-.cta-band__deco svg{width:100%;height:100%}
+.cta-band__deco svg{width:100%;height:100%;animation:rotateSlow 48s linear infinite}
 .cta-band__inner{position:relative;z-index:1}
 .cta-band__eyebrow{
   display:block;font-family:var(--font-script);font-size:1.75rem;
@@ -547,12 +584,14 @@ ul,ol{list-style:none}
   transition:opacity var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease);
 }
 .gallery__item.visible{opacity:1;transform:none}
-.gallery__item img{width:100%;height:auto;display:block;transition:transform var(--dur-slow) var(--ease)}
-.gallery__item:hover img{transform:scale(1.04)}
+.gallery__item img{width:100%;height:auto;display:block;transition:transform 500ms cubic-bezier(0.22,1,0.36,1)}
+.gallery__item:hover img{transform:scale(1.07)}
 .gallery__item__overlay{
-  position:absolute;inset:0;background:rgba(21,47,46,.5);opacity:0;
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(21,47,46,.6) 0%,rgba(42,122,118,.35) 100%);
+  opacity:0;
   display:flex;align-items:center;justify-content:center;color:var(--white);
-  transition:opacity var(--dur) var(--ease);
+  transition:opacity 300ms var(--ease);
 }
 .gallery__item:hover .gallery__item__overlay{opacity:1}
 .gallery__empty{
@@ -657,12 +696,14 @@ ul,ol{list-style:none}
 
 /* ─── REVEAL ────────────────────────────────────────── */
 .reveal{
-  transition:opacity var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease);
+  transition:
+    opacity  700ms cubic-bezier(0.22,1,0.36,1),
+    transform 800ms cubic-bezier(0.22,1,0.36,1);
 }
-.reveal--up   {opacity:0;transform:translateY(36px)}
-.reveal--left {opacity:0;transform:translateX(-36px)}
-.reveal--right{opacity:0;transform:translateX(36px)}
-.reveal[style*="--i"]{transition-delay:calc(var(--i,0) * 90ms)}
+.reveal--up   {opacity:0;transform:translateY(44px)}
+.reveal--left {opacity:0;transform:translateX(-44px)}
+.reveal--right{opacity:0;transform:translateX(44px)}
+.reveal[style*="--i"]{transition-delay:calc(var(--i,0) * 110ms)}
 .reveal.visible{opacity:1;transform:none}
 
 /* ─── RESPONSIVE ────────────────────────────────────── */

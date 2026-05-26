@@ -33,10 +33,17 @@ document.addEventListener('click', e => {
   ripple.addEventListener('animationend', () => ripple.remove());
 });
 
+/* ─── SCROLL PROGRESS BAR ────────────────────────────────── */
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.prepend(progressBar);
+
 /* ─── HEADER SCROLL ──────────────────────────────────────── */
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 60);
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = maxScroll > 0 ? `${(window.scrollY / maxScroll) * 100}%` : '0';
 }, { passive: true });
 
 /* ─── MOBILE NAV ─────────────────────────────────────────── */
