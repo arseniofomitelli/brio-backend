@@ -283,15 +283,12 @@ ul,ol{list-style:none}
   left: 50%;
   margin-left: -50vw;
   margin-bottom: 0;
-  height: 190px;
-  background-color: var(--teal-500); /* фон на контейнере = от края до края */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--teal-500);
+  line-height: 0; /* убираем пустой пробел под img */
 }
 .hero__logo {
-  height: 190px;
-  width: auto;
+  width: 100%;
+  height: auto;
   display: block;
   animation: logoReveal 1.4s ease-out 300ms both;
 }
@@ -704,7 +701,7 @@ ul,ol{list-style:none}
   /* Кнопки на мобильном — компактнее, рядом а не столбиком */
   .hero__actions{flex-direction:row;align-items:center;justify-content:center;gap:var(--sp-3)}
   .hero__actions .btn{min-height:44px;padding:0 var(--sp-5);font-size:.75rem}
-  .hero__logo-wrap{width:min(340px,90vw)}
+  .hero__logo-wrap{width:100vw;left:50%;margin-left:-50vw}
   .gallery__grid{columns:1}
   .stats__grid{grid-template-columns:1fr 1fr}
   .footer__nav{gap:var(--sp-5)}
