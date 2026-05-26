@@ -273,16 +273,14 @@ ul,ol{list-style:none}
 /* ─── МОЛДИНГ — коричневая линия-разделитель ─────────── */
 .molding {
   height: 8px;
-  /* Имитация объёмной деревянной планки:
-     светлая полоска сверху → тёмное тело → тень снизу */
   background: linear-gradient(
     to bottom,
     var(--wood-warm)  0px,
     var(--wood-warm)  1px,
     var(--wood-mid)   1px,
     var(--wood-mid)   6px,
-    rgba(0,0,0,.45)   6px,
-    rgba(0,0,0,.45)   8px
+    var(--wood-dark)  6px,
+    var(--wood-dark)  8px
   );
   flex-shrink: 0;
 }
