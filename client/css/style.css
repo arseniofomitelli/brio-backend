@@ -256,40 +256,42 @@ ul,ol{list-style:none}
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
 }
 
-/* Молдинг-полоса (переиспользуется для лого) */
+/* Молдинг-линия вокруг лого — такая же как между секциями */
 .molding-line {
   display: block;
   width: 100vw;
   position: relative;
   left: 50%;
   margin-left: -50vw;
-  height: 14px;
+  height: 8px;
   background: linear-gradient(
     to bottom,
-    var(--wood-dark)  0px,   var(--wood-dark)  1px,
-    var(--wood-warm)  1px,   var(--wood-warm)  3px,
-    var(--wood-mid)   3px,   var(--wood-mid)   11px,
-    var(--wood-warm)  11px,  var(--wood-warm)  13px,
-    var(--wood-dark)  13px,  var(--wood-dark)  14px
+    var(--wood-warm)  0px,
+    var(--wood-warm)  1px,
+    var(--wood-mid)   1px,
+    var(--wood-mid)   6px,
+    var(--wood-dark)  6px,
+    var(--wood-dark)  8px
   );
   flex-shrink: 0;
 }
 
-/* Логотип — тиловая полоса на всю ширину */
+/* Логотип — тиловая полоса на всю ширину экрана */
 .hero__logo-wrap {
   width: 100vw;
   position: relative;
   left: 50%;
   margin-left: -50vw;
   margin-bottom: 0;
+  height: 190px;
+  background-color: var(--teal-500); /* фон на контейнере = от края до края */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .hero__logo {
-  width: 100%;
   height: 190px;
-  object-fit: contain;
-  object-position: center;
-  /* фоновый цвет заполняет пустое место по бокам от лого */
-  background-color: var(--teal-500);
+  width: auto;
   display: block;
   animation: logoReveal 1.4s ease-out 300ms both;
 }
@@ -322,21 +324,17 @@ ul,ol{list-style:none}
   animation:scrollLine 2s ease-in-out infinite;
 }
 
-/* ─── МОЛДИНГ — декоративная коричневая полоса между секциями ── */
+/* ─── МОЛДИНГ — тонкая коричневая линия между секциями ── */
 .molding {
-  height: 14px;
+  height: 8px;
   background: linear-gradient(
     to bottom,
-    var(--wood-dark)  0px,
-    var(--wood-dark)  1px,
+    var(--wood-warm)  0px,
     var(--wood-warm)  1px,
-    var(--wood-warm)  3px,
-    var(--wood-mid)   3px,
-    var(--wood-mid)   11px,
-    var(--wood-warm)  11px,
-    var(--wood-warm)  13px,
-    var(--wood-dark)  13px,
-    var(--wood-dark)  14px
+    var(--wood-mid)   1px,
+    var(--wood-mid)   6px,
+    var(--wood-dark)  6px,
+    var(--wood-dark)  8px
   );
   flex-shrink: 0;
 }
