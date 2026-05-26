@@ -115,10 +115,10 @@ ul,ol{list-style:none}
   from { opacity: 0; transform: translateY(36px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-/* Логотип — плавное появление снизу */
+/* Логотип — только opacity, никаких transform = нет мерцания */
 @keyframes logoReveal {
-  from { opacity: 0; transform: translateY(50px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
@@ -230,7 +230,7 @@ ul,ol{list-style:none}
 
 /* Orbs */
 .hero__orbs{position:absolute;inset:0;z-index:0;pointer-events:none}
-.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.12;will-change:transform}
+.orb{position:absolute;border-radius:50%;opacity:.18;will-change:transform}
 .orb--1{width:520px;height:520px;background:var(--teal-700);top:-100px;left:-100px;animation:orbDrift 16s ease-in-out infinite alternate}
 .orb--2{width:380px;height:380px;background:rgba(255,255,255,.6);bottom:5%;right:5%;animation:orbDrift2 20s ease-in-out infinite}
 .orb--3{width:260px;height:260px;background:var(--teal-500);top:35%;left:58%;animation:orbDrift 13s ease-in-out infinite alternate-reverse}
@@ -256,42 +256,42 @@ ul,ol{list-style:none}
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
 }
 
-/* Логотип — полная полоса на всю ширину, края растворяются */
+/* Логотип — от края до края экрана, с коричневыми линиями сверху и снизу */
 .hero__logo-wrap {
-  /* Выбиваемся за контейнер на всю ширину экрана */
   width: 100vw;
   position: relative;
   left: 50%;
-  transform: translateX(-50%);
+  margin-left: -50vw;   /* edge-to-edge без transform — нет конфликта с анимацией */
   margin-bottom: var(--sp-5);
-  /* Маска: левый и правый края плавно растворяются в фоне */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
+}
+/* Коричневая линия НАД логотипом */
+.hero__logo-wrap::before,
+.hero__logo-wrap::after {
+  content: '';
+  display: block;
+  height: 14px;
+  background: linear-gradient(
+    to bottom,
+    var(--wood-dark)  0px,
+    var(--wood-dark)  1px,
+    var(--wood-warm)  1px,
+    var(--wood-warm)  3px,
+    var(--wood-mid)   3px,
+    var(--wood-mid)   11px,
+    var(--wood-warm)  11px,
+    var(--wood-warm)  13px,
+    var(--wood-dark)  13px,
+    var(--wood-dark)  14px
   );
 }
 .hero__logo {
   width: 100%;
-  height: 190px;           /* фиксированная высота полосы */
-  object-fit: contain;     /* логотип целиком, без обрезки */
+  height: 200px;
+  object-fit: contain;
   object-position: center;
   display: block;
-  /* GPU-слой без scale — нет мерцания */
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  animation: logoReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
+  /* только opacity — никаких transform = нет мерцания */
+  animation: logoReveal 1.4s ease-out 300ms both;
 }
 
 .hero__tagline {
