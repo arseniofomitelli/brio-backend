@@ -742,6 +742,97 @@ ul,ol{list-style:none}
 .reveal[style*="--i"]{transition-delay:calc(var(--i,0) * 100ms)}
 .reveal.visible{opacity:1;transform:none;filter:blur(0)}
 
+/* ─── SPLASH INTRO ──────────────────────────────────── */
+
+/* Keyframes для элементов внутри занавеса */
+@keyframes splashFadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to  {opacity:1;transform:none}
+}
+@keyframes splashRuleDraw{
+  from{width:0;opacity:0}
+  to  {width:80px;opacity:1}
+}
+@keyframes splashHintPulse{
+  0%,100%{opacity:0}
+  50%    {opacity:.45}
+}
+
+/* Обёртка — перекрывает всё */
+.splash{
+  position:fixed;inset:0;z-index:400;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  /* запрещаем взаимодействие с сайтом пока открыт */
+  pointer-events:all;
+}
+
+/* Два «занавеса» — верхний и нижний */
+.splash__curtain{
+  position:absolute;left:0;right:0;
+  background:var(--teal-900);
+  will-change:transform;
+  transition:transform 1000ms cubic-bezier(0.76,0,0.24,1);
+}
+.splash__curtain--top{top:0;height:50.5%}
+.splash__curtain--btm{bottom:0;height:50.5%}
+
+/* Контент по центру */
+.splash__body{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;
+  gap:var(--sp-4);text-align:center;
+  transition:opacity 350ms ease,transform 450ms cubic-bezier(0.22,1,0.36,1);
+}
+
+/* «Benvenuti» — курсив скрипт */
+.splash__welcome{
+  font-family:var(--font-script);
+  font-size:clamp(1.75rem,4vw,2.5rem);
+  color:var(--teal-300);
+  animation:splashFadeUp 900ms cubic-bezier(0.22,1,0.36,1) 250ms both;
+}
+
+/* Горизонтальная линия-декор */
+.splash__rule{
+  height:1px;background:var(--teal-300);opacity:.6;
+  animation:splashRuleDraw 600ms ease 500ms both;
+}
+
+/* «BRIO» — огромный serif italic */
+.splash__title{
+  font-family:var(--font-serif);font-style:italic;
+  font-size:clamp(5rem,16vw,9rem);font-weight:700;
+  line-height:.9;letter-spacing:-.02em;
+  color:var(--white);
+  animation:splashFadeUp 900ms cubic-bezier(0.22,1,0.36,1) 600ms both;
+}
+
+/* «Итальянское кафе · С 2018 года» */
+.splash__tagline{
+  font-size:.7rem;font-weight:500;letter-spacing:.28em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+  animation:splashFadeUp 900ms cubic-bezier(0.22,1,0.36,1) 900ms both;
+}
+
+/* Подсказка снизу */
+.splash__skip{
+  position:absolute;bottom:var(--sp-8);left:50%;transform:translateX(-50%);
+  font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);white-space:nowrap;
+  z-index:1;
+  animation:splashHintPulse 2.2s ease 1.6s infinite;
+}
+
+/* ── EXIT: занавесы разъезжаются ─────────────────────── */
+.splash.exit .splash__curtain--top{transform:translateY(-100%)}
+.splash.exit .splash__curtain--btm{transform:translateY(100%)}
+.splash.exit .splash__body{opacity:0;transform:scale(.96)}
+.splash.exit .splash__skip{opacity:0}
+
+/* Полностью убираем после анимации */
+.splash.done{display:none!important}
+
 /* ─── RESPONSIVE ────────────────────────────────────── */
 @media(max-width:1024px){
   .about__grid{grid-template-columns:1fr}

@@ -1,3 +1,31 @@
+/* ─── SPLASH INTRO ───────────────────────────────────────── */
+(function () {
+  const splash = document.getElementById('splash');
+  if (!splash) return;
+
+  // Блокируем скролл пока открыт splash
+  document.body.style.overflow = 'hidden';
+
+  function dismiss() {
+    if (splash.classList.contains('exit')) return; // уже уходит
+    splash.classList.add('exit');
+    // После завершения анимации занавесов — убираем элемент
+    setTimeout(() => {
+      splash.classList.add('done');
+      document.body.style.overflow = '';
+    }, 1050);
+  }
+
+  // Авто-открытие через 2.8 сек
+  const autoTimer = setTimeout(dismiss, 2800);
+
+  // Клик — открыть сразу
+  splash.addEventListener('click', function () {
+    clearTimeout(autoTimer);
+    dismiss();
+  }, { once: true });
+})();
+
 /* ─── CONFIG ─────────────────────────────────────────────── */
 const API = 'https://brio-api-0yhi.onrender.com/api/v1';
 
