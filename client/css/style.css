@@ -438,7 +438,6 @@ ul,ol{list-style:none}
   background:var(--sage-dark);
   padding:var(--sp-20) 0;
   position:relative;overflow:hidden;
-  border-top:3px solid var(--teal-300);
 }
 .stats__grid{
   display:grid;grid-template-columns:repeat(4,1fr);gap:0;
@@ -447,13 +446,11 @@ ul,ol{list-style:none}
 .stat-item{
   text-align:center;padding:var(--sp-8);
   border-right:1px solid rgba(255,255,255,.08);
-  border-top:3px solid transparent; /* акцентная линия появляется при hover */
-  transition:transform 250ms cubic-bezier(.34,1.56,.64,1),border-color 220ms;
+  transition:transform 250ms cubic-bezier(.34,1.56,.64,1);
   cursor:default;
 }
-.stat-item:hover{border-top-color:var(--teal-300)}
 .stat-item:last-child{border-right:none}
-.stat-item:hover{transform:translateY(-6px);border-top-color:var(--teal-300)}
+.stat-item:hover{transform:translateY(-6px)}
 .stat__number{
   display:block;font-family:var(--font-serif);
   font-size:clamp(2.5rem,5vw,4rem);font-weight:700;
