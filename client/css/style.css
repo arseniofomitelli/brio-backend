@@ -370,7 +370,7 @@ ul,ol{list-style:none}
 
 /* ─── MARQUEE ───────────────────────────────────────── */
 .marquee-band{
-  background: var(--teal-300);
+  background: #82CFCA; /* Dulux Aqua Chintz — напрямую */
   padding:var(--sp-5) 0;
   overflow:hidden;
 }
