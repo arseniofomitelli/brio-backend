@@ -9,8 +9,8 @@
   --teal-50:  #f0fafa;
   --teal-100: #d0eeec;
   --teal-200: #b8dedd;
-  --teal-300: #A0CDCA;   /* цвет логотипа */
-  --teal-500: #A0CDCA;   /* цвет логотипа — основной акцент */
+  --teal-300: #A0CCCA;   /* цвет логотипа */
+  --teal-500: #A0CCCA;   /* цвет логотипа — основной акцент */
   --teal-600: #7DBDBA;   /* темнее — для hover */
   --teal-700: #4a9994;
   --teal-800: #1f5e5b;
@@ -315,7 +315,7 @@ ul,ol{list-style:none}
   left: 50%;
   margin-left: -50vw;
   margin-bottom: 0;
-  background-color: #A0CDCA; /* точный цвет логотипа */
+  background-color: #A0CCCA; /* цвет логотипа */
   line-height: 0; /* убираем пустой пробел под img */
 }
 .hero__logo {
@@ -370,7 +370,7 @@ ul,ol{list-style:none}
 
 /* ─── MARQUEE ───────────────────────────────────────── */
 .marquee-band{
-  background: #A0CDCA; /* точный цвет логотипа */
+  background: #A0CCCA; /* цвет логотипа */
   padding:var(--sp-5) 0;
   overflow:hidden;
 }
