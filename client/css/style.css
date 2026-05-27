@@ -5,14 +5,14 @@
 
 /* ─── TOKENS ───────────────────────────────────────── */
 :root {
-  /* Teal — основной бренд (Dulux Aqua Chintz 90GG 57/146) */
+  /* Teal — основной бренд (цвет логотипа #A0CDCA) */
   --teal-50:  #f0fafa;
   --teal-100: #d0eeec;
-  --teal-200: #a8d8d5;
-  --teal-300: #82CFCA;   /* Aqua Chintz */
-  --teal-500: #82CFCA;   /* Aqua Chintz — основной акцент */
-  --teal-600: #5BBFBA;   /* темнее — для hover */
-  --teal-700: #3a9994;
+  --teal-200: #b8dedd;
+  --teal-300: #A0CDCA;   /* цвет логотипа */
+  --teal-500: #A0CDCA;   /* цвет логотипа — основной акцент */
+  --teal-600: #7DBDBA;   /* темнее — для hover */
+  --teal-700: #4a9994;
   --teal-800: #1f5e5b;
   --teal-900: #152f2e;
 
@@ -315,7 +315,7 @@ ul,ol{list-style:none}
   left: 50%;
   margin-left: -50vw;
   margin-bottom: 0;
-  background-color: var(--teal-500);
+  background-color: #A0CDCA; /* точный цвет логотипа */
   line-height: 0; /* убираем пустой пробел под img */
 }
 .hero__logo {
@@ -370,7 +370,7 @@ ul,ol{list-style:none}
 
 /* ─── MARQUEE ───────────────────────────────────────── */
 .marquee-band{
-  background: #82CFCA; /* Dulux Aqua Chintz — напрямую */
+  background: #A0CDCA; /* точный цвет логотипа */
   padding:var(--sp-5) 0;
   overflow:hidden;
 }
