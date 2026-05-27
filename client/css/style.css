@@ -30,16 +30,16 @@
   --wood-warm:  #b87048;   /* тёплый — для маленьких акцентов */
   --wood-light: #e8d5c0;   /* светлый бежевый-дерево */
 
-  --white:    #ffffff;
-  --cream:    #faf7f3;     /* чуть теплее, с намёком на дерево */
-  --gray-100: #ede9e4;     /* тёплый серый */
-  --gray-200: #d5cfc8;
+  --white:    #ffffff;      /* только для текста на тёмных фонах */
+  --cream:    #EFE0C3;     /* Tikkurila G398 Манная каша */
+  --gray-100: #E5D5B5;     /* тёплый — согласован с кремом */
+  --gray-200: #D9CEBA;
   --gray-400: #8a8078;
   --gray-600: #4a433b;
   --gray-900: #1c1510;     /* тёмно-коричневый вместо чёрного */
 
-  --bg:       var(--cream);
-  --surface:  var(--white);
+  --bg:       var(--cream);   /* Tikkurila Манная каша — фон страницы */
+  --surface:  var(--cream);   /* карточки, секции — тот же тёплый крем */
   --text:     var(--gray-900);
   --text-2:   var(--gray-600);
   --text-3:   var(--gray-400);
@@ -180,8 +180,8 @@ ul,ol{list-style:none}
   position:absolute;border-radius:50%;transform:scale(0);pointer-events:none;
   animation:rippleAnim 280ms linear;background:rgba(255,255,255,.3);
 }
-.btn--light{background:var(--white);color:var(--teal-900)}
-.btn--light:hover{background:var(--teal-100);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.25)}
+.btn--light{background:var(--cream);color:var(--teal-900)}
+.btn--light:hover{background:var(--teal-100);transform:translateY(-2px);box-shadow:0 8px 24px rgba(239,224,195,.35)}
 .btn--ghost{border-color:rgba(255,255,255,.45);color:var(--white)}
 .btn--ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.8);transform:translateY(-2px)}
 .btn--teal{background:var(--teal-500);color:var(--teal-900);border-color:var(--teal-500)}
