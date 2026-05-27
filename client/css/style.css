@@ -449,6 +449,13 @@ ul,ol{list-style:none}
   transition:transform 250ms cubic-bezier(.34,1.56,.64,1);
   cursor:default;
 }
+/* Декоративный акцент над цифрой — короткая тёплая линия */
+.stat-item::before{
+  content:'';display:block;
+  width:28px;height:1px;
+  background:var(--wood-warm);opacity:.7;
+  margin:0 auto var(--sp-5);
+}
 .stat-item:last-child{border-right:none}
 .stat-item:hover{transform:translateY(-6px)}
 .stat__number{
