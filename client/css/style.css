@@ -5,13 +5,14 @@
 
 /* ─── TOKENS ───────────────────────────────────────── */
 :root {
-  /* Teal — основной бренд */
+  /* Teal — основной бренд (Dulux Aqua Chintz 90GG 57/146) */
   --teal-50:  #f0fafa;
   --teal-100: #d0eeec;
   --teal-200: #a8d8d5;
-  --teal-300: #82CFCA;
-  --teal-500: #3ea39e;
-  --teal-700: #2a7a76;
+  --teal-300: #82CFCA;   /* Aqua Chintz */
+  --teal-500: #82CFCA;   /* Aqua Chintz — основной акцент */
+  --teal-600: #5BBFBA;   /* темнее — для hover */
+  --teal-700: #3a9994;
   --teal-800: #1f5e5b;
   --teal-900: #152f2e;
 
@@ -183,8 +184,8 @@ ul,ol{list-style:none}
 .btn--light:hover{background:var(--teal-100);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.25)}
 .btn--ghost{border-color:rgba(255,255,255,.45);color:var(--white)}
 .btn--ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.8);transform:translateY(-2px)}
-.btn--teal{background:var(--teal-500);color:var(--white);border-color:var(--teal-500)}
-.btn--teal:hover{background:var(--teal-700);border-color:var(--teal-700);transform:translateY(-2px);box-shadow:0 8px 24px rgba(62,163,158,.35)}
+.btn--teal{background:var(--teal-500);color:var(--teal-900);border-color:var(--teal-500)}
+.btn--teal:hover{background:var(--teal-600);border-color:var(--teal-600);transform:translateY(-2px);box-shadow:0 8px 24px rgba(130,207,202,.4)}
 .btn--outline-light{border-color:rgba(255,255,255,.5);color:var(--white)}
 .btn--outline-light:hover{background:rgba(255,255,255,.1);border-color:var(--white)}
 
