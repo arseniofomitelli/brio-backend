@@ -20,19 +20,16 @@
     var body = splash.querySelector('.splash__body');
     if (body) { body.style.transition = 'opacity 300ms ease'; body.style.opacity = '0'; }
 
-    // Занавесы — принудительный reflow гарантирует transition в любом браузере
-    var dur = '1100ms';
-    var ease = 'cubic-bezier(0.76,0,0.24,1)';
-    if (panelTop) {
-      panelTop.style.transition = 'transform ' + dur + ' ' + ease;
-      void panelTop.offsetHeight; // reflow
-      panelTop.style.transform = 'translateY(-101%)';
-    }
-    if (panelBtm) {
-      panelBtm.style.transition = 'transform ' + dur + ' ' + ease;
-      void panelBtm.offsetHeight; // reflow
-      panelBtm.style.transform = 'translateY(101%)';
-    }
+    // Занавесы — ставим transition, ждём 2 кадра, потом применяем transform
+    var ease = 'transform 1100ms cubic-bezier(0.76,0,0.24,1)';
+    if (panelTop) panelTop.style.transition = ease;
+    if (panelBtm) panelBtm.style.transition = ease;
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        if (panelTop) panelTop.style.transform = 'translateY(-101%)';
+        if (panelBtm) panelBtm.style.transform = 'translateY(101%)';
+      });
+    });
 
     setTimeout(function () {
       splash.classList.add('done');
