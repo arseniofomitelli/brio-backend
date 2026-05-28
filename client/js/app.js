@@ -387,7 +387,7 @@ async function loadContacts() {
 
     document.getElementById('contactsMap').innerHTML =
       `<iframe
-        src="https://yandex.ru/map-widget/v1/?text=Москва%2C+Маросейка%2C+15&z=17&l=map"
+        src="https://yandex.ru/map-widget/v1/?ll=37.636592%2C55.758153&z=17&l=map&pt=37.636592%2C55.758153,pm2rdl"
         title="Кафе Brio на карте"
         width="100%" height="100%"
         allowfullscreen loading="lazy"
