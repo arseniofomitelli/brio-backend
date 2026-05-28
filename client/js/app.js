@@ -9,11 +9,10 @@
   function dismiss() {
     if (splash.classList.contains('exit')) return;
     splash.classList.add('exit');
-    // Занавесы и сайт анимируются одновременно
-    document.getElementById('site-wrap').classList.add('visible');
     setTimeout(() => {
       splash.classList.add('done');
       document.body.style.overflow = '';
+      document.body.classList.add('site-ready');
     }, 1050);
   }
 
