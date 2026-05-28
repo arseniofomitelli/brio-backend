@@ -859,7 +859,7 @@ html{ scrollbar-gutter:stable; }
   .nav__links.open{transform:none}
   .nav__link{font-size:1.125rem;letter-spacing:.06em}
   .nav__link::after{width:calc(100% - var(--sp-4))}
-  .nav__burger{display:flex}
+  .nav__burger{display:flex;margin-left:auto}
   .nav__close{
     display:flex;align-items:center;justify-content:center;
     position:absolute;top:var(--sp-4);right:var(--sp-4);
