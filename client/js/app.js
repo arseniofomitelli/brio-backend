@@ -7,9 +7,10 @@
   document.body.style.overflow = 'hidden';
 
   function dismiss() {
-    if (splash.classList.contains('exit')) return; // уже уходит
+    if (splash.classList.contains('exit')) return;
     splash.classList.add('exit');
-    // После завершения анимации занавесов — убираем элемент
+    // Когда занавесы наполовину открыты — проявляем сайт
+    setTimeout(() => document.body.classList.add('site-ready'), 450);
     setTimeout(() => {
       splash.classList.add('done');
       document.body.style.overflow = '';

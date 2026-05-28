@@ -793,6 +793,15 @@ ul,ol{list-style:none}
 }
 
 /* Обёртка — перекрывает всё */
+/* ─── ПЕРЕХОД СПЛЭШ → САЙТ ─────────────────────────────── */
+body > *:not(#splash){
+  opacity:0;
+  transition:opacity 800ms ease;
+}
+body.site-ready > *:not(#splash){
+  opacity:1;
+}
+
 .splash{
   position:fixed;inset:0;z-index:400;
   display:flex;align-items:center;justify-content:center;
