@@ -9,7 +9,7 @@
   function dismiss() {
     if (splash.classList.contains('exit')) return;
     splash.classList.add('exit');
-    setTimeout(() => {
+    setTimeout(function() {
       splash.classList.add('done');
       document.body.style.overflow = '';
       document.body.classList.add('site-ready');
