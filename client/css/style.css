@@ -867,7 +867,7 @@ ul,ol{list-style:none}
 .splash.exit .splash__curtain--top{transform:translateY(-100%)}
 .splash.exit .splash__curtain--btm{transform:translateY(100%)}
 .splash.exit .splash__body{opacity:0;transform:scale(.96)}
-.splash.exit .splash__skip{opacity:0}
+.splash.exit .splash__skip{animation:none;opacity:0;transition:opacity 200ms ease}
 
 /* Полностью убираем после анимации */
 .splash.done{display:none!important}
