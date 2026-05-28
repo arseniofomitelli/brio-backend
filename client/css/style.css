@@ -792,6 +792,17 @@ ul,ol{list-style:none}
   to  {width:80px;opacity:1}
 }
 
+/* ─── ПЕРЕХОД СПЛЭШ → САЙТ ─────────────────────────────── */
+/* body совпадает по цвету с занавесами — никакого просвета */
+body{ background:var(--teal-900) }
+#site-wrap{
+  opacity:0;
+  transition:opacity 1000ms ease;
+  /* восстанавливаем нормальный фон под wrap */
+  background:var(--cream);
+}
+#site-wrap.visible{ opacity:1 }
+
 /* Обёртка — перекрывает всё */
 .splash{
   position:fixed;inset:0;z-index:400;
