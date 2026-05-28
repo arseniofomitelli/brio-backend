@@ -794,11 +794,11 @@ ul,ol{list-style:none}
 
 /* Обёртка — перекрывает всё */
 /* ─── ПЕРЕХОД СПЛЭШ → САЙТ ─────────────────────────────── */
-body > *:not(#splash){
+#site-wrap{
   opacity:0;
   transition:opacity 800ms ease;
 }
-body.site-ready > *:not(#splash){
+#site-wrap.visible{
   opacity:1;
 }
 
