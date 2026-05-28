@@ -6,7 +6,7 @@ const DEFAULT_CONTACT = {
   taglineRu: 'Итальянское кафе',
   taglineIt: 'Caffè italiano',
   phone: '+7 (000) 000-00-00',
-  email: 'info@brio-cafe.ru',
+  email: 'brio.msk@gmail.com',
   address: 'Via Roma, 1',
   addressRu: 'ул. Примерная, 1',
   city: 'Milano',

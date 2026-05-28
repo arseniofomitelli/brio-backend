@@ -35,7 +35,7 @@ async function seed() {
       taglineRu: 'Итальянское кафе',
       taglineIt: 'Caffè italiano',
       phone: '+7 (495) 123-45-67',
-      email: 'info@brio-cafe.ru',
+      email: 'brio.msk@gmail.com',
       address: 'ул. Тверская, 12, Москва',
       addressRu: 'ул. Тверская, 12, Москва',
       city: 'Москва',
