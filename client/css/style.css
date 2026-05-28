@@ -704,24 +704,24 @@ ul,ol{list-style:none}
 .contact-item__icon{
   width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
   /* sage светлый — тонкий, как плитка в итальянском кафе */
-  background:var(--sage-light);color:var(--sage-dark);border-radius:var(--r-md);
+  background:#3ea39e;color:#fff;border-radius:var(--r-md);
   transition:background var(--dur),color var(--dur),transform var(--dur) var(--spring);
 }
-.contact-item:hover .contact-item__icon{background:var(--sage-dark);color:var(--white);transform:scale(1.08) rotate(-6deg)}
+.contact-item:hover .contact-item__icon{background:#2d8a85;color:#fff;transform:scale(1.08) rotate(-6deg)}
 .contact-item__label{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:2px}
 .contact-item__value{font-size:1rem;font-weight:600;color:var(--text)}
 .contact-item__value a{color:var(--sage-dark);transition:color var(--dur-fast)}
 .contact-item__value a:hover{color:var(--sage)}
 
-.hours{margin-top:var(--sp-8);padding:var(--sp-6);background:var(--bg);border-radius:var(--r-md);border:1px solid var(--gray-100)}
-.hours__title{font-size:.9375rem;font-weight:600;color:var(--text);margin-bottom:var(--sp-5);display:flex;align-items:center;gap:var(--sp-2)}
+.hours{margin-top:var(--sp-8);padding:var(--sp-6);background:#3ea39e;border-radius:var(--r-md);border:1px solid rgba(255,255,255,.2)}
+.hours__title{font-size:.9375rem;font-weight:600;color:#fff;margin-bottom:var(--sp-5);display:flex;align-items:center;gap:var(--sp-2)}
 .hours__list{display:grid;gap:2px}
 .hours__row{display:flex;justify-content:space-between;padding:var(--sp-2) var(--sp-3);border-radius:var(--r-sm);transition:background var(--dur-fast)}
-.hours__row:hover{background:var(--teal-50)}
-.hours__row:nth-child(odd){background:var(--surface)}
-.hours__row:nth-child(odd):hover{background:var(--teal-50)}
-.hours__day{font-size:.9375rem;color:var(--text-2)}
-.hours__time{font-size:.9375rem;font-weight:600;color:var(--text)}
+.hours__row:hover{background:rgba(255,255,255,.1)}
+.hours__row:nth-child(odd){background:rgba(255,255,255,.07)}
+.hours__row:nth-child(odd):hover{background:rgba(255,255,255,.15)}
+.hours__day{font-size:.9375rem;color:rgba(255,255,255,.8)}
+.hours__time{font-size:.9375rem;font-weight:600;color:#fff}
 .hours__time--closed{color:#c62828}
 
 .socials{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-6)}
