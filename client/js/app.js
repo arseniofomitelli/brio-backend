@@ -375,7 +375,7 @@ async function loadContacts() {
         <div class="contact-item__icon">${ICONS.email}</div>
         <div>
           <p class="contact-item__label">Email</p>
-          <p class="contact-item__value"><a href="mailto:${data.email}">${data.email}</a></p>
+          <p class="contact-item__value"><a href="mailto:brio.msk@gmail.com">brio.msk@gmail.com</a></p>
         </div>
       </div>
       <div class="contact-item">
