@@ -397,7 +397,7 @@ ul,ol{list-style:none}
 
 /* ─── MARQUEE ───────────────────────────────────────── */
 .marquee-band{
-  background: var(--teal-900);
+  background: #3ea39e;
   padding:var(--sp-5) 0;
   overflow:hidden;
 }
