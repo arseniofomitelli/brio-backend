@@ -860,7 +860,8 @@ ul,ol{list-style:none}
   font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
   color:rgba(255,255,255,.3);white-space:nowrap;
   z-index:1;
-  animation:splashHintPulse 2.2s ease 1.6s infinite;
+  opacity:0;
+  animation:splashHintPulse 2.2s ease 1.6s infinite backwards;
 }
 
 /* ── EXIT: занавесы разъезжаются ─────────────────────── */
