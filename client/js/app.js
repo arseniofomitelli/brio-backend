@@ -380,16 +380,18 @@ async function loadContacts() {
         <div class="contact-item__icon">${ICONS.address}</div>
         <div>
           <p class="contact-item__label">Адрес</p>
-          <p class="contact-item__value">${data.addressRu || data.address}</p>
+          <p class="contact-item__value">ул. Маросейка, 15, Москва</p>
         </div>
       </div>
     `;
 
-    document.getElementById('mapAddress').textContent = data.addressRu || data.address;
-    if (data.mapUrl) {
-      document.getElementById('contactsMap').innerHTML =
-        `<iframe src="${data.mapUrl}" title="Карта кафе Brio" allowfullscreen loading="lazy"></iframe>`;
-    }
+    document.getElementById('contactsMap').innerHTML =
+      `<iframe
+        src="https://yandex.ru/map-widget/v1/?text=Москва%2C+Маросейка%2C+15&z=17&l=map"
+        title="Кафе Brio на карте"
+        width="100%" height="100%"
+        allowfullscreen loading="lazy"
+        style="border:0;border-radius:inherit"></iframe>`;
 
     // Телефон в CTA-полосе
     if (data.phone) {
