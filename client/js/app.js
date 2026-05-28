@@ -1,27 +1,47 @@
 /* ─── SPLASH INTRO ───────────────────────────────────────── */
 (function () {
-  const splash = document.getElementById('splash');
+  var splash = document.getElementById('splash');
   if (!splash) return;
+
+  var panelTop = document.getElementById('splashTop');
+  var panelBtm = document.getElementById('splashBtm');
 
   // Блокируем скролл; компенсируем ширину скроллбара чтобы не прыгал layout
   var sb = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.overflow = 'hidden';
-  document.body.style.paddingRight = sb + 'px';
+  if (sb > 0) document.body.style.paddingRight = sb + 'px';
 
+  var dismissed = false;
   function dismiss() {
-    if (splash.classList.contains('exit')) return;
-    splash.classList.add('exit');
-    setTimeout(function() {
+    if (dismissed) return;
+    dismissed = true;
+
+    // Текст исчезает
+    var body = splash.querySelector('.splash__body');
+    if (body) { body.style.transition = 'opacity 300ms ease'; body.style.opacity = '0'; }
+
+    // Занавесы — принудительный reflow гарантирует transition в любом браузере
+    var dur = '1100ms';
+    var ease = 'cubic-bezier(0.76,0,0.24,1)';
+    if (panelTop) {
+      panelTop.style.transition = 'transform ' + dur + ' ' + ease;
+      void panelTop.offsetHeight; // reflow
+      panelTop.style.transform = 'translateY(-101%)';
+    }
+    if (panelBtm) {
+      panelBtm.style.transition = 'transform ' + dur + ' ' + ease;
+      void panelBtm.offsetHeight; // reflow
+      panelBtm.style.transform = 'translateY(101%)';
+    }
+
+    setTimeout(function () {
       splash.classList.add('done');
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
     }, 1200);
   }
 
-  // Авто-открытие через 2.8 сек
-  const autoTimer = setTimeout(dismiss, 2800);
-
-  // Клик — открыть сразу
+  var autoTimer = setTimeout(dismiss, 2800);
   splash.addEventListener('click', function () {
     clearTimeout(autoTimer);
     dismiss();

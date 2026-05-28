@@ -781,32 +781,27 @@ ul,ol{list-style:none}
 .reveal.visible{opacity:1;transform:none}
 
 /* ─── SPLASH ─────────────────────────────────────────── */
+html{ scrollbar-gutter:stable; }
 
-/* Занавесы — ::before (верх) и ::after (низ) */
-.splash::before,
-.splash::after{
-  content:'';
-  position:absolute;left:0;right:0;
-  background:var(--teal-900);
-  transition:transform 1.1s cubic-bezier(0.76,0,0.24,1);
-}
-.splash::before{ top:0;    height:50.5%; transform:translateY(0); }
-.splash::after { bottom:0; height:50.5%; transform:translateY(0); }
-
-/* Весь экран */
 .splash{
   position:fixed;inset:0;z-index:400;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:var(--sp-4);
-  cursor:pointer;pointer-events:all;
-  overflow:hidden;
+  gap:var(--sp-4);cursor:pointer;pointer-events:all;
 }
 
+/* Занавесы */
+.splash__panel{
+  position:absolute;left:0;right:0;
+  background:var(--teal-900);
+}
+.splash__panel--top{ top:0;    height:50.5%; }
+.splash__panel--btm{ bottom:0; height:50.5%; }
+
 /* Текст поверх занавесов */
-.splash__welcome,
-.splash__rule,
-.splash__title,
-.splash__tagline{ position:relative;z-index:1; }
+.splash__body{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);
+}
 
 /* «Benvenuti» */
 .splash__welcome{
@@ -815,38 +810,23 @@ ul,ol{list-style:none}
   color:var(--teal-300);
   animation:splashFadeUp 900ms ease 250ms both;
 }
-/* линия */
 .splash__rule{
   height:1px;width:0;background:var(--teal-300);opacity:.6;
   animation:splashRuleDraw 600ms ease 500ms both;
 }
-/* «BRIO» */
 .splash__title{
   font-family:var(--font-serif);font-style:italic;
   font-size:clamp(5rem,16vw,9rem);font-weight:700;
   line-height:.9;letter-spacing:-.02em;color:var(--white);
   animation:splashFadeUp 900ms ease 600ms both;
 }
-/* подпись */
 .splash__tagline{
   font-size:.7rem;font-weight:500;letter-spacing:.28em;
   text-transform:uppercase;color:rgba(255,255,255,.4);
   animation:splashFadeUp 900ms ease 900ms both;
 }
 
-/* EXIT — занавесы разъезжаются */
-.splash.exit::before{ animation:curtainUp   1.1s cubic-bezier(0.76,0,0.24,1) forwards; }
-.splash.exit::after { animation:curtainDown 1.1s cubic-bezier(0.76,0,0.24,1) forwards; }
-.splash.exit .splash__welcome,
-.splash.exit .splash__rule,
-.splash.exit .splash__title,
-.splash.exit .splash__tagline{ animation:splashFadeOut 300ms ease forwards; }
-
-/* Полностью убираем */
 .splash.done{ display:none!important }
-
-/* Резервируем место для скроллбара — нет сдвига layout при overflow:hidden */
-html{ scrollbar-gutter:stable; }
 
 /* ─── АНИМАЦИИ SPLASH ────────────────────────────────── */
 @keyframes splashFadeUp{
@@ -857,17 +837,7 @@ html{ scrollbar-gutter:stable; }
   from{ width:0;  opacity:0 }
   to  { width:80px; opacity:1 }
 }
-@keyframes splashFadeOut{
-  to{ opacity:0; transform:scale(.95) }
-}
-@keyframes curtainUp{
-  from{ transform:translateY(0);    }
-  to  { transform:translateY(-101%); }
-}
-@keyframes curtainDown{
-  from{ transform:translateY(0);   }
-  to  { transform:translateY(101%); }
-}
+
 
 
 /* ─── RESPONSIVE ────────────────────────────────────── */
