@@ -342,7 +342,7 @@ ul,ol{list-style:none}
   left: 50%;
   margin-left: -50vw;
   margin-bottom: 0;
-  background-color: #A0CCCA; /* цвет логотипа */
+  background-color: #3ea39e;
   line-height: 0; /* убираем пустой пробел под img */
 }
 .hero__logo {
@@ -397,7 +397,7 @@ ul,ol{list-style:none}
 
 /* ─── MARQUEE ───────────────────────────────────────── */
 .marquee-band{
-  background: #A0CCCA; /* цвет логотипа */
+  background: var(--teal-900);
   padding:var(--sp-5) 0;
   overflow:hidden;
 }
