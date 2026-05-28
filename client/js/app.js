@@ -9,11 +9,6 @@
   function dismiss() {
     if (splash.classList.contains('exit')) return;
     splash.classList.add('exit');
-    // Когда занавесы наполовину открыты — проявляем сайт
-    setTimeout(() => {
-      const wrap = document.getElementById('site-wrap');
-      if (wrap) wrap.classList.add('visible');
-    }, 450);
     setTimeout(() => {
       splash.classList.add('done');
       document.body.style.overflow = '';
