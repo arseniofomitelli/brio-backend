@@ -255,6 +255,7 @@ ul,ol{list-style:none}
 .nav__link.active::after{width:calc(100% - var(--sp-4))}
 .nav__link:active{color:var(--teal-300);opacity:.8}
 
+.nav__close{display:none}
 .nav__burger{
   display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;
   width:44px;height:44px;background:none;border:none;cursor:pointer;
@@ -857,7 +858,17 @@ html{ scrollbar-gutter:stable; }
   }
   .nav__links.open{transform:none}
   .nav__link{font-size:1.125rem;letter-spacing:.06em}
+  .nav__link::after{width:calc(100% - var(--sp-4))}
   .nav__burger{display:flex}
+  .nav__close{
+    display:flex;align-items:center;justify-content:center;
+    position:absolute;top:var(--sp-4);right:var(--sp-4);
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,.08);border:none;
+    color:var(--white);font-size:1.125rem;cursor:pointer;
+    transition:background var(--dur) var(--ease);
+  }
+  .nav__close:hover{background:rgba(255,255,255,.16)}
 
   .pillars__grid{grid-template-columns:1fr}
   .pillar{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);padding:var(--sp-10) var(--sp-6)}

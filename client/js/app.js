@@ -158,6 +158,8 @@ function toggleNav() {
   burger.setAttribute('aria-expanded', String(open));
 }
 burger.addEventListener('click', toggleNav);
+const navClose = document.getElementById('navClose');
+if (navClose) navClose.addEventListener('click', closeNav);
 navLinks.querySelectorAll('.nav__link').forEach(l => l.addEventListener('click', closeNav));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
 
