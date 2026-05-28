@@ -29,6 +29,60 @@
 /* ─── CONFIG ─────────────────────────────────────────────── */
 const API = 'https://brio-api-0yhi.onrender.com/api/v1';
 
+/* ─── FETCH С ПОВТОРАМИ ──────────────────────────────────── */
+/* Render.com free tier засыпает — первый запрос может ждать до 60с.
+   Делаем до 4 попыток с паузами, показываем прогресс пользователю. */
+async function apiFetch(url, opts = {}) {
+  const TIMEOUTS = [15000, 20000, 25000, 30000]; // таймаут растёт с каждой попыткой
+  const DELAYS   = [0, 5000, 8000, 12000];        // пауза перед попыткой
+
+  for (let attempt = 0; attempt < TIMEOUTS.length; attempt++) {
+    if (DELAYS[attempt]) await new Promise(r => setTimeout(r, DELAYS[attempt]));
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUTS[attempt]);
+
+    try {
+      const res = await fetch(url, { ...opts, signal: controller.signal });
+      clearTimeout(timer);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res;
+    } catch (err) {
+      clearTimeout(timer);
+      const isLast = attempt === TIMEOUTS.length - 1;
+      if (isLast) throw err;
+      // Не последняя попытка — продолжаем
+      console.warn(`API attempt ${attempt + 1} failed, retrying…`, err.message);
+    }
+  }
+}
+
+/* Красивый placeholder «сервер просыпается» */
+function wakingPlaceholder(containerEl, message = 'Загружаем данные…') {
+  containerEl.innerHTML = `
+    <div class="api-waking">
+      <div class="api-waking__dots">
+        <span class="api-waking__dot"></span>
+        <span class="api-waking__dot"></span>
+        <span class="api-waking__dot"></span>
+      </div>
+      <p class="api-waking__text">${message}</p>
+    </div>`;
+}
+
+/* Кнопка «повторить» при окончательной ошибке */
+function errorPlaceholder(containerEl, retryFn, message = 'Не удалось загрузить данные') {
+  containerEl.innerHTML = `
+    <div class="api-error">
+      <p class="api-error__text">${message}</p>
+      <button class="btn btn--teal api-error__btn" style="min-height:40px;padding:0 20px;font-size:.8rem">
+        Попробовать снова
+      </button>
+    </div>`;
+  containerEl.querySelector('.api-error__btn')
+    .addEventListener('click', () => retryFn(), { once: true });
+}
+
 const DAYS = {
   monday:'Понедельник', tuesday:'Вторник', wednesday:'Среда',
   thursday:'Четверг',   friday:'Пятница',  saturday:'Суббота',
@@ -114,35 +168,15 @@ window.addEventListener('scroll', () => {
     heroBg.style.transform = `translateY(${y * 0.3}px)`;
 }, { passive: true });
 
-/* ─── COUNT-UP ───────────────────────────────────────────── */
-function animateCount(el, target, duration = 1400) {
-  const start = performance.now();
-  const decimal = target % 1 !== 0;
-  (function tick(now) {
-    const t = Math.min((now - start) / duration, 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    const v = ease * target;
-    el.textContent = decimal ? v.toFixed(1) : Math.floor(v).toLocaleString('ru-RU');
-    if (t < 1) requestAnimationFrame(tick);
-    else el.textContent = decimal ? target.toFixed(1) : target.toLocaleString('ru-RU');
-  })(start);
-}
-const statsObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    animateCount(e.target, parseFloat(e.target.dataset.count));
-    statsObs.unobserve(e.target);
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.stat__number[data-count]').forEach(el => statsObs.observe(el));
 
 /* ─── MENU ───────────────────────────────────────────────── */
 async function loadMenu() {
   const tabsEl = document.getElementById('menuTabs');
   const gridEl = document.getElementById('menuGrid');
+  wakingPlaceholder(gridEl, 'Загружаем меню…');
   try {
-    const res = await fetch(`${API}/menu/categories`);
-    if (!res.ok) throw new Error(res.statusText);
+    const res = await apiFetch(`${API}/menu/categories`);
+
     let { data: cats } = await res.json();
 
     // Убираем пиццу из меню
@@ -184,8 +218,8 @@ async function loadMenu() {
     });
   } catch (err) {
     console.error('Menu load error:', err);
-    document.getElementById('menuTabs').innerHTML = '';
-    document.getElementById('menuGrid').innerHTML = '<p class="menu__empty">Не удалось загрузить меню. Попробуйте обновить страницу.</p>';
+    tabsEl.innerHTML = '';
+    errorPlaceholder(gridEl, loadMenu, 'Не удалось загрузить меню');
   }
 }
 
@@ -243,8 +277,7 @@ function renderTags(d) {
 /* ─── GALLERY ────────────────────────────────────────────── */
 async function loadGallery() {
   try {
-    const res = await fetch(`${API}/gallery`);
-    if (!res.ok) throw new Error(res.statusText);
+    const res = await apiFetch(`${API}/gallery`);
     const { data: images } = await res.json();
     if (!images?.length) return;
 
@@ -300,8 +333,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && !lightbox.
 /* ─── CONTACTS ───────────────────────────────────────────── */
 async function loadContacts() {
   try {
-    const res = await fetch(`${API}/contacts`);
-    if (!res.ok) throw new Error(res.statusText);
+    const res = await apiFetch(`${API}/contacts`);
     const { data } = await res.json();
     if (!data) return;
 
