@@ -791,9 +791,9 @@ ul,ol{list-style:none}
   from{width:0;opacity:0}
   to  {width:80px;opacity:1}
 }
-@keyframes splashHintPulse{
-  0%,100%{opacity:0}
-  50%    {opacity:.45}
+@keyframes splashHintFade{
+  from{opacity:0}
+  to  {opacity:.35}
 }
 
 /* Обёртка — перекрывает всё */
@@ -861,7 +861,7 @@ ul,ol{list-style:none}
   color:rgba(255,255,255,.3);white-space:nowrap;
   z-index:1;
   opacity:0;
-  animation:splashHintPulse 2.2s ease 1.6s infinite backwards;
+  animation:splashHintFade 600ms ease 1.8s forwards;
 }
 
 /* ── EXIT: занавесы разъезжаются ─────────────────────── */
