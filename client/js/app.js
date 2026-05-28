@@ -13,7 +13,7 @@
       splash.classList.add('done');
       document.body.style.overflow = '';
       document.body.classList.add('site-ready');
-    }, 1050);
+    }, 1200);
   }
 
   // Авто-открытие через 2.8 сек
