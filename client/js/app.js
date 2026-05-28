@@ -3,8 +3,10 @@
   const splash = document.getElementById('splash');
   if (!splash) return;
 
-  // Блокируем скролл пока открыт splash
+  // Блокируем скролл; компенсируем ширину скроллбара чтобы не прыгал layout
+  var sb = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.overflow = 'hidden';
+  document.body.style.paddingRight = sb + 'px';
 
   function dismiss() {
     if (splash.classList.contains('exit')) return;
@@ -12,7 +14,7 @@
     setTimeout(function() {
       splash.classList.add('done');
       document.body.style.overflow = '';
-      document.body.classList.add('site-ready');
+      document.body.style.paddingRight = '';
     }, 1200);
   }
 
