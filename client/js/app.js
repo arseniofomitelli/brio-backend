@@ -16,20 +16,22 @@
     if (dismissed) return;
     dismissed = true;
 
-    // Текст исчезает
+    // Текст — быстро гасим
     var body = splash.querySelector('.splash__body');
     if (body) { body.style.transition = 'opacity 300ms ease'; body.style.opacity = '0'; }
 
-    // Занавесы — ставим transition, ждём 2 кадра, потом применяем transform
+    // Панели — getComputedStyle форсирует flush стилей перед изменением transform
     var ease = 'transform 1100ms cubic-bezier(0.76,0,0.24,1)';
-    if (panelTop) panelTop.style.transition = ease;
-    if (panelBtm) panelBtm.style.transition = ease;
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        if (panelTop) panelTop.style.transform = 'translateY(-101%)';
-        if (panelBtm) panelBtm.style.transform = 'translateY(101%)';
-      });
-    });
+    if (panelTop) {
+      panelTop.style.transition = ease;
+      window.getComputedStyle(panelTop).transform; // flush
+      panelTop.style.transform = 'translateY(-101%)';
+    }
+    if (panelBtm) {
+      panelBtm.style.transition = ease;
+      window.getComputedStyle(panelBtm).transform; // flush
+      panelBtm.style.transform = 'translateY(101%)';
+    }
 
     setTimeout(function () {
       splash.classList.add('done');
