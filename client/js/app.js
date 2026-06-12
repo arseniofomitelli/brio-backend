@@ -433,18 +433,18 @@ function loadContacts() {
   const hoursEl   = document.getElementById('workingHours');
   const hoursGrid = document.getElementById('hoursGrid');
   const hours = {
-    monday:    { open:'10:00', close:'22:00' },
-    tuesday:   { open:'10:00', close:'22:00' },
-    wednesday: { open:'10:00', close:'22:00' },
-    thursday:  { open:'10:00', close:'22:00' },
-    friday:    { open:'10:00', close:'23:00' },
-    saturday:  { open:'11:00', close:'23:00' },
-    sunday:    { open:'11:00', close:'21:00' },
+    monday:    { closed: true },
+    tuesday:   { open:'12:00', close:'22:00' },
+    wednesday: { open:'12:00', close:'22:00' },
+    thursday:  { open:'12:00', close:'22:00' },
+    friday:    { open:'12:00', close:'00:00' },
+    saturday:  { open:'12:00', close:'00:00' },
+    sunday:    { open:'12:00', close:'22:00' },
   };
   hoursGrid.innerHTML = Object.entries(hours).map(([day, h]) => `
     <div class="hours__row">
       <dt class="hours__day">${DAYS[day] || day}</dt>
-      <dd class="hours__time">${h.open} – ${h.close}</dd>
+      <dd class="hours__time ${h.closed ? 'hours__time--closed' : ''}">${h.closed ? 'Выходной' : `${h.open} – ${h.close}`}</dd>
     </div>
   `).join('');
   hoursEl.querySelector('.hours__title').innerHTML = `${ICONS.clock} Часы работы`;
