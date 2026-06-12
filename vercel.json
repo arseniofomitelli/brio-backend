@@ -5,7 +5,7 @@
   "outputDirectory": "public",
   "installCommand": "echo skip",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!css/|js/|images/|fonts/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
