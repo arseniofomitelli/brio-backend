@@ -405,77 +405,50 @@ lightboxBack.addEventListener('click', closeLightbox);
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
 
 /* ─── CONTACTS ───────────────────────────────────────────── */
-async function loadContacts() {
-  try {
-    const res = await apiFetch(`${API}/contacts`);
-    const { data } = await res.json();
-    if (!data) return;
-
-    document.getElementById('contactsList').innerHTML = `
-      <div class="contact-item">
-        <div class="contact-item__icon">${ICONS.phone}</div>
-        <div>
-          <p class="contact-item__label">Телефон</p>
-          <p class="contact-item__value">
-            <a href="tel:${data.phone}">${data.phone}</a>
-            ${data.phoneExtra ? `<br/><a href="tel:${data.phoneExtra}">${data.phoneExtra}</a>` : ''}
-          </p>
-        </div>
+function loadContacts() {
+  document.getElementById('contactsList').innerHTML = `
+    <div class="contact-item">
+      <div class="contact-item__icon">${ICONS.phone}</div>
+      <div>
+        <p class="contact-item__label">Телефон</p>
+        <p class="contact-item__value"><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
       </div>
-      <div class="contact-item">
-        <div class="contact-item__icon">${ICONS.email}</div>
-        <div>
-          <p class="contact-item__label">Email</p>
-          <p class="contact-item__value"><a href="mailto:brio.msk@gmail.com">brio.msk@gmail.com</a></p>
-        </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-item__icon">${ICONS.email}</div>
+      <div>
+        <p class="contact-item__label">Email</p>
+        <p class="contact-item__value"><a href="mailto:brio.msk@gmail.com">brio.msk@gmail.com</a></p>
       </div>
-      <div class="contact-item">
-        <div class="contact-item__icon">${ICONS.address}</div>
-        <div>
-          <p class="contact-item__label">Адрес</p>
-          <p class="contact-item__value">ул. Маросейка, 15, Москва</p>
-        </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-item__icon">${ICONS.address}</div>
+      <div>
+        <p class="contact-item__label">Адрес</p>
+        <p class="contact-item__value">ул. Маросейка, 15, Москва</p>
       </div>
-    `;
+    </div>
+  `;
 
-    // Телефон в CTA-полосе
-    if (data.phone) {
-      const ctaActions = document.getElementById('ctaActions');
-      const phoneEl = document.createElement('a');
-      phoneEl.href = `tel:${data.phone}`;
-      phoneEl.className = 'cta-band__phone';
-      phoneEl.textContent = data.phone;
-      ctaActions.parentElement.insertBefore(phoneEl, ctaActions);
-    }
-
-    if (data.workingHours) {
-      const hoursEl   = document.getElementById('workingHours');
-      const hoursGrid = document.getElementById('hoursGrid');
-      hoursGrid.innerHTML = Object.entries(data.workingHours).map(([day, h]) => `
-        <div class="hours__row">
-          <dt class="hours__day">${DAYS[day] || day}</dt>
-          <dd class="hours__time ${h.closed ? 'hours__time--closed' : ''}">
-            ${h.closed ? 'Выходной' : `${h.open} – ${h.close}`}
-          </dd>
-        </div>
-      `).join('');
-      hoursEl.querySelector('.hours__title').innerHTML = `${ICONS.clock} Часы работы`;
-      hoursEl.removeAttribute('hidden');
-    }
-
-    const links = [
-      { url: data.instagramUrl, icon: ICONS.instagram, label: 'Instagram' },
-      { url: data.telegramUrl,  icon: ICONS.telegram,  label: 'Telegram'  },
-      { url: data.facebookUrl,  icon: ICONS.facebook,  label: 'Facebook'  },
-      { url: data.whatsappUrl,  icon: ICONS.whatsapp,  label: 'WhatsApp'  },
-    ].filter(l => l.url);
-    if (links.length) {
-      document.getElementById('socials').innerHTML = links.map(l =>
-        `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="social-link">
-          ${l.icon} ${l.label}</a>`
-      ).join('');
-    }
-  } catch (err) { console.error('Contacts load error:', err); }
+  const hoursEl   = document.getElementById('workingHours');
+  const hoursGrid = document.getElementById('hoursGrid');
+  const hours = {
+    monday:    { open:'10:00', close:'22:00' },
+    tuesday:   { open:'10:00', close:'22:00' },
+    wednesday: { open:'10:00', close:'22:00' },
+    thursday:  { open:'10:00', close:'22:00' },
+    friday:    { open:'10:00', close:'23:00' },
+    saturday:  { open:'11:00', close:'23:00' },
+    sunday:    { open:'11:00', close:'21:00' },
+  };
+  hoursGrid.innerHTML = Object.entries(hours).map(([day, h]) => `
+    <div class="hours__row">
+      <dt class="hours__day">${DAYS[day] || day}</dt>
+      <dd class="hours__time">${h.open} – ${h.close}</dd>
+    </div>
+  `).join('');
+  hoursEl.querySelector('.hours__title').innerHTML = `${ICONS.clock} Часы работы`;
+  hoursEl.removeAttribute('hidden');
 }
 
 /* ─── SR-ONLY ────────────────────────────────────────────── */
