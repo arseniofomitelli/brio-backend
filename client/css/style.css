@@ -77,11 +77,6 @@ img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul,ol{list-style:none}
 
-/* ─── REDUCED MOTION ─────────────────────────────────── */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  html{scroll-behavior:auto}
-}
 
 /* ─── FOCUS ─────────────────────────────────────────── */
 :focus-visible{outline:2px solid var(--teal-500);outline-offset:3px;border-radius:var(--r-sm)}
