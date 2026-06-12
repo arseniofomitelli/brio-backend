@@ -60,9 +60,9 @@
   --ease:   cubic-bezier(.25,.46,.45,.94);
   --spring: cubic-bezier(.34,1.56,.64,1);
 
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans:  'Inter', system-ui, sans-serif;
-  --font-script:'Dancing Script', cursive;
+  --font-serif: 'Montserrat', system-ui, sans-serif;
+  --font-sans:  'Montserrat', system-ui, sans-serif;
+  --font-script:'Montserrat', system-ui, sans-serif;
 }
 
 /* ─── RESET ─────────────────────────────────────────── */
@@ -403,7 +403,7 @@ ul,ol{list-style:none}
   animation:marqueeScroll 28s linear infinite;
 }
 .marquee__track span{
-  font-family:var(--font-serif);font-style:italic;
+  font-family:var(--font-serif);font-weight:300;
   font-size:clamp(1rem,2vw,1.25rem);
   color:#fff;white-space:nowrap;
 }
@@ -431,7 +431,7 @@ ul,ol{list-style:none}
   background-clip:text;
 }
 .about__quote blockquote{
-  font-family:var(--font-serif);font-style:italic;
+  font-family:var(--font-serif);font-weight:300;
   font-size:clamp(1.5rem,2.8vw,2.1rem);
   line-height:1.38;color:var(--teal-900);font-weight:400;
   /* Тонкая левая линия — как в журналах */
@@ -493,7 +493,7 @@ ul,ol{list-style:none}
 }
 /* Заголовок */
 .pillar__title{
-  font-family:var(--font-serif);font-style:italic;
+  font-family:var(--font-serif);font-weight:300;
   font-size:clamp(1.3rem,2.5vw,1.7rem);font-weight:400;
   color:var(--white);line-height:1.2;
 }
@@ -617,7 +617,7 @@ ul,ol{list-style:none}
 }
 .cta-band__actions{display:flex;gap:var(--sp-4);justify-content:center;flex-wrap:wrap}
 .cta-band__phone{
-  display:block;font-family:var(--font-serif);font-style:italic;
+  display:block;font-family:var(--font-serif);font-weight:300;
   font-size:clamp(1.5rem,3vw,2.25rem);
   color:var(--teal-200);margin-bottom:var(--sp-8);
   letter-spacing:.02em;
@@ -811,7 +811,7 @@ html{ scrollbar-gutter:stable; }
   animation:splashRuleDraw 600ms ease 500ms both;
 }
 .splash__title{
-  font-family:var(--font-serif);font-style:italic;
+  font-family:var(--font-serif);font-weight:300;
   font-size:clamp(5rem,16vw,9rem);font-weight:700;
   line-height:.9;letter-spacing:-.02em;color:var(--white);
   animation:splashFadeUp 900ms ease 600ms both;
