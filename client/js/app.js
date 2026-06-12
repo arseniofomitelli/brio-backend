@@ -226,57 +226,75 @@ window.addEventListener('scroll', () => {
 
 
 /* ─── MENU ───────────────────────────────────────────────── */
-async function loadMenu() {
+const MENU_DATA = [
+  { id:1, nameRu:'Паста', nameIt:'La Pasta', menuItems:[
+    { nameRu:'Болоньезе',     nameIt:'', price:700 },
+    { nameRu:'Дженовезе',     nameIt:'', price:750 },
+    { nameRu:'Карбонара',     nameIt:'', price:700 },
+    { nameRu:'Алла Норма',    nameIt:'', price:750 },
+    { nameRu:'Качо э пэпэ',  nameIt:'', price:850 },
+    { nameRu:'Полпетте',      nameIt:'', price:700 },
+    { nameRu:'Гамбери',       nameIt:'', price:900 },
+  ]},
+  { id:2, nameRu:'Панини', nameIt:'I Panini', menuItems:[
+    { nameRu:'Капрезе',    nameIt:'', price:700 },
+    { nameRu:'Дженовезе',  nameIt:'', price:800 },
+    { nameRu:'Полпетте',   nameIt:'', price:800 },
+    { nameRu:'Салями',     nameIt:'', price:800 },
+    { nameRu:'Мортаделла', nameIt:'', price:850 },
+  ]},
+  { id:3, nameRu:'Салаты', nameIt:'Le Insalate', menuItems:[
+    { nameRu:'Капрезе',              nameIt:'', price:600 },
+    { nameRu:'Греческий',            nameIt:'', price:650 },
+    { nameRu:'Страчателла',          nameIt:'', price:650 },
+    { nameRu:'Персики с прошутто',   nameIt:'', price:850 },
+  ]},
+  { id:4, nameRu:'Закуски', nameIt:'Gli Antipasti', menuItems:[
+    { nameRu:'Брускетта с рикоттой и томатами',        nameIt:'', price:400 },
+    { nameRu:'Брускетта с лососем',                    nameIt:'', price:650 },
+    { nameRu:'Брускетта с песто и вялеными томатами',  nameIt:'', price:500 },
+  ]},
+  { id:5, nameRu:'Десерты', nameIt:'I Dolci', menuItems:[
+    { nameRu:'Сорбет лайм-лимон', nameIt:'', descriptionRu:'за шарик', price:250 },
+  ]},
+  { id:6, nameRu:'Напитки', nameIt:'Le Bevande', menuItems:[
+    { nameRu:'Кофе лунго',            nameIt:'', descriptionRu:'150 мл', price:300 },
+    { nameRu:'Лимонад классический',  nameIt:'', descriptionRu:'300 мл', price:300 },
+    { nameRu:'Апельсиновый сквиз',    nameIt:'', descriptionRu:'300 мл', price:400 },
+    { nameRu:'Грейпфрутовый сквиз',   nameIt:'', descriptionRu:'300 мл', price:400 },
+    { nameRu:'Сан Пеллегрино',        nameIt:'', descriptionRu:'300 мл', price:400 },
+    { nameRu:'Сидр полусухой',        nameIt:'', descriptionRu:'300 мл', price:400 },
+  ]},
+];
+
+function loadMenu() {
   const tabsEl = document.getElementById('menuTabs');
   const gridEl = document.getElementById('menuGrid');
-  wakingPlaceholder(gridEl, 'Загружаем меню…');
-  try {
-    const res = await apiFetch(`${API}/menu/categories`);
+  const cats = MENU_DATA;
 
-    let { data: cats } = await res.json();
+  tabsEl.innerHTML = cats.map((c, i) => `
+    <button class="menu__tab" role="tab"
+      aria-selected="${i===0}" aria-controls="menuGrid"
+      data-id="${c.id}">${c.nameRu}</button>
+  `).join('');
 
-    // Убираем пиццу из меню
-    cats = cats.filter(c =>
-      c.slug !== 'pizza' &&
-      c.nameRu !== 'Пицца' &&
-      c.nameIt !== 'Pizza'
-    );
+  renderPriceList(cats[0], gridEl);
 
-    if (!cats?.length) {
-      tabsEl.innerHTML = '';
-      gridEl.innerHTML = '<p class="menu__empty">Меню скоро появится</p>';
-      return;
-    }
-
-    tabsEl.innerHTML = cats.map((c, i) => `
-      <button class="menu__tab" role="tab"
-        aria-selected="${i===0}" aria-controls="menuGrid"
-        data-id="${c.id}" id="tab-${c.id}">${c.nameRu}</button>
-    `).join('');
-
-    renderPriceList(cats[0], gridEl);
-
-    tabsEl.querySelectorAll('.menu__tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabsEl.querySelectorAll('.menu__tab').forEach(t => t.setAttribute('aria-selected','false'));
-        tab.setAttribute('aria-selected','true');
-        const cat = cats.find(c => c.id === Number(tab.dataset.id));
-
-        gridEl.style.opacity = '0';
-        gridEl.style.transform = 'translateY(10px)';
-        setTimeout(() => {
-          renderPriceList(cat, gridEl);
-          gridEl.style.transition = 'opacity 200ms ease-out, transform 200ms ease-out';
-          gridEl.style.opacity = '1';
-          gridEl.style.transform = 'none';
-        }, 160);
-      });
+  tabsEl.querySelectorAll('.menu__tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabsEl.querySelectorAll('.menu__tab').forEach(t => t.setAttribute('aria-selected','false'));
+      tab.setAttribute('aria-selected','true');
+      const cat = cats.find(c => c.id === Number(tab.dataset.id));
+      gridEl.style.opacity = '0';
+      gridEl.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        renderPriceList(cat, gridEl);
+        gridEl.style.transition = 'opacity 200ms ease-out, transform 200ms ease-out';
+        gridEl.style.opacity = '1';
+        gridEl.style.transform = 'none';
+      }, 160);
     });
-  } catch (err) {
-    console.error('Menu load error:', err);
-    tabsEl.innerHTML = '';
-    errorPlaceholder(gridEl, loadMenu, 'Не удалось загрузить меню');
-  }
+  });
 }
 
 /* Rosa-style price list */
