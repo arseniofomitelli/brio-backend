@@ -166,9 +166,39 @@ if (navClose) navClose.addEventListener('click', closeNav);
 navLinks.querySelectorAll('.nav__link').forEach(l => l.addEventListener('click', closeNav));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
 
+/* ─── JS ANIMATIONS (bypass prefers-reduced-motion) ─────────────────── */
+function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
+
+function revealAnimate(el, dx, dy, duration, delay) {
+  el.style.transition = 'none';
+  el.style.opacity = '0';
+  el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+  setTimeout(function () {
+    var start = null;
+    function frame(ts) {
+      if (!start) start = ts;
+      var t = Math.min((ts - start) / duration, 1);
+      var p = easeOut3(t);
+      el.style.opacity = String(p);
+      el.style.transform = 'translate(' + dx*(1-p) + 'px,' + dy*(1-p) + 'px)';
+      if (t < 1) { requestAnimationFrame(frame); }
+      else { el.style.cssText = ''; el.classList.add('visible'); }
+    }
+    requestAnimationFrame(frame);
+  }, delay || 0);
+}
+
 /* ─── SCROLL REVEAL ──────────────────────────────────────── */
 const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    revealObs.unobserve(el);
+    const delay = parseFloat(getComputedStyle(el).getPropertyValue('--i') || 0) * 100;
+    const dx = el.classList.contains('reveal--left') ? -32 : el.classList.contains('reveal--right') ? 32 : 0;
+    const dy = (!dx) ? 32 : 0;
+    revealAnimate(el, dx, dy, 650, delay);
+  });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
@@ -434,6 +464,26 @@ async function loadContacts() {
 const style = document.createElement('style');
 style.textContent = '.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}';
 document.head.appendChild(style);
+
+/* ─── MARQUEE JS SCROLL ──────────────────────────────────── */
+(function () {
+  var track = document.querySelector('.marquee__track');
+  if (!track) return;
+  track.style.animation = 'none';
+  var pos = 0;          // current position in %
+  var speed = 0.0018;   // % per ms (same as 28s CSS animation)
+  var last = null;
+  function tick(ts) {
+    if (last === null) last = ts;
+    var dt = Math.min(ts - last, 50); // cap to avoid jump after tab switch
+    last = ts;
+    pos -= speed * dt;
+    if (pos <= -50) pos += 50;
+    track.style.transform = 'translateX(' + pos + '%)';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 
 /* ─── INIT ───────────────────────────────────────────────── */
 loadMenu();
