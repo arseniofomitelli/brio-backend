@@ -20,22 +20,27 @@
     var body = splash.querySelector('.splash__body');
     if (body) { body.style.transition = 'opacity 300ms ease'; body.style.opacity = '0'; }
 
-    // Панели — двойной rAF + getComputedStyle гарантируют flush перед transition
-    var ease = 'transform 1100ms cubic-bezier(0.76,0,0.24,1)';
-    requestAnimationFrame(function () {
-      if (panelTop) { panelTop.style.transition = ease; void panelTop.offsetHeight; }
-      if (panelBtm) { panelBtm.style.transition = ease; void panelBtm.offsetHeight; }
-      requestAnimationFrame(function () {
-        if (panelTop) panelTop.style.transform = 'translateY(-101%)';
-        if (panelBtm) panelBtm.style.transform = 'translateY(101%)';
-      });
-    });
-
-    setTimeout(function () {
-      splash.classList.add('done');
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-    }, 1200);
+    // JS-анимация минует CSS transition — работает даже в режиме экономии заряда
+    var duration = 1100;
+    var start = null;
+    function easeInOut(t) {
+      return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+    }
+    function animatePanels(ts) {
+      if (!start) start = ts;
+      var t = Math.min((ts - start) / duration, 1);
+      var e = easeInOut(t);
+      if (panelTop) panelTop.style.transform = 'translateY(' + (-101 * e) + '%)';
+      if (panelBtm) panelBtm.style.transform = 'translateY(' + (101 * e) + '%)';
+      if (t < 1) {
+        requestAnimationFrame(animatePanels);
+      } else {
+        splash.classList.add('done');
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+      }
+    }
+    requestAnimationFrame(animatePanels);
   }
 
   var autoTimer = setTimeout(dismiss, 2800);
