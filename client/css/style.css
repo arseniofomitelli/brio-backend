@@ -304,7 +304,7 @@ ul,ol{list-style:none}
 
 /* ── Hero элементы — плавное появление по очереди ── */
 .hero__welcome {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-sans);
   font-style: italic;font-weight:300;
   font-size: clamp(2rem, 4vw, 3rem);
   color: rgba(255,255,255,.65);
