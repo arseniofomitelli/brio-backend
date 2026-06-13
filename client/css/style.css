@@ -60,9 +60,9 @@
   --ease:   cubic-bezier(.25,.46,.45,.94);
   --spring: cubic-bezier(.34,1.56,.64,1);
 
-  --font-serif: 'Montserrat', system-ui, sans-serif;
-  --font-sans:  'Montserrat', system-ui, sans-serif;
-  --font-script:'Montserrat', system-ui, sans-serif;
+  --font-serif: 'Raleway', system-ui, sans-serif;
+  --font-sans:  'Raleway', system-ui, sans-serif;
+  --font-script:'Raleway', system-ui, sans-serif;
 }
 
 /* ─── RESET ─────────────────────────────────────────── */
