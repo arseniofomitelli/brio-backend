@@ -309,7 +309,6 @@ ul,ol{list-style:none}
   font-size: clamp(2rem, 4vw, 3rem);
   color: rgba(255,255,255,.65);
   margin-bottom: var(--sp-4);
-  animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
 }
 
 /* Молдинг-линия вокруг лого — такая же как между секциями */
@@ -346,7 +345,6 @@ ul,ol{list-style:none}
   width: 100%;
   height: auto;
   display: block;
-  animation: logoReveal 1.4s ease-out 300ms both;
 }
 
 .hero__tagline {
@@ -355,14 +353,12 @@ ul,ol{list-style:none}
   text-transform: uppercase;
   color: rgba(255,255,255,.5);
   margin-bottom: var(--sp-10);
-  animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 800ms both;
 }
 .hero__actions {
   display: flex;
   gap: var(--sp-3);
   justify-content: center;
   flex-wrap: wrap;
-  animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 1100ms both;
 }
 
 /* Scroll indicator */

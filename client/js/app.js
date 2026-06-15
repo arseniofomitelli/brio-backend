@@ -1,12 +1,51 @@
+/* ─── HERO REVEAL via rAF (работает в любом режиме браузера) ── */
+var _heroItems = [
+  { sel: '.hero__welcome', dy: 24, delay: 0   },
+  { sel: '.hero__logo',    dy: 0,  delay: 200 },
+  { sel: '.hero__tagline', dy: 24, delay: 400 },
+  { sel: '.hero__actions', dy: 24, delay: 650 },
+];
+_heroItems.forEach(function(it) {
+  var el = document.querySelector(it.sel);
+  if (el) { el.style.opacity = '0'; el.style.transform = it.dy ? 'translateY('+it.dy+'px)' : ''; el._heroHidden = true; }
+});
+function _revealHero() {
+  _heroItems.forEach(function(it) {
+    var el = document.querySelector(it.sel);
+    if (!el || !el._heroHidden) return;
+    el._heroHidden = false;
+    (function(el, dy, delay) {
+      setTimeout(function() {
+        var start = null;
+        function frame(ts) {
+          if (!start) start = ts;
+          var t = Math.min((ts - start) / 900, 1);
+          var p = 1 - Math.pow(1 - t, 3);
+          el.style.opacity = String(p);
+          el.style.transform = dy ? 'translateY(' + (dy * (1 - p)) + 'px)' : 'none';
+          if (t < 1) { requestAnimationFrame(frame); }
+          else { el.style.opacity = '1'; el.style.transform = 'none'; }
+        }
+        requestAnimationFrame(frame);
+      }, delay);
+    })(el, it.dy, it.delay);
+  });
+}
+setTimeout(function() {
+  _heroItems.forEach(function(it) {
+    var el = document.querySelector(it.sel);
+    if (el && el._heroHidden) { el.style.opacity = '1'; el.style.transform = 'none'; el._heroHidden = false; }
+  });
+}, 6000);
+
 /* ─── SPLASH INTRO ───────────────────────────────────────── */
 (function () {
   var splash = document.getElementById('splash');
-  if (!splash) return;
+  if (!splash) { _revealHero(); return; }
 
   var panelTop = document.getElementById('splashTop');
   var panelBtm = document.getElementById('splashBtm');
 
-  // Блокируем скролл; компенсируем ширину скроллбара чтобы не прыгал layout
   var sb = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.overflow = 'hidden';
   if (sb > 0) document.body.style.paddingRight = sb + 'px';
@@ -16,11 +55,9 @@
     if (dismissed) return;
     dismissed = true;
 
-    // Текст — быстро гасим
     var body = splash.querySelector('.splash__body');
     if (body) { body.style.transition = 'opacity 300ms ease'; body.style.opacity = '0'; }
 
-    // JS-анимация минует CSS transition — работает даже в режиме экономии заряда
     var duration = 1100;
     var start = null;
     function easeInOut(t) {
@@ -38,6 +75,7 @@
         splash.classList.add('done');
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
+        _revealHero();
       }
     }
     requestAnimationFrame(animatePanels);
