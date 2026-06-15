@@ -337,7 +337,7 @@ function loadMenu() {
 
 /* Rosa-style price list */
 function renderPriceList(cat, gridEl) {
-  if (!cat?.menuItems?.length) {
+  if (!cat || !cat.menuItems || !cat.menuItems.length) {
     gridEl.innerHTML = '<p class="menu__empty">В этой категории пока нет блюд</p>';
     return;
   }
@@ -391,7 +391,7 @@ async function loadGallery() {
   try {
     const res = await apiFetch(`${API}/gallery`);
     const { data: images } = await res.json();
-    if (!images?.length) return;
+    if (!images || !images.length) return;
 
     const gridEl = document.getElementById('galleryGrid');
     gridEl.innerHTML = images.map((img, i) => `
