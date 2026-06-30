@@ -42,7 +42,7 @@
   --surface:  var(--cream);   /* карточки, секции — тот же тёплый крем */
   --text:     var(--gray-900);
   --text-2:   var(--gray-600);
-  --text-3:   var(--gray-400);
+  --text-3:   #635a4d;   /* затемнён для контраста ≥4.5:1 на креме (impeccable) */
   --accent:   var(--teal-500);
 
   --sp-1:4px; --sp-2:8px;  --sp-3:12px; --sp-4:16px;
@@ -107,8 +107,8 @@ ul,ol{list-style:none}
 
 .section-title{
   font-family:var(--font-serif);
-  font-size:clamp(2.5rem,5.2vw,4.1rem);
-  font-weight:600;line-height:1.04;letter-spacing:-.015em;
+  font-size:clamp(2.7rem,5.6vw,4.6rem);
+  font-weight:700;line-height:1.02;letter-spacing:-.02em;
   text-wrap:balance;
   font-feature-settings:"liga" 1,"dlig" 1;
   color:var(--text);margin-bottom:var(--sp-6);
@@ -423,23 +423,16 @@ ul,ol{list-style:none}
   position:relative;
 }
 .about__quote-mark{
-  display:block;font-family:var(--font-serif);font-size:11rem;line-height:.5;
-  color:var(--teal-100);margin-bottom:var(--sp-6);user-select:none;
-  /* Лёгкий градиентный fade — верх яркий, низ прозрачный */
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-image:linear-gradient(to bottom,var(--teal-200) 0%,var(--teal-50) 100%);
-  background-clip:text;
+  display:block;font-family:var(--font-serif);font-size:13rem;line-height:.45;
+  color:var(--teal-300);margin-bottom:var(--sp-4);user-select:none;
+  /* solid brand teal — без gradient-text (impeccable ban) */
 }
 .about__quote blockquote{
   font-family:var(--font-serif);
-  font-size:clamp(1.9rem,3.4vw,2.7rem);
-  line-height:1.24;color:var(--teal-900);font-weight:500;
-  font-style:italic;letter-spacing:.003em;
+  font-size:clamp(2.2rem,4.2vw,3.2rem);
+  line-height:1.16;color:var(--teal-900);font-weight:600;
+  font-style:italic;letter-spacing:-.01em;
   text-wrap:balance;
-  /* Тонкая левая линия — как в журналах */
-  border-left:3px solid var(--teal-300);
-  padding-left:var(--sp-5);
-  margin-left:calc(-1 * var(--sp-5) - 3px);
 }
 
 .about__body p{font-size:1.0625rem;color:var(--text-2);margin-bottom:var(--sp-5);line-height:1.7}
@@ -543,17 +536,17 @@ ul,ol{list-style:none}
 }
 .menu-list__item{
   display:flex;align-items:flex-start;justify-content:space-between;
-  gap:var(--sp-4);padding:var(--sp-5) 0 var(--sp-5) var(--sp-1);
+  gap:var(--sp-4);padding:var(--sp-5) var(--sp-3);
   border-bottom:1px solid var(--gray-100);
-  border-left:2px solid transparent;
-  transition:background 220ms var(--ease),padding-left 220ms var(--ease),border-color 220ms;
+  transition:background 220ms var(--ease);
 }
 .menu-list__item:hover{
-  background:linear-gradient(to right,var(--sage-pale),transparent);
-  padding-left:var(--sp-4);
-  border-left-color:var(--teal-500);
-  border-radius:0 var(--r-sm) var(--r-sm) 0;
+  background:var(--sage-pale);
+  border-radius:var(--r-sm);
 }
+/* affordance без side-stripe: акцент на цене */
+.menu-list__item:hover .menu-list__price{color:var(--teal-700)}
+.menu-list__price{transition:color 200ms var(--ease)}
 
 .menu-list__info{flex:1;min-width:0}
 .menu-list__name{
@@ -962,20 +955,6 @@ html{ scrollbar-gutter:stable; }
 /* ─── PILLAR ENHANCEMENTS ───────────────────────────── */
 .pillar{position:relative;overflow:hidden}
 
-/* Редакторский большой номер */
-.pillar__num{
-  font-family:var(--font-serif);font-size:5rem;font-weight:700;
-  line-height:1;letter-spacing:-.04em;
-  color:rgba(255,255,255,.04);
-  user-select:none;pointer-events:none;
-  transition:color var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease);
-  order:-1;
-}
-.pillar:hover .pillar__num{
-  color:rgba(160,204,202,.10);
-  transform:scale(1.08);
-}
-
 /* Световой sweep при hover */
 .pillar::after{
   content:'';position:absolute;top:0;left:0;
@@ -1091,7 +1070,6 @@ html{ scrollbar-gutter:stable; }
 @media(max-width:768px){
   .about__stats{gap:0}
   .about__stat-num{font-size:1.5rem}
-  .pillar__num{font-size:3.5rem}
   .hero__scroll-indicator{display:none}
 }
 @media(max-width:480px){
