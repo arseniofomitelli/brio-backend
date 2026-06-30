@@ -23,8 +23,9 @@ function _revealHero() {
           var p = 1 - Math.pow(1 - t, 3);
           el.style.opacity = String(p);
           el.style.transform = dy ? 'translateY(' + (dy * (1 - p)) + 'px)' : 'none';
+          if (dy) el.style.filter = p < 1 ? 'blur(' + (5 * (1 - p)).toFixed(2) + 'px)' : 'none';
           if (t < 1) { requestAnimationFrame(frame); }
-          else { el.style.opacity = '1'; el.style.transform = 'none'; }
+          else { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; }
         }
         requestAnimationFrame(frame);
       }, delay);
@@ -211,6 +212,7 @@ function revealAnimate(el, dx, dy, duration, delay) {
   el.style.transition = 'none';
   el.style.opacity = '0';
   el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+  el.style.filter = 'blur(6px)';
   setTimeout(function () {
     var start = null;
     function frame(ts) {
@@ -219,6 +221,7 @@ function revealAnimate(el, dx, dy, duration, delay) {
       var p = easeOut3(t);
       el.style.opacity = String(p);
       el.style.transform = 'translate(' + dx*(1-p) + 'px,' + dy*(1-p) + 'px)';
+      el.style.filter = p < 1 ? 'blur(' + (6 * (1 - p)).toFixed(2) + 'px)' : 'none';
       if (t < 1) { requestAnimationFrame(frame); }
       else { el.style.cssText = ''; el.classList.add('visible'); }
     }

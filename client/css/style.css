@@ -1098,3 +1098,60 @@ html{ scrollbar-gutter:stable; }
   .about__stat{flex:0 0 calc(50% - var(--sp-3));align-items:flex-start;padding:0}
   .about__stat:last-child{align-items:flex-start}
 }
+
+/* ═══════════════════════════════════════════════════════
+   BRIO v3 — Skill-driven premium polish
+   (high-end-visual-design + redesign-existing-projects)
+═══════════════════════════════════════════════════════ */
+
+/* Фирменное «тяжёлое» премиум-замедление (Apple/Linear-tier) */
+:root{ --ease-premium: cubic-bezier(.32,.72,0,1); }
+
+/* ─── ПЛЁНОЧНОЕ ЗЕРНО — подпись Editorial Luxury ──────────
+   Фиксированный слой, pointer-events:none, только transform/opacity-safe.
+   На креме читается как фактура бумаги, на тёмных секциях — тонкий шум. */
+body::after{
+  content:'';position:fixed;inset:0;z-index:150;pointer-events:none;
+  opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px 160px;
+}
+@media(prefers-reduced-motion:reduce){ body::after{opacity:.03} }
+
+/* ─── КНОПКА-В-КНОПКЕ — вложенная иконка (haptic CTA) ─────
+   high-end-visual-design §4.B: стрелка живёт в своём круге,
+   на hover уезжает по диагонали — внутреннее кинетическое напряжение. */
+.btn--icon{gap:.55rem;padding-right:7px}
+.btn__ico{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:var(--r-full);flex-shrink:0;
+  background:rgba(20,47,46,.10);
+  font-size:1.05rem;line-height:1;
+  transition:transform var(--dur) var(--ease-premium),
+             background var(--dur) var(--ease-premium);
+}
+.btn--icon:hover .btn__ico{
+  transform:translate(3px,-2px) scale(1.07);
+  background:rgba(20,47,46,.18);
+}
+.btn--icon:active .btn__ico{transform:translate(1px,0) scale(.98)}
+
+/* ─── HAPTIC-ГЛУБИНА: «machined» поверхности ──────────────
+   Намёк на double-bezel — внутренний световой кант сверху +
+   тёплая, тонированная под фон тень (не чёрная). */
+.hours{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),
+             0 12px 36px rgba(15,40,39,.20);
+}
+.contacts__map{
+  box-shadow:0 16px 48px rgba(15,40,39,.18);
+  outline:1px solid rgba(15,40,39,.06);outline-offset:-1px;
+}
+.gallery__item{
+  box-shadow:0 10px 30px rgba(8,24,23,.35);
+}
+
+/* Премиум-замедление на ключевых интерактивных элементах */
+.btn,.gallery__item img,.menu-list__item,.contact-item{
+  transition-timing-function:var(--ease-premium);
+}
