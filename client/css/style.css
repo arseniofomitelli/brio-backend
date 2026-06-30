@@ -199,7 +199,7 @@ ul,ol{list-style:none}
              box-shadow var(--dur-fast) var(--ease);
   white-space:nowrap;
 }
-.btn:active{transform:scale(.95)} /* чёткий отклик на тап */
+.btn:active{transform:scale(.97)} /* чёткий, но деликатный отклик на тап (Emil: 0.95–0.98) */
 .btn .ripple{
   position:absolute;border-radius:50%;transform:scale(0);pointer-events:none;
   animation:rippleAnim 280ms linear;background:rgba(255,255,255,.3);
@@ -525,7 +525,7 @@ ul,ol{list-style:none}
   color:var(--text-2);font-family:var(--font-sans);font-size:.875rem;
   font-weight:500;letter-spacing:.04em;cursor:pointer;
   touch-action:manipulation;
-  transition:all var(--dur-fast) var(--ease);
+  transition:border-color var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease);
 }
 .menu__tab:hover{border-color:var(--sage);color:var(--sage)}
 .menu__tab:active{transform:scale(.96);opacity:.85}
@@ -731,7 +731,7 @@ ul,ol{list-style:none}
   background:var(--bg);border:1px solid var(--gray-200);
   color:var(--text-2);font-size:.875rem;font-weight:500;
   touch-action:manipulation;
-  transition:all var(--dur-fast) var(--ease);
+  transition:border-color var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease);
 }
 .social-link:hover{background:var(--sage-dark);border-color:var(--sage-dark);color:var(--white);transform:translateY(-2px)}
 .social-link:active{transform:scale(.95);opacity:.85}
@@ -978,17 +978,18 @@ html{ scrollbar-gutter:stable; }
 
 /* Световой sweep при hover */
 .pillar::after{
-  content:'';position:absolute;top:0;left:-120%;
+  content:'';position:absolute;top:0;left:0;
   width:60%;height:100%;
   background:linear-gradient(90deg,
     transparent 0%,
     rgba(255,255,255,.05) 50%,
     transparent 100%
   );
-  transition:left 650ms var(--ease);
+  transform:translateX(-130%);
+  transition:transform 650ms var(--ease); /* GPU: transform, не left */
   pointer-events:none;
 }
-.pillar:hover::after{left:160%}
+.pillar:hover::after{transform:translateX(420%)}
 
 /* Плавающие иконки */
 .pillar__icon{animation:floatIcon 4.5s ease-in-out infinite}
@@ -1020,6 +1021,7 @@ html{ scrollbar-gutter:stable; }
   font-size:clamp(1.75rem,3vw,2.25rem);
   font-weight:700;color:var(--teal-700);
   line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; /* цифры не прыгают при счёте */
   animation:numFlipIn 500ms var(--ease) both;
 }
 .about__stat-label{
@@ -1104,8 +1106,11 @@ html{ scrollbar-gutter:stable; }
    (high-end-visual-design + redesign-existing-projects)
 ═══════════════════════════════════════════════════════ */
 
-/* Фирменное «тяжёлое» премиум-замедление (Apple/Linear-tier) */
-:root{ --ease-premium: cubic-bezier(.32,.72,0,1); }
+/* Фирменные кривые (Emil Kowalski — встроенные CSS-easings слишком слабые) */
+:root{
+  --ease-premium: cubic-bezier(.32,.72,0,1);   /* iOS-drawer */
+  --ease-out:     cubic-bezier(.23,1,.32,1);    /* сильный ease-out для UI */
+}
 
 /* ─── ПЛЁНОЧНОЕ ЗЕРНО — подпись Editorial Luxury ──────────
    Фиксированный слой, pointer-events:none, только transform/opacity-safe.
@@ -1154,4 +1159,27 @@ body::after{
 /* Премиум-замедление на ключевых интерактивных элементах */
 .btn,.gallery__item img,.menu-list__item,.contact-item{
   transition-timing-function:var(--ease-premium);
+}
+
+/* ─── ДОСТУПНОСТЬ: уважение к prefers-reduced-motion ──────
+   Emil/review-animations: «reduced — мягче, а не ноль».
+   Гасим непрерывное и движение, сохраняем opacity/цвет. */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  /* Останавливаем бесконечную/амбиентную анимацию полностью */
+  .orb,.particle,.pillar__icon,.hero__scroll-line,
+  .cta-band::before,.marquee__track,.skeleton,.api-waking__dot,
+  .splash__welcome,.splash__rule,.splash__title,.splash__tagline{
+    animation:none!important;
+  }
+  .hero__scroll-indicator{animation:none!important;opacity:.6}
+  /* Sweep, парящие иконки, параллакс — обнуляем смещение */
+  .pillar::after{display:none}
+  .orb{translate:none!important}
+  /* Переходы оставляем, но без «тяжёлых» длинных движений */
+  *,*::before,*::after{
+    transition-duration:120ms!important;
+    animation-duration:1ms!important;
+    animation-iteration-count:1!important;
+  }
 }

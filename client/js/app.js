@@ -1,4 +1,9 @@
-/* ─── HERO REVEAL via rAF (работает в любом режиме браузера) ── */
+/* ─── ДОСТУПНОСТЬ: prefers-reduced-motion ──────────────────
+   Emil/review-animations: уважаем настройку — гасим движение,
+   но контент сразу показываем (не «ноль», а мягче). */
+var REDUCE = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+/* ─── HERO REVEAL via rAF ───────────────────────────────────── */
 var _heroItems = [
   { sel: '.hero__welcome', dy: 24, delay: 0   },
   { sel: '.hero__logo',    dy: 0,  delay: 200 },
@@ -10,6 +15,13 @@ _heroItems.forEach(function(it) {
   if (el) { el.style.opacity = '0'; el.style.transform = it.dy ? 'translateY('+it.dy+'px)' : ''; el._heroHidden = true; }
 });
 function _revealHero() {
+  if (REDUCE) {
+    _heroItems.forEach(function(it) {
+      var el = document.querySelector(it.sel);
+      if (el) { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; el._heroHidden = false; }
+    });
+    return;
+  }
   _heroItems.forEach(function(it) {
     var el = document.querySelector(it.sel);
     if (!el || !el._heroHidden) return;
@@ -55,6 +67,14 @@ setTimeout(function() {
   function dismiss() {
     if (dismissed) return;
     dismissed = true;
+
+    if (REDUCE) {
+      splash.classList.add('done');
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      _revealHero();
+      return;
+    }
 
     var body = splash.querySelector('.splash__body');
     if (body) { body.style.transition = 'opacity 300ms ease'; body.style.opacity = '0'; }
@@ -209,6 +229,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); 
 function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
 
 function revealAnimate(el, dx, dy, duration, delay) {
+  if (REDUCE) { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; el.classList.add('visible'); return; }
   el.style.transition = 'none';
   el.style.opacity = '0';
   el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
@@ -258,12 +279,14 @@ document.querySelectorAll('section[id]').forEach(s => activeObs.observe(s));
 
 /* ─── PARALLAX HERO ──────────────────────────────────────── */
 const heroBg = document.querySelector('.hero__bg');
-window.addEventListener('scroll', () => {
-  if (!heroBg) return;
-  const y = window.scrollY;
-  if (y < window.innerHeight * 1.2)
-    heroBg.style.transform = `translateY(${y * 0.3}px)`;
-}, { passive: true });
+if (!REDUCE) {
+  window.addEventListener('scroll', () => {
+    if (!heroBg) return;
+    const y = window.scrollY;
+    if (y < window.innerHeight * 1.2)
+      heroBg.style.transform = `translateY(${y * 0.3}px)`;
+  }, { passive: true });
+}
 
 
 /* ─── MENU ───────────────────────────────────────────────── */
@@ -502,6 +525,7 @@ document.head.appendChild(style);
   var track = document.querySelector('.marquee__track');
   if (!track) return;
   track.style.animation = 'none';
+  if (REDUCE) return; /* статичная лента при reduced-motion */
   var pos = 0;          // current position in %
   var speed = 0.0018;   // % per ms (same as 28s CSS animation)
   var last = null;
@@ -526,6 +550,7 @@ loadContacts();
 function animateCount(el) {
   var target = parseInt(el.dataset.target, 10);
   if (isNaN(target)) return;
+  if (REDUCE) { el.textContent = target; return; }
   var duration = 1400;
   var start = null;
   function tick(ts) {
@@ -552,6 +577,7 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
 
 /* ─── MOUSE PARALLAX FOR HERO ORBS ──────────────────── */
 (function() {
+  if (REDUCE) return; /* без параллакса от мыши при reduced-motion */
   var orbs = document.querySelectorAll('.orb');
   if (!orbs.length) return;
   var mx = 0, my = 0, cx = 0, cy = 0;
