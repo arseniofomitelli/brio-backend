@@ -518,3 +518,77 @@ document.head.appendChild(style);
 loadMenu();
 loadGallery();
 loadContacts();
+
+/* ─── ABOUT STATS COUNTER ────────────────────────────── */
+function animateCount(el) {
+  var target = parseInt(el.dataset.target, 10);
+  if (isNaN(target)) return;
+  var duration = 1400;
+  var start = null;
+  function tick(ts) {
+    if (!start) start = ts;
+    var t = Math.min((ts - start) / duration, 1);
+    var p = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * p);
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(tick);
+}
+var countObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (!e.isIntersecting) return;
+    countObs.unobserve(e.target);
+    animateCount(e.target);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) {
+  el.textContent = '0';
+  countObs.observe(el);
+});
+
+/* ─── MOUSE PARALLAX FOR HERO ORBS ──────────────────── */
+(function() {
+  var orbs = document.querySelectorAll('.orb');
+  if (!orbs.length) return;
+  var mx = 0, my = 0, cx = 0, cy = 0;
+  document.addEventListener('mousemove', function(e) {
+    if (window.scrollY > window.innerHeight * 0.8) return;
+    mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+    my = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
+  var factors = [12, 18, 8, 6];
+  function orbFrame() {
+    cx += (mx - cx) * 0.04;
+    cy += (my - cy) * 0.04;
+    orbs.forEach(function(orb, i) {
+      var f = factors[i] || 10;
+      orb.style.setProperty('--orb-px', (cx * f).toFixed(2) + 'px');
+      orb.style.setProperty('--orb-py', (cy * f).toFixed(2) + 'px');
+    });
+    requestAnimationFrame(orbFrame);
+  }
+  requestAnimationFrame(orbFrame);
+})();
+
+/* ─── NAV BRAND ──────────────────────────────────────── */
+(function() {
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  var brand = document.createElement('span');
+  brand.className = 'nav__brand';
+  brand.textContent = 'Brio';
+  brand.setAttribute('aria-hidden', 'true');
+  var burger = document.getElementById('burger');
+  if (burger) nav.insertBefore(brand, burger);
+})();
+
+/* ─── HERO SCROLL INDICATOR FADE ON SCROLL ──────────── */
+(function() {
+  var indicator = document.querySelector('.hero__scroll-indicator');
+  if (!indicator) return;
+  window.addEventListener('scroll', function() {
+    var p = Math.min(window.scrollY / 120, 1);
+    indicator.style.opacity = String(1 - p);
+  }, { passive: true });
+})();

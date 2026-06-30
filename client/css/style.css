@@ -885,3 +885,209 @@ html{ scrollbar-gutter:stable; }
   .stats__grid{grid-template-columns:1fr 1fr}
   .footer__nav{gap:var(--sp-5)}
 }
+
+/* ═══════════════════════════════════════════════════════
+   BRIO v2 — Enhanced Animations & Design
+═══════════════════════════════════════════════════════ */
+
+/* ─── NEW KEYFRAMES ─────────────────────────────────── */
+@keyframes scrollLineDrop{
+  0%  {opacity:0;transform:scaleY(0);transform-origin:top center}
+  20% {opacity:1;transform:scaleY(1);transform-origin:top center}
+  70% {opacity:1;transform:scaleY(1);transform-origin:bottom center}
+  100%{opacity:0;transform:scaleY(0);transform-origin:bottom center}
+}
+@keyframes scrollIndicatorIn{
+  from{opacity:0;transform:translateX(-50%) translateY(14px)}
+  to  {opacity:1;transform:translateX(-50%) translateY(0)}
+}
+@keyframes floatIcon{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%    {transform:translateY(-7px) scale(1.04)}
+}
+@keyframes glowBreath{
+  0%,100%{opacity:.5}
+  50%    {opacity:1}
+}
+@keyframes numFlipIn{
+  from{opacity:0;transform:translateY(10px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+@keyframes orbDrift3{
+  0%  {transform:translate(0,0) scale(1)}
+  33% {transform:translate(30px,20px) scale(1.05)}
+  66% {transform:translate(-20px,35px) scale(.97)}
+  100%{transform:translate(0,0) scale(1)}
+}
+
+/* ─── HERO — 4-й орб ─────────────────────────────────── */
+.orb--4{
+  width:200px;height:200px;
+  background:var(--wood-warm);opacity:.06;
+  bottom:20%;left:25%;
+  animation:orbDrift3 18s ease-in-out infinite;
+}
+
+/* ─── ОРБ: CSS translate для параллакса от мыши ─────── */
+.orb{translate:var(--orb-px,0px) var(--orb-py,0px)}
+
+/* ─── HERO SCROLL INDICATOR ──────────────────────────── */
+.hero__scroll-indicator{
+  position:absolute;bottom:var(--sp-8);left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);
+  z-index:1;
+  opacity:0;
+  animation:scrollIndicatorIn 700ms var(--ease) 5.4s both;
+  pointer-events:none;
+}
+.hero__scroll-text{
+  font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+}
+.hero__scroll-line{
+  display:block;width:1px;height:44px;
+  background:linear-gradient(to bottom,rgba(255,255,255,.65),transparent);
+  animation:scrollLineDrop 2.2s ease-in-out infinite;
+  transform-origin:top center;
+}
+
+/* ─── PILLAR ENHANCEMENTS ───────────────────────────── */
+.pillar{position:relative;overflow:hidden}
+
+/* Редакторский большой номер */
+.pillar__num{
+  font-family:var(--font-serif);font-size:5rem;font-weight:700;
+  line-height:1;letter-spacing:-.04em;
+  color:rgba(255,255,255,.04);
+  user-select:none;pointer-events:none;
+  transition:color var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease);
+  order:-1;
+}
+.pillar:hover .pillar__num{
+  color:rgba(160,204,202,.10);
+  transform:scale(1.08);
+}
+
+/* Световой sweep при hover */
+.pillar::after{
+  content:'';position:absolute;top:0;left:-120%;
+  width:60%;height:100%;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,.05) 50%,
+    transparent 100%
+  );
+  transition:left 650ms var(--ease);
+  pointer-events:none;
+}
+.pillar:hover::after{left:160%}
+
+/* Плавающие иконки */
+.pillar__icon{animation:floatIcon 4.5s ease-in-out infinite}
+.pillar:nth-child(2) .pillar__icon{animation-delay:1.5s}
+.pillar:nth-child(3) .pillar__icon{animation-delay:3s}
+/* Иконка — teal-подсветка при hover */
+.pillar:hover .pillar__icon{
+  background:rgba(160,204,202,.16);
+  border-color:rgba(160,204,202,.3);
+  color:var(--teal-300);
+}
+
+/* ─── ABOUT STATS STRIP ─────────────────────────────── */
+.about__stats{
+  display:flex;align-items:center;
+  margin-top:var(--sp-10);padding-top:var(--sp-8);
+  border-top:1px solid var(--gray-100);
+  gap:0;
+}
+.about__stat{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;gap:2px;text-align:center;
+  padding:0 var(--sp-4);
+}
+.about__stat:first-child{align-items:flex-start;padding-left:0}
+.about__stat:last-child {align-items:flex-end;padding-right:0}
+.about__stat-num{
+  font-family:var(--font-serif);
+  font-size:clamp(1.75rem,3vw,2.25rem);
+  font-weight:700;color:var(--teal-700);
+  line-height:1;letter-spacing:-.02em;
+  animation:numFlipIn 500ms var(--ease) both;
+}
+.about__stat-label{
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-3);white-space:nowrap;
+}
+.about__stat-div{
+  width:1px;height:36px;background:var(--gray-200);
+  flex-shrink:0;
+}
+
+/* ─── CTA BAND: пульсирующий фоновый свет ───────────── */
+.cta-band::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 65% at 50% 115%,rgba(160,204,202,.09) 0%,transparent 55%),
+    radial-gradient(ellipse 35% 45% at 8% -5%,rgba(255,255,255,.04) 0%,transparent 50%);
+  animation:glowBreath 7s ease-in-out infinite;
+}
+
+/* ─── GALLERY SECTION: тонкие радиальные свечения ───── */
+.gallery-section::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 65% 45% at 10% 80%,rgba(160,204,202,.05) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 15%,rgba(160,204,202,.04) 0%,transparent 50%);
+}
+
+/* ─── FOOTER: тонкая градиентная линия сверху ───────── */
+.footer::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,
+    transparent 0%,var(--teal-700) 25%,var(--teal-500) 50%,var(--teal-700) 75%,transparent 100%
+  );
+}
+.footer{position:relative}
+
+/* ─── MENU TAB: точка под активным табом ────────────── */
+.menu__tab{position:relative}
+.menu__tab[aria-selected="true"]::after{
+  content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;border-radius:50%;
+  background:var(--teal-500);
+}
+
+/* ─── NAV BRAND — появляется при скролле ────────────── */
+.nav__brand{
+  font-family:var(--font-serif);font-size:1rem;font-weight:700;
+  letter-spacing:.14em;color:rgba(255,255,255,0);
+  pointer-events:none;transition:color var(--dur) var(--ease);
+  flex-shrink:0;user-select:none;
+}
+.header.scrolled .nav__brand{
+  color:rgba(255,255,255,.8);
+  pointer-events:auto;
+}
+
+/* ─── SCROLL PROGRESS: тонкий градиент ─────────────── */
+.scroll-progress{
+  background:linear-gradient(to right,
+    var(--teal-500),var(--teal-300),var(--wood-warm)
+  )!important;
+  height:2px!important;
+}
+
+/* ─── RESPONSIVE v2 ─────────────────────────────────── */
+@media(max-width:768px){
+  .about__stats{gap:0}
+  .about__stat-num{font-size:1.5rem}
+  .pillar__num{font-size:3.5rem}
+  .hero__scroll-indicator{display:none}
+}
+@media(max-width:480px){
+  .about__stats{flex-wrap:wrap;gap:var(--sp-6);padding-top:var(--sp-6)}
+  .about__stat-div{display:none}
+  .about__stat{flex:0 0 calc(50% - var(--sp-3));align-items:flex-start;padding:0}
+  .about__stat:last-child{align-items:flex-start}
+}
