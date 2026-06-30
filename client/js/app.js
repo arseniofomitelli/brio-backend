@@ -205,10 +205,20 @@ document.body.prepend(progressBar);
 
 /* ─── HEADER SCROLL ──────────────────────────────────────── */
 const header = document.getElementById('header');
+let _lastScrollY = 0;
 window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 60);
+  const y = window.scrollY;
+  header.classList.toggle('scrolled', y > 60);
+  // Прячем хедер при движении вниз, показываем при движении вверх
+  const navOpen = navLinks && navLinks.classList.contains('open');
+  if (!navOpen && y > 160 && y > _lastScrollY + 4) {
+    header.classList.add('header--hidden');
+  } else if (y < _lastScrollY - 4 || y < 160) {
+    header.classList.remove('header--hidden');
+  }
+  _lastScrollY = y;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  progressBar.style.width = maxScroll > 0 ? `${(window.scrollY / maxScroll) * 100}%` : '0';
+  progressBar.style.width = maxScroll > 0 ? `${(y / maxScroll) * 100}%` : '0';
 }, { passive: true });
 
 /* ─── MOBILE NAV ─────────────────────────────────────────── */
@@ -620,4 +630,37 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
     var p = Math.min(window.scrollY / 120, 1);
     indicator.style.opacity = String(1 - p);
   }, { passive: true });
+})();
+
+/* ─── МАГНИТНЫЕ CTA-КНОПКИ ───────────────────────────
+   Главные кнопки слегка тянутся к курсору (пружинное сглаживание).
+   Только мышь + уважение к reduced-motion. */
+(function() {
+  if (REDUCE) return;
+  if (!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches)) return;
+  document.querySelectorAll('.btn--icon').forEach(function(btn) {
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+    function loop() {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      btn.style.transform = 'translate(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px)';
+      if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+        raf = requestAnimationFrame(loop);
+      } else {
+        cx = tx; cy = ty;
+        btn.style.transform = (tx || ty) ? 'translate(' + tx + 'px,' + ty + 'px)' : '';
+        raf = null;
+      }
+    }
+    btn.addEventListener('pointermove', function(e) {
+      var r = btn.getBoundingClientRect();
+      tx = (e.clientX - (r.left + r.width / 2)) * 0.28;
+      ty = (e.clientY - (r.top + r.height / 2)) * 0.40;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    btn.addEventListener('pointerleave', function() {
+      tx = 0; ty = 0;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+  });
 })();

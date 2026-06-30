@@ -216,8 +216,11 @@ ul,ol{list-style:none}
 /* ─── HEADER ────────────────────────────────────────── */
 .header{
   position:fixed;inset:0 0 auto;z-index:100;padding:var(--sp-5) 0;
-  transition:background var(--dur) var(--ease),padding var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
+  transition:background var(--dur) var(--ease),padding var(--dur) var(--ease),
+             box-shadow var(--dur) var(--ease),transform 420ms var(--ease-premium);
 }
+/* Прячется при скролле вниз, возвращается при скролле вверх */
+.header--hidden{transform:translateY(-100%)}
 .header.scrolled{
   background:var(--teal-900); /* чистый тёмный тил, не размытый */
   padding:var(--sp-3) 0;
