@@ -356,17 +356,23 @@ function loadMenu() {
 
   tabsEl.querySelectorAll('.menu__tab').forEach(tab => {
     tab.addEventListener('click', () => {
+      if (tab.getAttribute('aria-selected') === 'true') return;
       tabsEl.querySelectorAll('.menu__tab').forEach(t => t.setAttribute('aria-selected','false'));
       tab.setAttribute('aria-selected','true');
       const cat = cats.find(c => c.id === Number(tab.dataset.id));
+      if (REDUCE) { renderPriceList(cat, gridEl); return; }
+      // Уводим текущий список (fade + blur), затем впускаем новый со stagger
+      gridEl.style.transition = 'opacity 170ms ease, transform 170ms ease, filter 170ms ease';
       gridEl.style.opacity = '0';
-      gridEl.style.transform = 'translateY(10px)';
+      gridEl.style.transform = 'translateY(8px)';
+      gridEl.style.filter = 'blur(3px)';
       setTimeout(() => {
-        renderPriceList(cat, gridEl);
-        gridEl.style.transition = 'opacity 200ms ease-out, transform 200ms ease-out';
+        gridEl.style.transition = 'none';
         gridEl.style.opacity = '1';
         gridEl.style.transform = 'none';
-      }, 160);
+        gridEl.style.filter = 'none';
+        renderPriceList(cat, gridEl);
+      }, 180);
     });
   });
 }
@@ -395,15 +401,18 @@ function renderPriceList(cat, gridEl) {
 
   gridEl.innerHTML = `<ul class="menu-list" role="list">${items}</ul>`;
 
-  // Stagger entrance
+  // Stagger entrance — пружинный ease-out + лёгкий blur (Emil-grade)
+  if (REDUCE) return; // блюда уже видимы по умолчанию
   gridEl.querySelectorAll('.menu-list__item').forEach((item, i) => {
     item.style.opacity = '0';
-    item.style.transform = 'translateY(12px)';
+    item.style.transform = 'translateY(16px)';
+    item.style.filter = 'blur(4px)';
     setTimeout(() => {
-      item.style.transition = 'opacity 260ms ease-out, transform 260ms ease-out, background 150ms, padding-left 150ms';
+      item.style.transition = 'opacity 420ms cubic-bezier(.23,1,.32,1), transform 420ms cubic-bezier(.23,1,.32,1), filter 420ms ease, background 180ms, color 180ms';
       item.style.opacity = '1';
       item.style.transform = 'none';
-    }, i * 35);
+      item.style.filter = 'none';
+    }, i * 45);
   });
 }
 
