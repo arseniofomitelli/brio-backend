@@ -1306,3 +1306,15 @@ body::after{
 
 /* Вырезанные тарелки в лайтбоксе — без рамки и прямоугольной тени */
 .lightbox__img[src$=".webp"]{box-shadow:none;border-radius:0;background:none}
+
+/* Блик по глазури — движется вслед за наклоном тарелки */
+.dish__glare{
+  position:absolute;inset:0;border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),
+    rgba(255,255,255,.60) 0%,
+    rgba(255,255,255,.16) 30%,
+    rgba(255,255,255,0)   62%);
+  opacity:calc(var(--lift,0) * .8);
+  mix-blend-mode:soft-light;
+}

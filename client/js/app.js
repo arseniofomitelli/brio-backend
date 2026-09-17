@@ -742,21 +742,95 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
 })();
 
 /* ─── ВИТРИНА БЛЮД ───────────────────────────────────
-   Наматывание и подъём при въезде в экран + фото по клику. */
+   Въезд с подкруткой, фото по клику и наклон тарелки
+   вслед за курсором в реальном 3D (с пружинным сглаживанием). */
 (function () {
   var wrap = document.querySelector('.dishes');
   if (!wrap) return;
-  var dishes = wrap.querySelectorAll('.dish');
 
+  var dishes = wrap.querySelectorAll('.dish');
+  var fine = !!(window.matchMedia &&
+                window.matchMedia('(hover:hover) and (pointer:fine)').matches);
+
+  /* Клик открывает снимок, но не после перетаскивания */
   wrap.querySelectorAll('.dish__btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      if (btn._dragged) { btn._dragged = false; return; }
       var img = btn.querySelector('img');
       openLightbox(btn.dataset.full, img ? img.alt : '');
     });
   });
 
-  // Стартовое состояние включаем только при работающем JS,
-  // иначе тарелки остаются просто видимыми.
+  /* Наклон вслед за указателем */
+  function attachTilt(dish) {
+    if (REDUCE) return;
+    var plate = dish.querySelector('.dish__plate');
+    var btn   = dish.querySelector('.dish__btn');
+    if (!plate || !btn) return;
+
+    plate.style.transition = 'none';   // движением управляет rAF
+
+    var tX = 0, tY = 0, tL = 0;        // цель: наклон и «поднятость» 0..1
+    var cX = 0, cY = 0, cL = 0;        // текущее состояние
+    var raf = null, startX = 0, startY = 0;
+
+    function frame() {
+      cX += (tX - cX) * 0.12;
+      cY += (tY - cY) * 0.12;
+      cL += (tL - cL) * 0.12;
+
+      var rotX = (-cY * 15 + cL * 18).toFixed(2);
+      var rotY = ( cX * 15).toFixed(2);
+      plate.style.transform =
+        'translateY(' + (-cL * 26).toFixed(1) + 'px)' +
+        ' translateZ(' + (cL * 70).toFixed(1) + 'px)' +
+        ' rotateX(' + rotX + 'deg)' +
+        ' rotateY(' + rotY + 'deg)' +
+        ' rotate(' + (cL * 7).toFixed(2) + 'deg)';
+
+      plate.style.setProperty('--gx', (50 - cX * 32).toFixed(1) + '%');
+      plate.style.setProperty('--gy', (50 - cY * 32).toFixed(1) + '%');
+      plate.style.setProperty('--lift', cL.toFixed(3));
+
+      if (Math.abs(tX - cX) > 0.002 || Math.abs(tY - cY) > 0.002 ||
+          Math.abs(tL - cL) > 0.002) {
+        raf = requestAnimationFrame(frame);
+      } else { raf = null; }
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+
+    function aim(e) {
+      var r = plate.getBoundingClientRect();
+      tX = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2)));
+      tY = Math.max(-1, Math.min(1, (e.clientY - (r.top  + r.height / 2)) / (r.height / 2)));
+      tL = 1; kick();
+    }
+    function rest() { tX = 0; tY = 0; tL = 0; kick(); }
+
+    if (fine) {
+      btn.addEventListener('pointermove', aim);
+      btn.addEventListener('pointerleave', rest);
+    } else {
+      /* На тач-экранах тарелку можно крутить пальцем */
+      btn.addEventListener('pointerdown', function (e) {
+        btn._dragged = false;
+        startX = e.clientX; startY = e.clientY;
+        aim(e);
+      });
+      btn.addEventListener('pointermove', function (e) {
+        if (!e.buttons && e.pointerType === 'mouse') return;
+        if (Math.abs(e.clientX - startX) > 10 ||
+            Math.abs(e.clientY - startY) > 10) btn._dragged = true;
+        aim(e);
+      });
+      btn.addEventListener('pointerup', rest);
+      btn.addEventListener('pointercancel', rest);
+    }
+    btn.addEventListener('focus', function () { tL = 1; kick(); });
+    btn.addEventListener('blur', rest);
+  }
+
+  /* Стартовое состояние — только при работающем JS */
   wrap.classList.add('dishes--anim');
 
   if (REDUCE) {
@@ -769,7 +843,11 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
       if (!e.isIntersecting) return;
       obs.unobserve(e.target);
       var i = Number(e.target.dataset.i || 0);
-      setTimeout(function () { e.target.classList.add('is-in'); }, i * 130);
+      setTimeout(function () {
+        e.target.classList.add('is-in');
+        /* наклон подключаем после того, как тарелка встала на место */
+        setTimeout(function () { attachTilt(e.target); }, 1200);
+      }, i * 130);
     });
   }, { threshold: 0.2 });
 
