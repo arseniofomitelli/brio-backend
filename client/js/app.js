@@ -432,37 +432,60 @@ function renderTags(d) {
 }
 
 /* ─── GALLERY ────────────────────────────────────────────── */
+/* Локальные снимки интерьера — секция никогда не пустует */
+const LOCAL_GALLERY = [
+  { src: 'images/interior-table.jpg',
+    alt: 'Зал кафе Brio: столик у стены с картинами под тёплым светом ламп' },
+  { src: 'images/interior-art.jpg',
+    alt: 'Картины на сине-зелёной стене Brio, лампы и плющ под деревянным потолком' },
+];
+
+function renderGallery(items) {
+  const gridEl = document.getElementById('galleryGrid');
+  if (!gridEl || !items.length) return;
+
+  // Мало снимков — сужаем сетку, чтобы не было пустой колонки
+  gridEl.classList.toggle('gallery__grid--few', items.length <= 2);
+
+  gridEl.innerHTML = items.map(it => `
+    <button class="gallery__item" aria-label="${it.alt}" data-full="${it.full}">
+      <img src="${it.src}" alt="${it.alt}" loading="lazy" decoding="async" />
+      <div class="gallery__item__overlay" aria-hidden="true">${ICONS.zoom}</div>
+    </button>
+  `).join('');
+
+  const gallObs = new IntersectionObserver(entries => {
+    entries.forEach((e, idx) => {
+      if (!e.isIntersecting) return;
+      setTimeout(() => e.target.classList.add('visible'), idx * 70);
+      gallObs.unobserve(e.target);
+    });
+  }, { threshold: 0.1 });
+
+  gridEl.querySelectorAll('.gallery__item').forEach(btn => {
+    if (REDUCE) btn.classList.add('visible');
+    else gallObs.observe(btn);
+    btn.addEventListener('click', () => openLightbox(btn.dataset.full, btn.getAttribute('aria-label')));
+  });
+}
+
 async function loadGallery() {
+  // Сразу отрисовываем локальные снимки, не дожидаясь API
+  renderGallery(LOCAL_GALLERY.map(p => ({ src: p.src, full: p.src, alt: p.alt })));
+
   try {
     const res = await apiFetch(`${API}/gallery`);
     const { data: images } = await res.json();
     if (!images || !images.length) return;
-
-    const gridEl = document.getElementById('galleryGrid');
-    gridEl.innerHTML = images.map((img, i) => `
-      <button class="gallery__item"
-        aria-label="${img.titleRu || `Фото ${i+1}`}"
-        data-full="${API.replace('/api/v1','')}${img.image}">
-        <img src="${API.replace('/api/v1','')}${img.thumbnail || img.image}"
-          alt="${img.titleRu || `Фото кафе Brio ${i+1}`}"
-          loading="lazy" width="280" height="210"/>
-        <div class="gallery__item__overlay" aria-hidden="true">${ICONS.zoom}</div>
-      </button>
-    `).join('');
-
-    const gallObs = new IntersectionObserver(entries => {
-      entries.forEach((e, idx) => {
-        if (!e.isIntersecting) return;
-        setTimeout(() => e.target.classList.add('visible'), idx * 70);
-        gallObs.unobserve(e.target);
-      });
-    }, { threshold: 0.1 });
-
-    gridEl.querySelectorAll('.gallery__item').forEach(btn => {
-      gallObs.observe(btn);
-      btn.addEventListener('click', () => openLightbox(btn.dataset.full, btn.getAttribute('aria-label')));
-    });
-  } catch (err) { console.error('Gallery load error:', err); }
+    const base = API.replace('/api/v1', '');
+    renderGallery(images.map((img, i) => ({
+      src:  `${base}${img.thumbnail || img.image}`,
+      full: `${base}${img.image}`,
+      alt:  img.titleRu || `Фото кафе Brio ${i + 1}`,
+    })));
+  } catch (err) {
+    console.warn('Галерея: API недоступен, оставляем локальные снимки —', err.message);
+  }
 }
 
 /* ─── LIGHTBOX ───────────────────────────────────────────── */
@@ -672,4 +695,28 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
       if (!raf) raf = requestAnimationFrame(loop);
     });
   });
+})();
+
+/* ─── ПАРАЛЛАКС ФОТО ИНТЕРЬЕРА В «О НАС» ─────────────
+   Снимок мягко плывёт внутри рамки по мере прокрутки.
+   Только transform, с запасом по масштабу чтобы не было щелей. */
+(function () {
+  if (REDUCE) return;
+  var img = document.querySelector('.about__photo img');
+  if (!img) return;
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var r = img.getBoundingClientRect();
+    var vh = window.innerHeight;
+    if (r.bottom < 0 || r.top > vh) return;
+    var p = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2); // -1..1
+    img.style.transform = 'translate3d(0,' + (p * -20).toFixed(2) + 'px,0) scale(1.07)';
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
 })();
