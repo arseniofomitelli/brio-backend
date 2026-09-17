@@ -1190,3 +1190,29 @@ body::after{
     animation-iteration-count:1!important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   BRIO v4 — актуальное меню
+═══════════════════════════════════════════════════════ */
+
+/* Примечание под прайс-листом */
+.menu__note{
+  margin-top:var(--sp-12);
+  text-align:center;
+  font-size:.8125rem;
+  letter-spacing:.02em;
+  color:var(--text-3);
+}
+
+/* Премиальный ховер блюда: тонкая линия прочерчивается под названием.
+   Только мышь — на тач-устройствах :hover залипает. */
+@media (hover:hover) and (pointer:fine){
+  .menu-list__name{position:relative;display:inline-block}
+  .menu-list__name::after{
+    content:'';position:absolute;left:0;right:0;bottom:-3px;height:1px;
+    background:var(--wood-mid);
+    transform:scaleX(0);transform-origin:left center;
+    transition:transform 480ms var(--ease-premium);
+  }
+  .menu-list__item:hover .menu-list__name::after{transform:scaleX(1)}
+}

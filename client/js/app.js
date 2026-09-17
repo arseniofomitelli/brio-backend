@@ -302,42 +302,61 @@ if (!REDUCE) {
 /* ─── MENU ───────────────────────────────────────────────── */
 const MENU_DATA = [
   { id:1, nameRu:'Паста', nameIt:'La Pasta', menuItems:[
-    { nameRu:'Болоньезе',     nameIt:'', price:700 },
-    { nameRu:'Дженовезе',     nameIt:'', price:750 },
-    { nameRu:'Карбонара',     nameIt:'', price:700 },
-    { nameRu:'Алла Норма',    nameIt:'', price:750 },
-    { nameRu:'Качо э пэпэ',  nameIt:'', price:850 },
-    { nameRu:'Полпетте',      nameIt:'', price:700 },
-    { nameRu:'Гамбери',       nameIt:'', price:900 },
+    { nameRu:'Арабьята',   descriptionRu:'томаты, чеснок, острый перец чили',        portion:'250 г', price:650, tags:['vegetarian'] },
+    { nameRu:'Болоньезе',  descriptionRu:'мясной соус, томаты, пармезан',            portion:'250 г', price:700, isHit:true },
+    { nameRu:'Дженовезе',  descriptionRu:'рваная говядина, лук',                     portion:'250 г', price:750, isHit:true },
+    { nameRu:'Карбонара',  descriptionRu:'бекон, яйцо, пармезан, перец',             portion:'250 г', price:700 },
+    { nameRu:'Полпетте',   descriptionRu:'мясные фрикадельки, томатный соус',        portion:'250 г', price:700, isHit:true },
+    { nameRu:'Гамбери',    descriptionRu:'креветки, сливочно-томатный соус, зелень', portion:'250 г', price:850, isHit:true },
   ]},
   { id:2, nameRu:'Панини', nameIt:'I Panini', menuItems:[
-    { nameRu:'Капрезе',    nameIt:'', price:700 },
-    { nameRu:'Дженовезе',  nameIt:'', price:800 },
-    { nameRu:'Полпетте',   nameIt:'', price:800 },
-    { nameRu:'Салями',     nameIt:'', price:800 },
-    { nameRu:'Мортаделла', nameIt:'', price:850 },
+    { nameRu:'Капрезе',    descriptionRu:'моцарелла, томаты, песто',                              portion:'400 г', price:700, tags:['vegetarian'] },
+    { nameRu:'Дженовезе',  descriptionRu:'рваная говядина, маринованный лук, айоли, моцарелла',   portion:'400 г', price:800 },
+    { nameRu:'Полпетте',   descriptionRu:'фрикадельки, томатный соус, моцарелла',                 portion:'400 г', price:800, isHit:true },
+    { nameRu:'Полла',      descriptionRu:'миланский шницель, чесночный соус',                     portion:'400 г', price:800 },
   ]},
-  { id:3, nameRu:'Салаты', nameIt:'Le Insalate', menuItems:[
-    { nameRu:'Капрезе',              nameIt:'', price:600 },
-    { nameRu:'Греческий',            nameIt:'', price:650 },
-    { nameRu:'Страчателла',          nameIt:'', price:650 },
-    { nameRu:'Персики с прошутто',   nameIt:'', price:850 },
+  { id:3, nameRu:'Равиоли', nameIt:'I Ravioli', menuItems:[
+    { nameRu:'Песто рикотта',      descriptionRu:'рикотта, соус песто, пармезан',        portion:'280 г', price:600, tags:['vegetarian'] },
+    { nameRu:'Болоньезе',          descriptionRu:'мясной фарш, томатный соус, пармезан', portion:'280 г', price:750, isHit:true },
+    { nameRu:'Креветки моцарелла', descriptionRu:'креветки, моцарелла, сливочный соус',  portion:'280 г', price:900, isHit:true },
   ]},
-  { id:4, nameRu:'Закуски', nameIt:'Gli Antipasti', menuItems:[
-    { nameRu:'Брускетта с рикоттой и томатами',        nameIt:'', price:400 },
-    { nameRu:'Брускетта с лососем',                    nameIt:'', price:650 },
-    { nameRu:'Брускетта с песто и вялеными томатами',  nameIt:'', price:500 },
+  { id:4, nameRu:'Салаты', nameIt:'Le Insalate', menuItems:[
+    { nameRu:'Капрезе',         descriptionRu:'томаты, моцарелла, базилик',                          portion:'220 г', price:600, tags:['vegetarian'] },
+    { nameRu:'Панцанелла',      descriptionRu:'томаты, хлеб, огурцы, базилик',                       portion:'220 г', price:550, tags:['vegetarian'] },
+    { nameRu:'Инсалата Верде',  descriptionRu:'авокадо, огурец, сельдерей, микс зелени, лимон',      portion:'300 г', price:650, tags:['vegetarian'] },
+    { nameRu:'Амальфи',         descriptionRu:'креветки, авокадо, томаты черри, руккола, лимон',     portion:'220 г', price:800, isHit:true },
   ]},
-  { id:5, nameRu:'Десерты', nameIt:'I Dolci', menuItems:[
-    { nameRu:'Сорбет лайм-лимон', nameIt:'', descriptionRu:'за шарик', price:250 },
+  { id:5, nameRu:'Закуски', nameIt:'Gli Antipasti', menuItems:[
+    { nameRu:'Брускетта с рикоттой', descriptionRu:'рикотта, томаты, базилик', portion:'160 г', price:400, tags:['vegetarian'] },
+    { nameRu:'Брускетта с песто',    descriptionRu:'вяленые томаты, песто',    portion:'160 г', price:500, tags:['vegetarian'] },
   ]},
-  { id:6, nameRu:'Напитки', nameIt:'Le Bevande', menuItems:[
-    { nameRu:'Кофе лунго',            nameIt:'', descriptionRu:'150 мл', price:300 },
-    { nameRu:'Лимонад классический',  nameIt:'', descriptionRu:'300 мл', price:300 },
-    { nameRu:'Апельсиновый сквиз',    nameIt:'', descriptionRu:'300 мл', price:400 },
-    { nameRu:'Грейпфрутовый сквиз',   nameIt:'', descriptionRu:'300 мл', price:400 },
-    { nameRu:'Сан Пеллегрино',        nameIt:'', descriptionRu:'300 мл', price:400 },
-    { nameRu:'Сидр полусухой',        nameIt:'', descriptionRu:'300 мл', price:400 },
+  { id:6, nameRu:'Тарелка конструктор', nameIt:'Componi il tuo piatto', menuItems:[
+    { nameRu:'Вяленые томаты',   portion:'40 г', price:300 },
+    { nameRu:'Пармезан',         portion:'30 г', price:200 },
+    { nameRu:'Оливки',           portion:'30 г', price:200 },
+    { nameRu:'Салями',           portion:'30 г', price:200 },
+    { nameRu:'Прошутто',         portion:'30 г', price:250 },
+    { nameRu:'Грудинка',         portion:'40 г', price:200 },
+    { nameRu:'Тараллини',        portion:'90 г', price:200 },
+    { nameRu:'Гриссини',         portion:'60 г', price:200 },
+    { nameRu:'Перчики с сыром',  portion:'40 г', price:300 },
+    { nameRu:'Маринованный лук', portion:'40 г', price:100 },
+  ]},
+  { id:7, nameRu:'Десерты', nameIt:'I Dolci', menuItems:[
+    { nameRu:'Сорбет малина', descriptionRu:'ягодный, за 1 шарик',                  portion:'80 г',  price:350, tags:['vegetarian'] },
+    { nameRu:'Аффогато',      descriptionRu:'эспрессо, ванильное мороженое',        portion:'120 г', price:350, isHit:true },
+    { nameRu:'Тирамису',      descriptionRu:'маскарпоне, савоярди, эспрессо, какао', portion:'150 г', price:500, isHit:true },
+  ]},
+  { id:8, nameRu:'Напитки', nameIt:'Le Bevande', menuItems:[
+    { nameRu:'Кафэ лунго',               descriptionRu:'мягкий чёрный кофе',                portion:'150 мл', price:250 },
+    { nameRu:'Эспрессо-тоник аранча',    descriptionRu:'эспрессо, тоник, красный апельсин',  portion:'300 мл', price:400 },
+    { nameRu:'Лимонад Классико',         descriptionRu:'лимон, мята, содовая',               portion:'300 мл', price:300 },
+    { nameRu:'Лимонад Песка',            descriptionRu:'персик, лимон, содовая',             portion:'300 мл', price:400 },
+    { nameRu:'Лимонад Фрутти ди боско',  descriptionRu:'лесные ягоды, содовая',              portion:'300 мл', price:400 },
+    { nameRu:'Микелада',                 descriptionRu:'пиво, томатный сок, лайм, специи',   portion:'400 мл', price:800, isHit:true },
+    { nameRu:'Пиво',                     descriptionRu:'лагер, бланш, эль',                  portion:'0,33 л', price:600 },
+    { nameRu:'Сидр',                     descriptionRu:'яблоко, лаванда, смородина',         portion:'0,33 л', price:500 },
+    { nameRu:'Виноградный эль',          descriptionRu:'мурведр, шардоне, мускат, ркацители', portion:'0,33 / 0,75 л', price:500, priceText:'500 ₽ / 1500 ₽' },
   ]},
 ];
 
@@ -388,13 +407,14 @@ function renderPriceList(cat, gridEl) {
     <li class="menu-list__item" role="listitem" style="--i:${i}">
       <div class="menu-list__info">
         <p class="menu-list__name">${d.nameRu}</p>
-        <p class="menu-list__name-it">${d.nameIt}</p>
+        ${d.nameIt ? `<p class="menu-list__name-it">${d.nameIt}</p>` : ''}
         ${d.descriptionRu ? `<p class="menu-list__desc">${d.descriptionRu}</p>` : ''}
         ${renderTags(d)}
       </div>
       <div class="menu-list__right">
-        <span class="menu-list__price">${Number(d.price).toLocaleString('ru-RU')} ₽</span>
-        ${d.weight ? `<span class="menu-list__weight">${d.weight} г</span>` : ''}
+        <span class="menu-list__price">${d.priceText || `${Number(d.price).toLocaleString('ru-RU')} ₽`}</span>
+        ${d.portion ? `<span class="menu-list__weight">${d.portion}</span>`
+                    : (d.weight ? `<span class="menu-list__weight">${d.weight} г</span>` : '')}
       </div>
     </li>
   `).join('');
@@ -418,7 +438,7 @@ function renderPriceList(cat, gridEl) {
 
 function renderTags(d) {
   const tags = [];
-  if (d.isSpecial) tags.push('<span class="tag tag--special">Спецпредложение</span>');
+  if (d.isHit || d.isSpecial) tags.push('<span class="tag tag--special">Хит</span>');
   (d.tags || []).forEach(t => {
     const map = {
       vegetarian:   ['tag--vegetarian','Вег'],
