@@ -741,10 +741,37 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
   update();
 })();
 
-/* ─── ВИТРИНА БЛЮД → открываем фото в лайтбоксе ─────── */
-document.querySelectorAll('.dish__btn').forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    var img = btn.querySelector('img');
-    openLightbox(btn.dataset.full, img ? img.alt : '');
+/* ─── ВИТРИНА БЛЮД ───────────────────────────────────
+   Наматывание и подъём при въезде в экран + фото по клику. */
+(function () {
+  var wrap = document.querySelector('.dishes');
+  if (!wrap) return;
+  var dishes = wrap.querySelectorAll('.dish');
+
+  wrap.querySelectorAll('.dish__btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      openLightbox(btn.dataset.full, img ? img.alt : '');
+    });
   });
-});
+
+  // Стартовое состояние включаем только при работающем JS,
+  // иначе тарелки остаются просто видимыми.
+  wrap.classList.add('dishes--anim');
+
+  if (REDUCE) {
+    dishes.forEach(function (d) { d.classList.add('is-in'); });
+    return;
+  }
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      obs.unobserve(e.target);
+      var i = Number(e.target.dataset.i || 0);
+      setTimeout(function () { e.target.classList.add('is-in'); }, i * 130);
+    });
+  }, { threshold: 0.2 });
+
+  dishes.forEach(function (d) { obs.observe(d); });
+})();

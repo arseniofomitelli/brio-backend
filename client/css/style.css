@@ -1217,51 +1217,88 @@ body::after{
   .menu-list__item:hover .menu-list__name::after{transform:scaleX(1)}
 }
 
-/* ─── ВИТРИНА БЛЮД (внутри секции меню) ──────────────── */
+/* ─── ВИТРИНА БЛЮД: тарелки без фона ──────────────────
+   Наматывание и подъём: тарелка подкручивается и всплывает,
+   тень под ней уходит вниз и сжимается — это и читается как «подняли». */
 .dishes{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:var(--sp-4);
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:var(--sp-10) var(--sp-6);
   margin:0 0 var(--sp-16);
+  padding:var(--sp-4) 0 var(--sp-6);
 }
 .dish{min-width:0}
 .dish__btn{
   display:block;width:100%;padding:0;border:0;background:none;
-  position:relative;overflow:hidden;border-radius:var(--r-md);
-  cursor:pointer;color:var(--white);
-  box-shadow:0 10px 30px rgba(15,40,39,.14);
-  transition:transform 520ms var(--ease-premium),
-             box-shadow 520ms var(--ease-premium);
+  cursor:pointer;text-align:center;color:inherit;
+  border-radius:var(--r-md);
 }
-.dish__img{
-  width:100%;height:auto;display:block;
-  aspect-ratio:1 / 1;object-fit:cover;
+.dishes .dish__plate{
+  display:block;position:relative;
+  transition:transform 1150ms var(--ease-premium),
+             opacity 760ms ease,
+             filter 760ms ease;
+  will-change:transform;
 }
+/* Мягкая тень под тарелкой */
+.dishes .dish__plate::before{
+  content:'';position:absolute;
+  left:14%;right:14%;bottom:-1%;height:16%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,
+    rgba(36,20,9,.40) 0%,rgba(36,20,9,.16) 45%,rgba(36,20,9,0) 72%);
+  filter:blur(9px);
+  transition:transform 900ms var(--ease-premium),
+             opacity 900ms var(--ease-premium);
+}
+.dish__img{position:relative;width:100%;height:auto;display:block}
+
+/* Стартовое состояние ставим только когда работает JS,
+   иначе блюда просто видны (без скрипта ничего не пропадает) */
+.dishes--anim .dish__plate{
+  transform:translateY(46px) rotate(-16deg) scale(.9);
+  opacity:0;filter:blur(7px);
+}
+.dishes--anim .dish.is-in .dish__plate{
+  transform:none;opacity:1;filter:none;
+}
+
 .dish__meta{
-  position:absolute;inset:auto 0 0 0;
-  display:flex;align-items:baseline;justify-content:space-between;
-  gap:var(--sp-3);text-align:left;
-  padding:var(--sp-10) var(--sp-4) var(--sp-4);
-  background:linear-gradient(to top,
-    rgba(12,30,29,.84) 0%,rgba(12,30,29,.38) 55%,transparent 100%);
-  transition:background 520ms var(--ease-premium);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  margin-top:var(--sp-5);
 }
+.dishes--anim .dish__meta{
+  opacity:0;transform:translateY(10px);
+  transition:opacity 620ms ease 240ms,
+             transform 620ms var(--ease-premium) 240ms;
+}
+.dishes--anim .dish.is-in .dish__meta{opacity:1;transform:none}
+
 .dish__name{
   font-family:var(--font-serif);font-size:1.3rem;font-weight:600;
-  line-height:1.1;letter-spacing:.005em;
+  line-height:1.15;color:var(--text);
+  transition:color 300ms var(--ease-premium);
 }
 .dish__price{
-  font-family:var(--font-serif);font-size:1.15rem;font-weight:600;
-  color:var(--teal-300);white-space:nowrap;
+  font-family:var(--font-serif);font-size:1.05rem;font-weight:600;
+  color:var(--wood-mid);
 }
+
+/* Наматывание + подъём при наведении */
 @media (hover:hover) and (pointer:fine){
-  .dish__btn:hover{
-    transform:translateY(-6px);
-    box-shadow:0 22px 52px rgba(15,40,39,.26);
+  .dishes .dish__btn:hover .dish__plate,
+  .dishes .dish__btn:focus-visible .dish__plate{
+    transform:translateY(-22px) rotate(11deg) scale(1.05);
   }
-  .dish__btn:hover .dish__meta{
-    background:linear-gradient(to top,
-      rgba(12,30,29,.92) 0%,rgba(12,30,29,.52) 60%,rgba(12,30,29,.08) 100%);
+  .dishes .dish__btn:hover .dish__plate::before,
+  .dishes .dish__btn:focus-visible .dish__plate::before{
+    transform:translateY(20px) scale(.82);opacity:.5;
   }
+  .dishes .dish__btn:hover .dish__name{color:var(--teal-700)}
 }
-.dish__btn:active{transform:translateY(-2px) scale(.99)}
+.dishes .dish__btn:active .dish__plate{
+  transform:translateY(-10px) rotate(6deg) scale(1.01);
+}
+
+/* Вырезанные тарелки в лайтбоксе — без рамки и прямоугольной тени */
+.lightbox__img[src$=".webp"]{box-shadow:none;border-radius:0;background:none}
