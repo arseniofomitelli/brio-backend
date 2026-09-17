@@ -740,3 +740,11 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
   window.addEventListener('resize', update, { passive: true });
   update();
 })();
+
+/* ─── ВИТРИНА БЛЮД → открываем фото в лайтбоксе ─────── */
+document.querySelectorAll('.dish__btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var img = btn.querySelector('img');
+    openLightbox(btn.dataset.full, img ? img.alt : '');
+  });
+});
