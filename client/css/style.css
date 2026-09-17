@@ -1232,9 +1232,12 @@ body::after{
   display:block;width:100%;padding:0;border:0;background:none;
   cursor:pointer;text-align:center;color:inherit;
   border-radius:var(--r-md);
+  perspective:900px;            /* глубина для наклона тарелки */
 }
 .dishes .dish__plate{
   display:block;position:relative;
+  transform-style:preserve-3d;
+  transform-origin:50% 62%;
   transition:transform 1150ms var(--ease-premium),
              opacity 760ms ease,
              filter 760ms ease;
@@ -1256,7 +1259,7 @@ body::after{
 /* Стартовое состояние ставим только когда работает JS,
    иначе блюда просто видны (без скрипта ничего не пропадает) */
 .dishes--anim .dish__plate{
-  transform:translateY(46px) rotate(-16deg) scale(.9);
+  transform:translateY(46px) translateZ(-90px) rotateX(18deg) rotate(-16deg);
   opacity:0;filter:blur(7px);
 }
 .dishes--anim .dish.is-in .dish__plate{
@@ -1288,7 +1291,8 @@ body::after{
 @media (hover:hover) and (pointer:fine){
   .dishes .dish__btn:hover .dish__plate,
   .dishes .dish__btn:focus-visible .dish__plate{
-    transform:translateY(-22px) rotate(11deg) scale(1.05);
+    /* поднимается, доворачивается и наклоняется к зрителю */
+    transform:translateY(-30px) translateZ(80px) rotateX(24deg) rotate(11deg);
   }
   .dishes .dish__btn:hover .dish__plate::before,
   .dishes .dish__btn:focus-visible .dish__plate::before{
@@ -1297,7 +1301,7 @@ body::after{
   .dishes .dish__btn:hover .dish__name{color:var(--teal-700)}
 }
 .dishes .dish__btn:active .dish__plate{
-  transform:translateY(-10px) rotate(6deg) scale(1.01);
+  transform:translateY(-14px) translateZ(40px) rotateX(14deg) rotate(6deg);
 }
 
 /* Вырезанные тарелки в лайтбоксе — без рамки и прямоугольной тени */
