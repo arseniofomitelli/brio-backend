@@ -1575,3 +1575,75 @@ body::after{
   .art__grid{grid-template-columns:1fr;gap:var(--sp-10)}
   .art__portrait{max-width:420px}
 }
+
+/* ─── Картины: работы в зале ───────────────────────── */
+.art__works{
+  margin-top:var(--sp-20);
+  padding-top:var(--sp-16);
+  border-top:1px solid var(--gray-100);
+}
+.art__works-head{
+  max-width:60ch;margin:0 auto var(--sp-12);
+  text-align:center;
+}
+.art__works-title{
+  font-family:var(--font-serif);font-weight:500;
+  font-size:clamp(1.5rem,3vw,2rem);color:var(--text);
+  margin-bottom:var(--sp-3);
+}
+.art__works-note{
+  font-size:1rem;line-height:1.7;color:var(--text-2);text-wrap:pretty;
+}
+.art__works-note a{
+  color:var(--teal-700);text-decoration:none;
+  border-bottom:1px solid rgba(74,153,148,.4);
+  transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.art__works-note a:hover{color:var(--wood-mid);border-bottom-color:var(--wood-warm)}
+
+.art__gallery{display:flex;gap:var(--sp-10);align-items:flex-start}
+.art__col{
+  flex:1 1 0;min-width:0;
+  display:flex;flex-direction:column;gap:var(--sp-12);
+}
+.art__work{break-inside:avoid;margin:0}
+.art__work-shot{
+  display:block;width:100%;padding:0;border:0;background:none;
+  cursor:zoom-in;overflow:hidden;border-radius:var(--r-sm);
+  box-shadow:0 10px 32px rgba(15,40,39,.16);
+  transition:box-shadow var(--dur-slow) var(--ease);
+}
+.art__work-shot img{
+  width:100%;height:auto;display:block;
+  transition:transform var(--dur-xslow) var(--ease);
+}
+.art__work-cap{
+  margin-top:var(--sp-4);
+  display:flex;flex-direction:column;gap:var(--sp-1);
+}
+.art__work-title{
+  font-family:var(--font-serif);font-style:italic;
+  font-size:1.125rem;line-height:1.35;color:var(--text);
+}
+.art__work-meta{
+  font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-3);
+}
+@media(hover:hover) and (pointer:fine){
+  .art__work-shot:hover{box-shadow:0 20px 52px rgba(15,40,39,.26)}
+  .art__work-shot:hover img{transform:scale(1.035)}
+}
+.art__work-shot:focus-visible{outline:2px solid var(--teal-700);outline-offset:4px}
+@media(prefers-reduced-motion:reduce){
+  .art__work-shot img{transition:none}
+  .art__work-shot:hover img{transform:none}
+}
+@media(max-width:900px){
+  .art__gallery{display:block;columns:2;column-gap:var(--sp-6)}
+  .art__col{display:contents}
+  .art__work{margin:0 0 var(--sp-10)}
+}
+@media(max-width:560px){
+  .art__gallery{columns:1}
+  .art__works{margin-top:var(--sp-16)}
+}

@@ -749,3 +749,13 @@ document.querySelectorAll('.rent__shot').forEach(function (btn) {
     openLightbox(btn.dataset.full, img ? img.alt : '');
   });
 });
+
+/* ─── КАРТИНЫ → лайтбокс ───────────────────────────── */
+document.querySelectorAll('.art__work-shot').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var fig  = btn.closest('.art__work');
+    var name = fig ? fig.querySelector('.art__work-title') : null;
+    var img  = btn.querySelector('img');
+    openLightbox(btn.dataset.full, name ? name.textContent.trim() : (img ? img.alt : ''));
+  });
+});
