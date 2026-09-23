@@ -1297,6 +1297,13 @@ body::after{
   aspect-ratio:4 / 3;object-fit:cover;
 }
 .rent__shot--tall img{aspect-ratio:1 / 1}
+
+/* Широкий план террасы — задаёт место */
+.rent__shot--wide{margin-bottom:var(--sp-10)}
+.rent__shot--wide img{aspect-ratio:16 / 9}
+@media(max-width:600px){
+  .rent__shot--wide img{aspect-ratio:4 / 3}
+}
 @media (hover:hover) and (pointer:fine){
   .rent__shot:hover{
     transform:translateY(-5px);
