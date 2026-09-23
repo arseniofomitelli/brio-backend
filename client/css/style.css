@@ -1227,79 +1227,80 @@ body::after{
 .rent{padding:var(--sp-32) 0;background:var(--surface)}
 
 .rent__lead{
-  max-width:56ch;margin:0 auto;
+  max-width:52ch;margin:0 auto;
   font-size:1.0625rem;line-height:1.7;color:var(--text-2);
   text-wrap:pretty;
 }
 
-/* Тарифы — без карточек, разделены волосяной линией сверху */
-.rent__offers{
+/* Ставка — два крупных блока, будни и выходные */
+.rent__rates{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:var(--sp-12) var(--sp-10);
-  margin-bottom:var(--sp-12);
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:var(--sp-6);
+  max-width:760px;margin:0 auto var(--sp-6);
 }
-.rent__offer{
-  padding-top:var(--sp-5);
-  border-top:2px solid var(--wood-warm);
+.rent__rate{
+  padding:var(--sp-8) var(--sp-6);
+  text-align:center;
+  border:1px solid var(--gray-200);
+  border-radius:var(--r-md);
+  background:var(--sage-pale);
 }
-.rent__offer-name{
+.rent__rate-when{
   font-size:.72rem;font-weight:600;letter-spacing:.18em;
   text-transform:uppercase;color:var(--sage);
   margin-bottom:var(--sp-3);
 }
-.rent__offer-price{
+.rent__rate-price{
   font-family:var(--font-serif);
-  font-size:clamp(1.9rem,3.2vw,2.5rem);
-  font-weight:700;line-height:1.05;letter-spacing:-.015em;
+  font-size:clamp(2.2rem,4vw,3rem);
+  font-weight:700;line-height:1;letter-spacing:-.02em;
   color:var(--wood-mid);
   font-variant-numeric:tabular-nums;
-  margin-bottom:var(--sp-5);
+  display:flex;align-items:baseline;justify-content:center;gap:var(--sp-2);
 }
-.rent__offer-plus{
-  font-size:.9rem;font-weight:500;font-style:italic;
+.rent__rate-unit{
+  font-size:.95rem;font-weight:500;font-style:italic;
   color:var(--text-3);letter-spacing:0;
-  white-space:nowrap;
-}
-.rent__offer-list{display:flex;flex-direction:column;gap:var(--sp-2)}
-.rent__offer-list li{
-  position:relative;padding-left:var(--sp-5);
-  font-size:.9375rem;line-height:1.55;color:var(--text-2);
-}
-.rent__offer-list li::before{
-  content:'';position:absolute;left:0;top:.62em;
-  width:9px;height:1px;background:var(--teal-700);
 }
 
 .rent__extras{
-  font-size:.875rem;color:var(--text-3);
+  font-size:.9375rem;color:var(--text-2);
   text-align:center;margin-bottom:var(--sp-16);
+}
+
+/* Форматы — колонками с волосяной линией, как в меню */
+.rent__formats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:var(--sp-10);
+  margin-bottom:var(--sp-10);
+}
+.rent__format{
+  padding-top:var(--sp-5);
+  border-top:2px solid var(--wood-warm);
+}
+.rent__format-name{
+  font-family:var(--font-serif);font-weight:600;
+  font-size:1.5rem;line-height:1.15;color:var(--text);
+  margin-bottom:var(--sp-3);
+}
+.rent__format-desc{
+  font-size:.9375rem;line-height:1.6;color:var(--text-2);
   text-wrap:pretty;
 }
 
-/* Поводы */
-.rent__occasions{text-align:center;margin-bottom:var(--sp-12)}
-.rent__occasions-title{
-  font-family:var(--font-serif);font-weight:600;
-  font-size:1.5rem;color:var(--text);
-  margin-bottom:var(--sp-6);
-}
-.rent__tags{
-  display:flex;flex-wrap:wrap;gap:var(--sp-3);
-  justify-content:center;
-}
-.rent__tags li{
-  padding:var(--sp-2) var(--sp-5);
-  border:1px solid var(--gray-200);
-  border-radius:var(--r-full);
-  font-size:.875rem;color:var(--text-2);
-  background:var(--sage-pale);
+.rent__note{
+  max-width:58ch;margin:0 auto var(--sp-12);
+  padding-top:var(--sp-6);
+  border-top:1px solid var(--gray-100);
+  font-size:.875rem;line-height:1.65;color:var(--text-3);
+  text-align:center;text-wrap:pretty;
 }
 
 .rent__cta{display:flex;justify-content:center}
 
 @media(max-width:480px){
-  .rent__offers{gap:var(--sp-10)}
-  .rent__tags{gap:var(--sp-2)}
-  .rent__tags li{padding:var(--sp-2) var(--sp-4);font-size:.8125rem}
+  .rent__rates{gap:var(--sp-4)}
+  .rent__formats{gap:var(--sp-8)}
 }
