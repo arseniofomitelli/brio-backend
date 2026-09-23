@@ -1283,9 +1283,8 @@ body::after{
 .rent__gallery{
   margin:0 0 var(--sp-16);
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:var(--sp-4);
-  max-width:760px;margin-inline:auto;
 }
 .rent__shot{
   display:block;padding:0;border:0;background:none;width:100%;
