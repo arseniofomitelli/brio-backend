@@ -1275,7 +1275,7 @@ body::after{
 .rent__format-name{
   font-family:var(--font-serif);font-weight:600;
   font-size:1.5rem;line-height:1.15;color:var(--text);
-  margin:var(--sp-5) 0 var(--sp-3);
+  margin-bottom:var(--sp-3);
   padding-top:var(--sp-4);
   border-top:2px solid var(--wood-warm);
 }
@@ -1284,7 +1284,15 @@ body::after{
   text-wrap:pretty;
 }
 
-/* Снимок внутри предложения */
+/* Свободная полоса снимков между текстами */
+.rent__strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:var(--sp-4);
+  margin-bottom:var(--sp-16);
+}
+
+/* Снимок */
 .rent__shot{
   display:block;padding:0;border:0;background:none;width:100%;
   overflow:hidden;border-radius:var(--r-md);cursor:pointer;
