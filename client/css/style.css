@@ -1647,3 +1647,9 @@ body::after{
   .art__gallery{columns:1}
   .art__works{margin-top:var(--sp-16)}
 }
+.art__work-price{
+  margin-top:2px;
+  font-family:var(--font-serif);font-size:1.25rem;font-weight:600;
+  color:var(--wood-mid);white-space:nowrap;
+  font-feature-settings:"onum" 1,"liga" 1;
+}
