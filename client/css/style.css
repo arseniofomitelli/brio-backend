@@ -1284,20 +1284,6 @@ body::after{
   text-wrap:pretty;
 }
 
-/* Одиночные снимки между текстами — со смещением к краю */
-.rent__shot--left,
-.rent__shot--right{
-  max-width:64%;
-  margin-bottom:var(--sp-16);
-}
-.rent__shot--left{margin-right:auto}
-.rent__shot--right{margin-left:auto}
-.rent__shot--left img,
-.rent__shot--right img{aspect-ratio:3 / 2}
-@media(max-width:760px){
-  .rent__shot--left,.rent__shot--right{max-width:100%}
-}
-
 /* Снимок */
 .rent__shot{
   display:block;padding:0;border:0;background:none;width:100%;
@@ -1312,12 +1298,7 @@ body::after{
 }
 .rent__shot--tall img{aspect-ratio:1 / 1}
 
-/* Широкий план террасы — задаёт место */
-.rent__shot--wide{margin-bottom:var(--sp-10)}
-.rent__shot--wide img{aspect-ratio:16 / 9}
-@media(max-width:600px){
-  .rent__shot--wide img{aspect-ratio:4 / 3}
-}
+
 @media (hover:hover) and (pointer:fine){
   .rent__shot:hover{
     transform:translateY(-5px);
@@ -1475,4 +1456,55 @@ body::after{
 
 @media(max-width:760px){
   .pranzo__days{grid-template-columns:1fr;gap:var(--sp-12)}
+}
+
+/* ─── КОНТАКТЫ НА ДЕСКТОПЕ ────────────────────────────
+   Контакты и расписание — одной строкой, карта ниже по центру.
+   На телефоне раскладка остаётся прежней. */
+@media(min-width:1025px){
+  .contacts__grid{
+    grid-template-columns:1fr;
+    gap:var(--sp-12);
+  }
+  .contacts__info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:var(--sp-6) var(--sp-16);
+    align-items:center;
+  }
+  .contacts__info .section-title{
+    grid-column:1 / -1;
+    text-align:center;
+    margin-bottom:var(--sp-4);
+  }
+  .contacts__list{grid-column:1;margin-top:0}
+  .hours{grid-column:2;margin-top:0}
+  .socials{grid-column:1 / -1;justify-content:center;margin-top:var(--sp-2)}
+  .contacts__map{width:100%}
+}
+
+/* ─── СНИМКИ В АРЕНДЕ ВО ВСЮ ШИРИНУ ЭКРАНА ───────────
+   Идут после базового .rent__shot, иначе width:100% перебивает. */
+.rent .rent__shot--wide,
+.rent .rent__shot--left,
+.rent .rent__shot--right{
+  width:100vw;max-width:none;
+  position:relative;left:50%;margin-left:-50vw;
+  border-radius:0;
+  box-shadow:none;
+  margin-bottom:var(--sp-16);
+}
+.rent .rent__shot--wide img,
+.rent .rent__shot--left img,
+.rent .rent__shot--right img{aspect-ratio:21 / 9}
+
+@media (hover:hover) and (pointer:fine){
+  .rent .rent__shot--wide:hover,
+  .rent .rent__shot--left:hover,
+  .rent .rent__shot--right:hover{transform:none;box-shadow:none}
+}
+@media(max-width:760px){
+  .rent .rent__shot--wide img,
+  .rent .rent__shot--left img,
+  .rent .rent__shot--right img{aspect-ratio:4 / 3}
 }
