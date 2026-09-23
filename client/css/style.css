@@ -1483,28 +1483,50 @@ body::after{
   .contacts__map{width:100%}
 }
 
-/* ─── СНИМКИ В АРЕНДЕ ВО ВСЮ ШИРИНУ ЭКРАНА ───────────
-   Идут после базового .rent__shot, иначе width:100% перебивает. */
+/* ─── СНИМКИ В АРЕНДЕ ───────────────────────────────
+   Во всю ширину контейнера, по центру — без смещения к краю
+   и без растягивания за края экрана.
+   Идут после базового .rent__shot, иначе он перебивает. */
 .rent .rent__shot--wide,
 .rent .rent__shot--left,
 .rent .rent__shot--right{
-  width:100vw;max-width:none;
-  position:relative;left:50%;margin-left:-50vw;
-  border-radius:0;
-  box-shadow:none;
+  width:100%;max-width:none;
   margin-bottom:var(--sp-16);
 }
-.rent .rent__shot--wide img,
+/* широкий кадр террасы — исходник горизонтальный */
+.rent .rent__shot--wide img{aspect-ratio:16 / 9}
+/* остальные сняты вертикально — не режем их в узкую полосу */
 .rent .rent__shot--left img,
-.rent .rent__shot--right img{aspect-ratio:21 / 9}
+.rent .rent__shot--right img{aspect-ratio:3 / 2}
 
-@media (hover:hover) and (pointer:fine){
-  .rent .rent__shot--wide:hover,
-  .rent .rent__shot--left:hover,
-  .rent .rent__shot--right:hover{transform:none;box-shadow:none}
-}
 @media(max-width:760px){
   .rent .rent__shot--wide img,
   .rent .rent__shot--left img,
   .rent .rent__shot--right img{aspect-ratio:4 / 3}
 }
+
+/* ─── КОНТАКТЫ НА ДЕСКТОПЕ ────────────────────────────
+   Контакты и расписание — одной строкой, карта ниже по центру.
+   На телефоне раскладка остаётся прежней. */
+@media(min-width:1025px){
+  .contacts__grid{
+    grid-template-columns:1fr;
+    gap:var(--sp-12);
+  }
+  .contacts__info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:var(--sp-6) var(--sp-16);
+    align-items:center;
+  }
+  .contacts__info .section-title{
+    grid-column:1 / -1;
+    text-align:center;
+    margin-bottom:var(--sp-4);
+  }
+  .contacts__list{grid-column:1;margin-top:0}
+  .hours{grid-column:2;margin-top:0}
+  .socials{grid-column:1 / -1;justify-content:center;margin-top:var(--sp-2)}
+  .contacts__map{width:100%}
+}
+
