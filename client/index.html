@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brio — Итальянское кафе</title>
-  <meta name="description" content="Brio — итальянское кафе. Меню, галерея, контакты." />
+  <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, аренда зала под банкеты и съёмки, галерея, контакты." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="css/style.css?v=61" />
+  <link rel="stylesheet" href="css/style.css?v=62" />
 </head>
 <body>
 
@@ -34,6 +34,7 @@
         <button class="nav__close" id="navClose" aria-label="Закрыть меню">✕</button>
         <li><a href="#about"    class="nav__link">О нас</a></li>
         <li><a href="#menu"     class="nav__link">Меню</a></li>
+        <li><a href="#rent"     class="nav__link">Аренда</a></li>
         <li><a href="#gallery"  class="nav__link">Галерея</a></li>
         <li><a href="#contacts" class="nav__link">Контакты</a></li>
       </ul>
@@ -230,70 +231,6 @@
         <h2 class="section-title" style="text-align:center">Наше меню</h2>
       </div>
 
-      <!-- Витрина блюд -->
-      <ul class="dishes" role="list">
-        <li class="dish" data-i="0">
-          <button class="dish__btn" data-full="images/dish-bolognese.webp"
-                  aria-label="Болоньезе — открыть фото">
-            <span class="dish__plate">
-              <img class="dish__img" src="images/dish-bolognese.webp"
-                   alt="Болоньезе: домашняя тальятелле с мясным рагу и тёртым пармезаном"
-                   width="800" height="800" loading="lazy" decoding="async" />
-              <span class="dish__glare" aria-hidden="true"></span>
-            </span>
-            <span class="dish__meta">
-              <span class="dish__name">Болоньезе</span>
-              <span class="dish__price">700 ₽</span>
-            </span>
-          </button>
-        </li>
-        <li class="dish" data-i="1">
-          <button class="dish__btn" data-full="images/dish-amalfi.webp"
-                  aria-label="Амальфи — открыть фото">
-            <span class="dish__plate">
-              <img class="dish__img" src="images/dish-amalfi.webp"
-                   alt="Салат Амальфи: креветки, томаты черри, руккола и песто"
-                   width="800" height="800" loading="lazy" decoding="async" />
-              <span class="dish__glare" aria-hidden="true"></span>
-            </span>
-            <span class="dish__meta">
-              <span class="dish__name">Амальфи</span>
-              <span class="dish__price">800 ₽</span>
-            </span>
-          </button>
-        </li>
-        <li class="dish" data-i="2">
-          <button class="dish__btn" data-full="images/dish-arrabbiata.webp"
-                  aria-label="Арабьята — открыть фото">
-            <span class="dish__plate">
-              <img class="dish__img" src="images/dish-arrabbiata.webp"
-                   alt="Арабьята: паста в томатном соусе с чесноком, чили и пармезаном"
-                   width="800" height="800" loading="lazy" decoding="async" />
-              <span class="dish__glare" aria-hidden="true"></span>
-            </span>
-            <span class="dish__meta">
-              <span class="dish__name">Арабьята</span>
-              <span class="dish__price">650 ₽</span>
-            </span>
-          </button>
-        </li>
-        <li class="dish" data-i="3">
-          <button class="dish__btn" data-full="images/dish-verde.webp"
-                  aria-label="Инсалата Верде — открыть фото">
-            <span class="dish__plate">
-              <img class="dish__img" src="images/dish-verde.webp"
-                   alt="Инсалата Верде: авокадо, огурец, сельдерей, зелень и песто"
-                   width="800" height="800" loading="lazy" decoding="async" />
-              <span class="dish__glare" aria-hidden="true"></span>
-            </span>
-            <span class="dish__meta">
-              <span class="dish__name">Инсалата Верде</span>
-              <span class="dish__price">650 ₽</span>
-            </span>
-          </button>
-        </li>
-      </ul>
-
       <div class="menu__tabs" id="menuTabs" role="tablist" aria-label="Категории меню">
         <div class="skeleton skeleton--tab" aria-hidden="true"></div>
         <div class="skeleton skeleton--tab" aria-hidden="true"></div>
@@ -306,6 +243,71 @@
         <div class="skeleton skeleton--line" style="height:60px;margin-bottom:12px" aria-hidden="true"></div>
       </div>
       <p class="menu__note">Пробковый сбор за бутылку вина 0,75 л — 1000 ₽</p>
+    </div>
+  </section>
+
+  <div class="molding" aria-hidden="true"></div>
+
+  <!-- ─── АРЕНДА ЗАЛА ───────────────────────────────── -->
+  <section class="rent" id="rent">
+    <div class="container">
+      <div class="section-header reveal reveal--up">
+        <h2 class="section-title" style="text-align:center">Аренда зала</h2>
+        <p class="rent__lead">Закрываем зал целиком — под корпоратив, день рождения, помолвку или съёмку.
+          Восемь&nbsp;—&nbsp;двенадцать гостей, терраса и авторское банкетное меню.</p>
+      </div>
+
+      <ul class="rent__offers" role="list">
+        <li class="rent__offer reveal reveal--up" style="--i:0">
+          <p class="rent__offer-name">Ужин</p>
+          <p class="rent__offer-price">20 000 ₽ <span class="rent__offer-plus">+ еда</span></p>
+          <ul class="rent__offer-list" role="list">
+            <li>Зал целиком и терраса</li>
+            <li>8 — 12 гостей</li>
+            <li>Авторское банкетное меню</li>
+          </ul>
+        </li>
+        <li class="rent__offer reveal reveal--up" style="--i:1">
+          <p class="rent__offer-name">Обед</p>
+          <p class="rent__offer-price">10 000 ₽ <span class="rent__offer-plus">+ еда</span></p>
+          <ul class="rent__offer-list" role="list">
+            <li>Дневной формат</li>
+            <li>Встречи и бизнес-завтраки</li>
+            <li>Небольшие презентации</li>
+          </ul>
+        </li>
+        <li class="rent__offer reveal reveal--up" style="--i:2">
+          <p class="rent__offer-name">Съёмка</p>
+          <p class="rent__offer-price">3 000 — 5 000 ₽ <span class="rent__offer-plus">/ час</span></p>
+          <ul class="rent__offer-list" role="list">
+            <li>Утренние часы</li>
+            <li>Интерьер целиком</li>
+            <li>Фотограф по желанию</li>
+          </ul>
+        </li>
+      </ul>
+
+      <p class="rent__extras reveal reveal--up">
+        Дополнительно: обогреватели на террасу · декор от 15 000 ₽ · профессиональный фотограф
+      </p>
+
+      <!-- TODO: сюда встанет полоса фотографий зала и террасы, когда придут снимки -->
+
+      <div class="rent__occasions reveal reveal--up">
+        <h3 class="rent__occasions-title">Поводы</h3>
+        <ul class="rent__tags" role="list">
+          <li>Корпоратив</li>
+          <li>День рождения</li>
+          <li>Помолвка</li>
+          <li>Девичник</li>
+          <li>Камерная свадьба</li>
+          <li>Съёмка рекламы или клипа</li>
+        </ul>
+      </div>
+
+      <div class="rent__cta reveal reveal--up">
+        <a href="#contacts" class="btn btn--teal btn--icon">Узнать свободные даты<span class="btn__ico" aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 
@@ -388,6 +390,7 @@
       <nav class="footer__nav" aria-label="Навигация в подвале">
         <a href="#about">О нас</a>
         <a href="#menu">Меню</a>
+        <a href="#rent">Аренда</a>
         <a href="#gallery">Галерея</a>
         <a href="#contacts">Контакты</a>
       </nav>
@@ -406,6 +409,6 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=42"></script>
+  <script src="js/app.js?v=43"></script>
 </body>
 </html>

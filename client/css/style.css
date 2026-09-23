@@ -1217,104 +1217,89 @@ body::after{
   .menu-list__item:hover .menu-list__name::after{transform:scaleX(1)}
 }
 
-/* ─── ВИТРИНА БЛЮД: тарелки без фона ──────────────────
-   Наматывание и подъём: тарелка подкручивается и всплывает,
-   тень под ней уходит вниз и сжимается — это и читается как «подняли». */
-.dishes{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:var(--sp-10) var(--sp-6);
-  margin:0 0 var(--sp-16);
-  padding:var(--sp-4) 0 var(--sp-6);
-}
-.dish{min-width:0}
-.dish__btn{
-  display:block;width:100%;padding:0;border:0;background:none;
-  cursor:pointer;text-align:center;color:inherit;
-  border-radius:var(--r-md);
-  perspective:900px;            /* глубина для наклона тарелки */
-}
-.dishes .dish__plate{
-  display:block;position:relative;
-  transform-style:preserve-3d;
-  transform-origin:50% 62%;
-  transition:transform 1150ms var(--ease-premium),
-             opacity 760ms ease,
-             filter 760ms ease;
-  will-change:transform;
-}
-/* Мягкая тень под тарелкой */
-.dishes .dish__plate::before{
-  content:'';position:absolute;
-  left:14%;right:14%;bottom:-1%;height:16%;
-  border-radius:50%;
-  background:radial-gradient(ellipse at center,
-    rgba(36,20,9,.40) 0%,rgba(36,20,9,.16) 45%,rgba(36,20,9,0) 72%);
-  filter:blur(9px);
-  transition:transform 900ms var(--ease-premium),
-             opacity 900ms var(--ease-premium);
-}
-.dish__img{position:relative;width:100%;height:auto;display:block}
-
-/* Стартовое состояние ставим только когда работает JS,
-   иначе блюда просто видны (без скрипта ничего не пропадает) */
-.dishes--anim .dish__plate{
-  transform:translateY(46px) translateZ(-90px) rotateX(18deg) rotate(-16deg);
-  opacity:0;filter:blur(7px);
-}
-.dishes--anim .dish.is-in .dish__plate{
-  transform:none;opacity:1;filter:none;
-}
-
-.dish__meta{
-  display:flex;flex-direction:column;align-items:center;gap:2px;
-  margin-top:var(--sp-5);
-}
-.dishes--anim .dish__meta{
-  opacity:0;transform:translateY(10px);
-  transition:opacity 620ms ease 240ms,
-             transform 620ms var(--ease-premium) 240ms;
-}
-.dishes--anim .dish.is-in .dish__meta{opacity:1;transform:none}
-
-.dish__name{
-  font-family:var(--font-serif);font-size:1.3rem;font-weight:600;
-  line-height:1.15;color:var(--text);
-  transition:color 300ms var(--ease-premium);
-}
-.dish__price{
-  font-family:var(--font-serif);font-size:1.05rem;font-weight:600;
-  color:var(--wood-mid);
-}
-
-/* Наматывание + подъём при наведении */
-@media (hover:hover) and (pointer:fine){
-  .dishes .dish__btn:hover .dish__plate,
-  .dishes .dish__btn:focus-visible .dish__plate{
-    /* поднимается, доворачивается и наклоняется к зрителю */
-    transform:translateY(-30px) translateZ(80px) rotateX(24deg) rotate(11deg);
-  }
-  .dishes .dish__btn:hover .dish__plate::before,
-  .dishes .dish__btn:focus-visible .dish__plate::before{
-    transform:translateY(20px) scale(.82);opacity:.5;
-  }
-  .dishes .dish__btn:hover .dish__name{color:var(--teal-700)}
-}
-.dishes .dish__btn:active .dish__plate{
-  transform:translateY(-14px) translateZ(40px) rotateX(14deg) rotate(6deg);
-}
-
 /* Вырезанные тарелки в лайтбоксе — без рамки и прямоугольной тени */
 .lightbox__img[src$=".webp"]{box-shadow:none;border-radius:0;background:none}
 
-/* Блик по глазури — движется вслед за наклоном тарелки */
-.dish__glare{
-  position:absolute;inset:0;border-radius:50%;
-  pointer-events:none;
-  background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),
-    rgba(255,255,255,.60) 0%,
-    rgba(255,255,255,.16) 30%,
-    rgba(255,255,255,0)   62%);
-  opacity:calc(var(--lift,0) * .8);
-  mix-blend-mode:soft-light;
+
+/* ═══════════════════════════════════════════════════════
+   АРЕНДА ЗАЛА
+═══════════════════════════════════════════════════════ */
+.rent{padding:var(--sp-32) 0;background:var(--surface)}
+
+.rent__lead{
+  max-width:56ch;margin:0 auto;
+  font-size:1.0625rem;line-height:1.7;color:var(--text-2);
+  text-wrap:pretty;
+}
+
+/* Тарифы — без карточек, разделены волосяной линией сверху */
+.rent__offers{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:var(--sp-12) var(--sp-10);
+  margin-bottom:var(--sp-12);
+}
+.rent__offer{
+  padding-top:var(--sp-5);
+  border-top:2px solid var(--wood-warm);
+}
+.rent__offer-name{
+  font-size:.72rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--sage);
+  margin-bottom:var(--sp-3);
+}
+.rent__offer-price{
+  font-family:var(--font-serif);
+  font-size:clamp(1.9rem,3.2vw,2.5rem);
+  font-weight:700;line-height:1.05;letter-spacing:-.015em;
+  color:var(--wood-mid);
+  font-variant-numeric:tabular-nums;
+  margin-bottom:var(--sp-5);
+}
+.rent__offer-plus{
+  font-size:.9rem;font-weight:500;font-style:italic;
+  color:var(--text-3);letter-spacing:0;
+  white-space:nowrap;
+}
+.rent__offer-list{display:flex;flex-direction:column;gap:var(--sp-2)}
+.rent__offer-list li{
+  position:relative;padding-left:var(--sp-5);
+  font-size:.9375rem;line-height:1.55;color:var(--text-2);
+}
+.rent__offer-list li::before{
+  content:'';position:absolute;left:0;top:.62em;
+  width:9px;height:1px;background:var(--teal-700);
+}
+
+.rent__extras{
+  font-size:.875rem;color:var(--text-3);
+  text-align:center;margin-bottom:var(--sp-16);
+  text-wrap:pretty;
+}
+
+/* Поводы */
+.rent__occasions{text-align:center;margin-bottom:var(--sp-12)}
+.rent__occasions-title{
+  font-family:var(--font-serif);font-weight:600;
+  font-size:1.5rem;color:var(--text);
+  margin-bottom:var(--sp-6);
+}
+.rent__tags{
+  display:flex;flex-wrap:wrap;gap:var(--sp-3);
+  justify-content:center;
+}
+.rent__tags li{
+  padding:var(--sp-2) var(--sp-5);
+  border:1px solid var(--gray-200);
+  border-radius:var(--r-full);
+  font-size:.875rem;color:var(--text-2);
+  background:var(--sage-pale);
+}
+
+.rent__cta{display:flex;justify-content:center}
+
+@media(max-width:480px){
+  .rent__offers{gap:var(--sp-10)}
+  .rent__tags{gap:var(--sp-2)}
+  .rent__tags li{padding:var(--sp-2) var(--sp-4);font-size:.8125rem}
 }
