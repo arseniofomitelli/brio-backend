@@ -1264,9 +1264,50 @@ body::after{
   color:var(--text-3);letter-spacing:0;
 }
 
+/* Декор — два уровня цены */
 .rent__extras{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:var(--sp-3) var(--sp-10);
+  margin-bottom:var(--sp-16);
+}
+.rent__extras li{
+  display:flex;align-items:baseline;gap:var(--sp-3);
   font-size:.9375rem;color:var(--text-2);
-  text-align:center;margin-bottom:var(--sp-16);
+}
+.rent__extras b{
+  font-family:var(--font-serif);font-size:1.25rem;font-weight:700;
+  color:var(--wood-mid);font-variant-numeric:tabular-nums;
+}
+
+/* Примеры декора */
+.rent__gallery{
+  margin:0 0 var(--sp-16);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:var(--sp-4);
+  max-width:760px;margin-inline:auto;
+}
+.rent__shot{
+  display:block;padding:0;border:0;background:none;width:100%;
+  overflow:hidden;border-radius:var(--r-md);cursor:pointer;
+  box-shadow:0 14px 38px rgba(15,40,39,.18);
+  transition:transform 520ms var(--ease-premium),
+             box-shadow 520ms var(--ease-premium);
+}
+.rent__shot img{
+  width:100%;height:auto;display:block;
+  aspect-ratio:3 / 4;object-fit:cover;
+}
+@media (hover:hover) and (pointer:fine){
+  .rent__shot:hover{
+    transform:translateY(-5px);
+    box-shadow:0 24px 54px rgba(15,40,39,.26);
+  }
+}
+.rent__gallery figcaption{
+  grid-column:1/-1;text-align:center;
+  margin-top:var(--sp-2);
+  font-size:.8125rem;letter-spacing:.04em;color:var(--text-3);
 }
 
 /* Форматы — колонками с волосяной линией, как в меню */

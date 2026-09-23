@@ -741,3 +741,11 @@ document.querySelectorAll('.about__stat-num[data-target]').forEach(function(el) 
   update();
 })();
 
+
+/* ─── ФОТО ДЕКОРА В АРЕНДЕ → лайтбокс ───────────────── */
+document.querySelectorAll('.rent__shot').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var img = btn.querySelector('img');
+    openLightbox(btn.dataset.full, img ? img.alt : '');
+  });
+});
