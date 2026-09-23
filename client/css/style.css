@@ -1284,12 +1284,18 @@ body::after{
   text-wrap:pretty;
 }
 
-/* Свободная полоса снимков между текстами */
-.rent__strip{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:var(--sp-4);
+/* Одиночные снимки между текстами — со смещением к краю */
+.rent__shot--left,
+.rent__shot--right{
+  max-width:64%;
   margin-bottom:var(--sp-16);
+}
+.rent__shot--left{margin-right:auto}
+.rent__shot--right{margin-left:auto}
+.rent__shot--left img,
+.rent__shot--right img{aspect-ratio:3 / 2}
+@media(max-width:760px){
+  .rent__shot--left,.rent__shot--right{max-width:100%}
 }
 
 /* Снимок */
