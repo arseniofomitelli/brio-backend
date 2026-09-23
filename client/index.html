@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="css/style.css?v=78" />
+  <link rel="stylesheet" href="css/style.css?v=79" />
 </head>
 <body>
 
@@ -36,6 +36,7 @@
         <li><a href="#menu"     class="nav__link">Меню</a></li>
         <li><a href="#pranzo"   class="nav__link">Pranzo</a></li>
         <li><a href="#rent"     class="nav__link">Аренда</a></li>
+        <li><a href="#art"      class="nav__link">Картины</a></li>
         <li><a href="#gallery"  class="nav__link">Галерея</a></li>
         <li><a href="#contacts" class="nav__link">Контакты</a></li>
       </ul>
@@ -552,6 +553,51 @@
 
   <div class="molding" aria-hidden="true"></div>
 
+  <!-- ─── КАРТИНЫ ───────────────────────────────────── -->
+  <section class="art" id="art">
+    <div class="container art__grid">
+      <figure class="art__portrait reveal reveal--left">
+        <img src="images/artist.jpg"
+             alt="Екатерина Лямуан в мастерской у мольберта, с кистью в руке"
+             width="852" height="1280" loading="lazy" decoding="async" />
+      </figure>
+
+      <div class="art__body reveal reveal--right">
+        <h2 class="section-title">Картины</h2>
+        <p class="art__name">Екатерина Лямуан</p>
+
+        <p>Родилась в Москве, окончила художественную школу. В 2008 году поступила
+          в Московское академическое художественное училище памяти 1905 года. К театру
+          её подтолкнул наставник Игорь Шумилов — но набора на театральное отделение
+          в тот год не было, и она пошла на педагогическое.</p>
+
+        <p>В конце обучения вместе с однокурсником Артёмом Дживаняном открыла галерею
+          «Подполье» — проект объединил девятнадцать молодых московских художников.</p>
+
+        <p>В 2014 году поступила в Театральную мастерскую МГАХИ. Во время учёбы работала
+          над «Носом» Шостаковича, «Пиковой дамой» Чайковского, «Добрым человеком
+          из Сычуаня» Брехта. Там же научилась делать макеты и находить пластическое
+          решение для литературных образов, заняла первое место в конкурсе живописных
+          постановок. Французская тема с тех пор занимает заметное место в её работах.</p>
+
+        <p>Первая персональная выставка прошла в 2020 году в Культурном центре
+          на Патриарших. В 2023 Екатерина впервые выступила художником-постановщиком —
+          в опере «Кощей Бессмертный». В 2025 году в Гостином Дворе прошла масштабная
+          выставка «Подслушано у картин» в тандеме с Татьяной Анже, по её мотивам вышла
+          одноимённая книга. В июле 2026 — персональная выставка в Серпуховском
+          историко-художественном музее.</p>
+
+        <ul class="art__facts" role="list">
+          <li>Член Московского Союза Художников с 2024 года</li>
+          <li>Преподаёт сценографию в МГАХИ имени В. И. Сурикова</li>
+          <li>Работы в частных коллекциях России, Франции и Испании</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="molding" aria-hidden="true"></div>
+
   <!-- ─── ГАЛЕРЕЯ ───────────────────────────────────── -->
   <section class="gallery-section" id="gallery">
     <div class="container">
@@ -610,6 +656,7 @@
         <a href="#menu">Меню</a>
         <a href="#pranzo">Pranzo</a>
         <a href="#rent">Аренда</a>
+        <a href="#art">Картины</a>
         <a href="#gallery">Галерея</a>
         <a href="#contacts">Контакты</a>
       </nav>
