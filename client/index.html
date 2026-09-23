@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="css/style.css?v=66" />
+  <link rel="stylesheet" href="css/style.css?v=68" />
 </head>
 <body>
 
@@ -268,55 +268,57 @@
         </li>
       </ul>
 
-      <ul class="rent__extras" role="list">
-        <li class="reveal reveal--up" style="--i:0"><span>Декор стола</span><b>от 10 000 ₽</b></li>
-        <li class="reveal reveal--up" style="--i:1"><span>Декор всего зала</span><b>от 40 000 ₽</b></li>
-      </ul>
-
-      <figure class="rent__gallery">
-        <button class="rent__shot" data-full="images/decor-table.jpg"
-                aria-label="Накрытый стол с декором — открыть фото">
-          <img src="images/decor-table.jpg"
-               alt="Накрытый стол в Brio: антуриумы, мятные свечи, зелёные тарелки и цитрусы на льняной скатерти"
-               width="853" height="1280" loading="lazy" decoding="async" />
-        </button>
-        <button class="rent__shot" data-full="images/decor-setting.jpg"
-                aria-label="Сервировка вдоль стола — открыть фото">
-          <img src="images/decor-setting.jpg"
-               alt="Вид вдоль накрытого стола: георгины, антуриумы, мятные свечи и зелёная посуда"
-               width="1200" height="1800" loading="lazy" decoding="async" />
-        </button>
-        <button class="rent__shot" data-full="images/decor-guests.jpg"
-                aria-label="Гости за накрытым столом — открыть фото">
-          <img src="images/decor-guests.jpg"
-               alt="Гости за накрытым столом в зале Brio, декор из цветов и свечей"
-               width="1200" height="1800" loading="lazy" decoding="async" />
-        </button>
-        <button class="rent__shot" data-full="images/decor-flowers.jpg"
-                aria-label="Цветочная композиция — открыть фото">
-          <img src="images/decor-flowers.jpg"
-               alt="Композиция из оранжевых гербер и георгин на деревянной полке в зале Brio"
-               width="1200" height="1649" loading="lazy" decoding="async" />
-        </button>
-        <figcaption>Примеры декора</figcaption>
-      </figure>
-
       <ul class="rent__formats" role="list">
         <li class="rent__format reveal reveal--up" style="--i:0">
+          <button class="rent__shot" data-full="images/decor-setting.jpg"
+                  aria-label="Сервировка вдоль стола — открыть фото">
+            <img src="images/decor-setting.jpg"
+                 alt="Вид вдоль накрытого стола: георгины, антуриумы, мятные свечи и зелёная посуда"
+                 width="1200" height="1800" loading="lazy" decoding="async" />
+          </button>
           <h3 class="rent__format-name">Романтический ужин</h3>
           <p class="rent__format-desc">Зал закрыт для остальных гостей. Только вы и терраса.
             Еда — по основному или банкетному меню, на выбор.</p>
         </li>
         <li class="rent__format reveal reveal--up" style="--i:1">
+          <button class="rent__shot" data-full="images/decor-flowers.jpg"
+                  aria-label="Интерьер с цветочной композицией — открыть фото">
+            <img src="images/decor-flowers.jpg"
+                 alt="Композиция из оранжевых гербер и георгин на деревянной полке в зале Brio"
+                 width="1200" height="1649" loading="lazy" decoding="async" />
+          </button>
           <h3 class="rent__format-name">Съёмка</h3>
           <p class="rent__format-desc">Кино, реклама, фотосессия. Приходите со своей командой и фотографом.</p>
         </li>
         <li class="rent__format reveal reveal--up" style="--i:2">
+          <button class="rent__shot" data-full="images/decor-guests.jpg"
+                  aria-label="Гости за накрытым столом — открыть фото">
+            <img src="images/decor-guests.jpg"
+                 alt="Гости за накрытым столом в зале Brio, декор из цветов и свечей"
+                 width="1200" height="1800" loading="lazy" decoding="async" />
+          </button>
           <h3 class="rent__format-name">Мероприятие</h3>
           <p class="rent__format-desc">Корпоратив, день рождения, помолвка, камерная свадьба.
             Еда — по банкетному меню.</p>
         </li>
       </ul>
+
+      <div class="rent__decor reveal reveal--up">
+        <button class="rent__shot rent__shot--tall" data-full="images/decor-table.jpg"
+                aria-label="Накрытый стол с декором — открыть фото">
+          <img src="images/decor-table.jpg"
+               alt="Накрытый стол в Brio: антуриумы, мятные свечи, зелёные тарелки и цитрусы на льняной скатерти"
+               width="853" height="1280" loading="lazy" decoding="async" />
+        </button>
+        <div class="rent__decor-body">
+          <h3 class="rent__decor-title">Декор</h3>
+          <p class="rent__decor-text">Флористика, свечи, посуда и текстиль — собираем под повод и рассаживаем стол.</p>
+          <dl class="rent__decor-prices">
+            <div><dt>Стол</dt><dd>от 10 000 ₽</dd></div>
+            <div><dt>Весь зал</dt><dd>от 40 000 ₽</dd></div>
+          </dl>
+        </div>
+      </div>
 
       <p class="rent__note reveal reveal--up">
         Для съёмок сдаём помещение с декором. Свет, оборудование и фотограф — ваши.

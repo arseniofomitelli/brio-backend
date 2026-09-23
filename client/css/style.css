@@ -1264,28 +1264,27 @@ body::after{
   color:var(--text-3);letter-spacing:0;
 }
 
-/* Декор — два уровня цены */
-.rent__extras{
-  display:flex;flex-wrap:wrap;justify-content:center;
-  gap:var(--sp-3) var(--sp-10);
+/* Форматы — каждый со своим снимком */
+.rent__formats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:var(--sp-10);
   margin-bottom:var(--sp-16);
 }
-.rent__extras li{
-  display:flex;align-items:baseline;gap:var(--sp-3);
-  font-size:.9375rem;color:var(--text-2);
+.rent__format{display:flex;flex-direction:column}
+.rent__format-name{
+  font-family:var(--font-serif);font-weight:600;
+  font-size:1.5rem;line-height:1.15;color:var(--text);
+  margin:var(--sp-5) 0 var(--sp-3);
+  padding-top:var(--sp-4);
+  border-top:2px solid var(--wood-warm);
 }
-.rent__extras b{
-  font-family:var(--font-serif);font-size:1.25rem;font-weight:700;
-  color:var(--wood-mid);font-variant-numeric:tabular-nums;
+.rent__format-desc{
+  font-size:.9375rem;line-height:1.6;color:var(--text-2);
+  text-wrap:pretty;
 }
 
-/* Примеры декора */
-.rent__gallery{
-  margin:0 0 var(--sp-16);
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:var(--sp-4);
-}
+/* Снимок внутри предложения */
 .rent__shot{
   display:block;padding:0;border:0;background:none;width:100%;
   overflow:hidden;border-radius:var(--r-md);cursor:pointer;
@@ -1295,39 +1294,42 @@ body::after{
 }
 .rent__shot img{
   width:100%;height:auto;display:block;
-  aspect-ratio:3 / 4;object-fit:cover;
+  aspect-ratio:4 / 3;object-fit:cover;
 }
+.rent__shot--tall img{aspect-ratio:1 / 1}
 @media (hover:hover) and (pointer:fine){
   .rent__shot:hover{
     transform:translateY(-5px);
     box-shadow:0 24px 54px rgba(15,40,39,.26);
   }
 }
-.rent__gallery figcaption{
-  grid-column:1/-1;text-align:center;
-  margin-top:var(--sp-2);
-  font-size:.8125rem;letter-spacing:.04em;color:var(--text-3);
-}
 
-/* Форматы — колонками с волосяной линией, как в меню */
-.rent__formats{
+/* Декор — снимок и цены рядом */
+.rent__decor{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns:minmax(200px,.72fr) 1fr;
   gap:var(--sp-10);
-  margin-bottom:var(--sp-10);
+  align-items:center;
+  margin-bottom:var(--sp-12);
 }
-.rent__format{
-  padding-top:var(--sp-5);
-  border-top:2px solid var(--wood-warm);
-}
-.rent__format-name{
+.rent__decor-title{
   font-family:var(--font-serif);font-weight:600;
-  font-size:1.5rem;line-height:1.15;color:var(--text);
+  font-size:2rem;line-height:1.1;color:var(--text);
   margin-bottom:var(--sp-3);
 }
-.rent__format-desc{
-  font-size:.9375rem;line-height:1.6;color:var(--text-2);
-  text-wrap:pretty;
+.rent__decor-text{
+  font-size:.9375rem;line-height:1.65;color:var(--text-2);
+  max-width:46ch;margin-bottom:var(--sp-6);text-wrap:pretty;
+}
+.rent__decor-prices{display:flex;flex-wrap:wrap;gap:var(--sp-4) var(--sp-10)}
+.rent__decor-prices div{display:flex;flex-direction:column;gap:2px}
+.rent__decor-prices dt{
+  font-size:.72rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--sage);
+}
+.rent__decor-prices dd{
+  font-family:var(--font-serif);font-size:1.5rem;font-weight:700;
+  color:var(--wood-mid);font-variant-numeric:tabular-nums;
 }
 
 .rent__note{
@@ -1340,6 +1342,10 @@ body::after{
 
 .rent__cta{display:flex;justify-content:center}
 
+@media(max-width:760px){
+  .rent__decor{grid-template-columns:1fr;gap:var(--sp-6)}
+  .rent__shot--tall img{aspect-ratio:4 / 3}
+}
 @media(max-width:480px){
   .rent__rates{gap:var(--sp-4)}
   .rent__formats{gap:var(--sp-8)}
