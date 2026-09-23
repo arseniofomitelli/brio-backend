@@ -1371,3 +1371,108 @@ body::after{
   .rent__rates{gap:var(--sp-4)}
   .rent__formats{gap:var(--sp-8)}
 }
+
+/* ═══════════════════════════════════════════════════════
+   PRANZO — бизнес-ланч
+═══════════════════════════════════════════════════════ */
+.pranzo{
+  padding:var(--sp-32) 0;
+  background:var(--sage-dark);
+  position:relative;overflow:hidden;
+}
+.pranzo::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 70% at 50% 40%,
+    rgba(160,204,202,.07) 0%,transparent 70%);
+}
+.pranzo .container{position:relative;z-index:1}
+
+.pranzo__lead{
+  max-width:46ch;margin:0 auto;
+  font-size:1.0625rem;line-height:1.7;
+  color:rgba(255,255,255,.62);
+  text-wrap:pretty;
+}
+
+.pranzo__days{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--sp-16) var(--sp-20);
+  margin-bottom:var(--sp-16);
+}
+
+.pranzo__day-name{
+  font-family:var(--font-serif);font-weight:600;
+  font-size:1.75rem;line-height:1.1;color:var(--white);
+  padding-bottom:var(--sp-3);margin-bottom:var(--sp-6);
+  border-bottom:1px solid rgba(255,255,255,.18);
+}
+.pranzo__day-name span{
+  font-style:italic;font-weight:400;font-size:1.05rem;
+  color:var(--teal-300);margin-left:var(--sp-2);
+}
+
+.pranzo__group + .pranzo__group{margin-top:var(--sp-8)}
+.pranzo__group-label{
+  font-size:.68rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--teal-300);
+  margin-bottom:var(--sp-4);
+}
+
+/* Строка блюда с отточием, как в печатном листе */
+.pranzo__dish{
+  display:flex;align-items:baseline;
+  font-family:var(--font-serif);
+  font-size:1.2rem;font-weight:600;color:var(--white);
+  line-height:1.25;
+}
+.pranzo__leader{
+  flex:1 1 auto;min-width:var(--sp-5);
+  margin:0 var(--sp-3);
+  border-bottom:1px dotted rgba(255,255,255,.3);
+  transform:translateY(-.28em);
+}
+.pranzo__weight{
+  flex:0 0 auto;
+  font-family:var(--font-sans);font-size:.8125rem;font-weight:500;
+  color:rgba(255,255,255,.55);white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.pranzo__desc{
+  margin-top:2px;
+  font-size:.875rem;line-height:1.5;
+  color:rgba(255,255,255,.55);
+}
+
+.pranzo__or{
+  margin:var(--sp-3) 0;
+  font-size:.8125rem;font-style:italic;
+  color:rgba(255,255,255,.4);
+  text-align:center;
+}
+
+/* Цена комплекса */
+.pranzo__price{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;
+  gap:var(--sp-3) var(--sp-4);
+  padding-top:var(--sp-10);
+  border-top:1px solid rgba(255,255,255,.16);
+  text-align:center;
+}
+.pranzo__price-label{
+  font-size:.72rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(255,255,255,.55);
+}
+.pranzo__price-sum{
+  font-family:var(--font-serif);
+  font-size:clamp(2.2rem,4vw,3rem);font-weight:700;
+  line-height:1;letter-spacing:-.02em;
+  color:var(--teal-300);font-variant-numeric:tabular-nums;
+}
+.pranzo__price-extra{
+  font-size:.875rem;color:rgba(255,255,255,.55);
+}
+
+@media(max-width:760px){
+  .pranzo__days{grid-template-columns:1fr;gap:var(--sp-12)}
+}
