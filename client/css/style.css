@@ -1653,3 +1653,30 @@ body::after{
   color:var(--wood-mid);white-space:nowrap;
   font-feature-settings:"onum" 1,"liga" 1;
 }
+
+/* ═══════════════════════════════════════════════════════
+   СТРАХОВКА: страница без работающего app.js
+   Заставка .splash перекрывает всё (fixed, z-index 400),
+   а .reveal--* стоят на opacity:0 — снимает их только скрипт.
+   Если скрипт не выполнился, посетитель видит тёмный экран.
+   Ниже — два состояния, в которых страница показывается сразу.
+═══════════════════════════════════════════════════════ */
+/* JS выключен совсем */
+.no-js .splash{display:none}
+.no-js .reveal,
+.no-js .reveal--up,
+.no-js .reveal--left,
+.no-js .reveal--right{opacity:1;transform:none}
+
+/* Скрипт не догрузился / упал — инлайн-стили перебиваем !important */
+.js-failed .splash{display:none!important}
+.js-failed .reveal,
+.js-failed .reveal--up,
+.js-failed .reveal--left,
+.js-failed .reveal--right,
+.js-failed .hero__welcome,
+.js-failed .hero__logo,
+.js-failed .hero__tagline,
+.js-failed .hero__actions{
+  opacity:1!important;transform:none!important;filter:none!important;
+}

@@ -1,7 +1,25 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="no-js">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    /* Страховка: страница обязана показаться, даже если js/app.js
+       не догрузился, был вырезан прокси/провайдером или упал с ошибкой.
+       Без неё заставка остаётся висеть, а все .reveal — прозрачными. */
+    (function (d) {
+      var h = d.documentElement;
+      h.className = h.className.replace(/\bno-js\b/, 'js');
+      window.__brioFallback = function () {
+        if (h.className.indexOf('js-failed') > -1) return;
+        h.className += ' js-failed';
+        window.__brioSkipIntro = true;
+        try { d.body.style.overflow = ''; d.body.style.paddingRight = ''; } catch (e) {}
+      };
+      setTimeout(function () {
+        if (!window.__brioReady) window.__brioFallback();
+      }, 4000);
+    })(document);
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brio — Итальянское кафе</title>
   <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, аренда зала под банкеты и съёмки, галерея, контакты." />
@@ -9,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="css/style.css?v=81" />
+  <link rel="stylesheet" href="css/style.css?v=82" />
 </head>
 <body>
 
@@ -848,6 +866,6 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=45"></script>
+  <script src="js/app.js?v=46" onerror="window.__brioFallback && window.__brioFallback()"></script>
 </body>
 </html>

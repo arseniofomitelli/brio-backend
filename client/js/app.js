@@ -55,6 +55,9 @@ setTimeout(function() {
 (function () {
   var splash = document.getElementById('splash');
   if (!splash) { _revealHero(); return; }
+  /* Страховка из <head> уже показала страницу — заставку не крутим
+     и, главное, не блокируем скролл заново. */
+  if (window.__brioSkipIntro) { splash.classList.add('done'); _revealHero(); return; }
 
   var panelTop = document.getElementById('splashTop');
   var panelBtm = document.getElementById('splashBtm');
@@ -759,3 +762,6 @@ document.querySelectorAll('.art__work-shot').forEach(function (btn) {
     openLightbox(btn.dataset.full, name ? name.textContent.trim() : (img ? img.alt : ''));
   });
 });
+
+/* Скрипт дошёл до конца — страховка из <head> не нужна. */
+window.__brioReady = true;
