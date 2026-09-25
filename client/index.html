@@ -25,6 +25,16 @@
       setTimeout(function () {
         if (!window.__brioReady) window.__brioFallback();
       }, 4000);
+
+      /* Заставка — один раз за визит (в пределах вкладки) */
+      try { window.__introSeen = sessionStorage.getItem('brio:intro') === '1'; } catch (e) {}
+      if (!window.__introSeen) {
+        var pl = d.createElement('link');
+        pl.rel = 'preload'; pl.as = 'image';
+        pl.href = 'video/splash-spaghetti-poster.jpg';
+        pl.setAttribute('fetchpriority', 'high');
+        d.head.appendChild(pl);
+      }
     })(document);
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,7 +42,6 @@
   <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, аренда зала под банкеты и съёмки, галерея, контакты." />
   <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="video/splash-spaghetti-poster.jpg" as="image" fetchpriority="high" />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
   <link rel="stylesheet" href="css/style.css?v=87" />
 </head>
@@ -59,6 +68,13 @@
       <button class="splash__skip" id="splashSkip" type="button">Пропустить</button>
     </div>
   </div>
+  <script>
+    /* Уже видели в этой вкладке — убираем заставку, пока ролик не начал качаться */
+    if (window.__introSeen) {
+      var __sp = document.getElementById('splash');
+      if (__sp) __sp.parentNode.removeChild(__sp);
+    }
+  </script>
 
   <div id="site-wrap">
 
@@ -881,6 +897,6 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=49" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=50" onerror="window.__brioFallback && window.__brioFallback()"></script>
 </body>
 </html>

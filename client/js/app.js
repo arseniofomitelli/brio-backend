@@ -83,6 +83,7 @@ setTimeout(function() {
   function dismiss() {
     if (dismissed) return;
     dismissed = true;
+    try { sessionStorage.setItem('brio:intro', '1'); } catch (e) {}
     timers.forEach(clearTimeout);
     document.removeEventListener('keydown', onKey);
     if (vid) vid.pause();
