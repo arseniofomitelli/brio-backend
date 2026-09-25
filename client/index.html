@@ -14,6 +14,13 @@
         h.className += ' js-failed';
         window.__brioSkipIntro = true;
         try { d.body.style.overflow = ''; d.body.style.paddingRight = ''; } catch (e) {}
+        /* Видео первого экрана без автозапуска — его включает app.js после
+           заставки. Раз скрипта нет, включаем сами (кроме «уменьшить движение»). */
+        try {
+          var hv = d.getElementById('heroVideo');
+          var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (hv && !calm) { var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        } catch (e) {}
       };
       setTimeout(function () {
         if (!window.__brioReady) window.__brioFallback();
@@ -25,20 +32,31 @@
   <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, аренда зала под банкеты и съёмки, галерея, контакты." />
   <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="video/splash-spaghetti-poster.jpg" as="image" fetchpriority="high" />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
-  <link rel="stylesheet" href="css/style.css?v=86" />
+  <link rel="stylesheet" href="css/style.css?v=87" />
 </head>
 <body>
 
   <!-- ─── SPLASH INTRO ─────────────────────────────── -->
+  <!-- Ролик играет один раз; по окончании — занавес расходится.
+       Клик в любом месте или «Пропустить» — сразу на сайт. -->
   <div id="splash" class="splash" role="presentation">
     <div id="splashTop" class="splash__panel splash__panel--top"></div>
     <div id="splashBtm" class="splash__panel splash__panel--btm"></div>
     <div class="splash__body">
-      <p class="splash__welcome">Benvenuti</p>
-      <div class="splash__rule"></div>
-      <h1 class="splash__title">Brio</h1>
-      <p class="splash__tagline">Итальянское кафе · С 2026 года</p>
+      <p class="splash__eyebrow">Итальянское кафе</p>
+      <div class="splash__frame">
+        <video class="splash__video" id="splashVideo"
+               autoplay muted playsinline preload="auto"
+               poster="video/splash-spaghetti-poster.jpg"
+               width="720" height="848" aria-hidden="true">
+          <source src="video/splash-spaghetti.mp4" type="video/mp4" />
+        </video>
+        <span class="splash__progress" id="splashProgress" aria-hidden="true"></span>
+      </div>
+      <p class="splash__address">Маросейка, 15 · Москва</p>
+      <button class="splash__skip" id="splashSkip" type="button">Пропустить</button>
     </div>
   </div>
 
@@ -78,6 +96,7 @@
 
     <div class="hero__inner container">
       <div class="hero__content">
+        <h1 class="visually-hidden">Brio — итальянское кафе на Маросейке, 15</h1>
         <p class="hero__eyebrow">Маросейка, 15 · Москва</p>
         <p class="hero__welcome">Benvenuti</p>
         <span class="hero__rule" aria-hidden="true"></span>
@@ -91,7 +110,7 @@
       <!-- Видео: без звука, по кругу. Логотип Brio вшит в сам ролик. -->
       <figure class="hero__media">
         <video class="hero__video" id="heroVideo"
-               autoplay muted loop playsinline preload="auto"
+               muted loop playsinline preload="metadata"
                poster="video/hero-panini-poster.jpg"
                width="720" height="1280" aria-hidden="true">
           <source src="video/hero-panini.mp4" type="video/mp4" />
@@ -862,6 +881,6 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=48" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=49" onerror="window.__brioFallback && window.__brioFallback()"></script>
 </body>
 </html>

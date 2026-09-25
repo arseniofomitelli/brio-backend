@@ -766,41 +766,12 @@ html{ scrollbar-gutter:stable; }
   display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);
 }
 
-/* «Benvenuti» */
-.splash__welcome{
-  font-family:var(--font-serif);
-  font-style:italic;font-weight:500;
-  font-size:clamp(2.4rem,6vw,3.6rem);
-  color:var(--teal-300);letter-spacing:.02em;
-  animation:splashFadeUp 900ms ease 250ms both;
-}
-.splash__rule{
-  height:1px;width:0;background:var(--teal-300);opacity:.6;
-  animation:splashRuleDraw 600ms ease 500ms both;
-}
-.splash__title{
-  font-family:var(--font-serif);
-  font-size:clamp(5.5rem,17vw,10rem);font-weight:600;
-  line-height:.9;letter-spacing:.04em;color:var(--white);
-  animation:splashFadeUp 900ms ease 600ms both;
-}
-.splash__tagline{
-  font-family:var(--font-sans);
-  font-size:.75rem;font-weight:400;letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(255,255,255,.5);
-  animation:splashFadeUp 900ms ease 900ms both;
-}
-
 .splash.done{ display:none!important }
 
 /* ─── АНИМАЦИИ SPLASH ────────────────────────────────── */
 @keyframes splashFadeUp{
   from{ opacity:0; transform:translateY(20px) }
   to  { opacity:1; transform:none }
-}
-@keyframes splashRuleDraw{
-  from{ width:0;  opacity:0 }
-  to  { width:80px; opacity:1 }
 }
 
 
@@ -1117,7 +1088,7 @@ body::after{
   /* Останавливаем бесконечную/амбиентную анимацию полностью */
   .orb,.pillar__icon,.hero__scroll-line,
   .cta-band::before,.marquee__track,.skeleton,.api-waking__dot,
-  .splash__welcome,.splash__rule,.splash__title,.splash__tagline{
+  .splash__eyebrow,.splash__frame,.splash__address,.splash__skip{
     animation:none!important;
   }
   .hero__scroll-indicator{animation:none!important;opacity:.6}
@@ -1753,4 +1724,66 @@ body::after{
   width:5px;height:5px;padding:0;flex-shrink:0;
   background:var(--wood-warm);transform:rotate(45deg);
   font-size:0;line-height:0;color:transparent;opacity:.9;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ЗАСТАВКА v2 — ролик вместо «Brio / Итальянское кафе»
+   Окно с роликом по центру, над ним «Итальянское кафе»,
+   под ним адрес. Логотип Brio вшит в сам ролик.
+   Ширина окна — меньшая из «экран минус поля» и «высота × 720/848»,
+   чтобы пропорции не ломались и логотип (5–84% ширины) не резался.
+═══════════════════════════════════════════════════════ */
+.splash__body{
+  width:100%;padding:var(--sp-6) var(--sp-4);
+  gap:var(--sp-5);
+}
+.splash__eyebrow{
+  font-size:.75rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--teal-300);
+  animation:splashFadeUp 800ms var(--ease-out) 150ms both;
+}
+.splash__frame{
+  position:relative;
+  width:min(calc(100vw - 2 * var(--sp-4)), calc(min(64svh, 620px) * 720 / 848));
+  aspect-ratio:720 / 848;
+  border-radius:var(--r-lg);overflow:hidden;
+  background:#0d1f1e url("../video/splash-spaghetti-poster.jpg") center / cover no-repeat;
+  box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);
+  animation:splashFrameIn 900ms var(--ease-premium) both;
+}
+.splash__video{display:block;width:100%;height:100%;object-fit:cover}
+.splash__progress{
+  position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:var(--wood-warm);
+  transform:scaleX(0);transform-origin:left center;
+}
+.splash__address{
+  font-family:var(--font-serif);font-style:italic;font-weight:500;
+  font-size:clamp(1.3rem,2.6vw,1.7rem);color:var(--cream);
+  animation:splashFadeUp 800ms var(--ease-out) 350ms both;
+}
+.splash__skip{
+  min-height:44px;padding:var(--sp-3) var(--sp-5);
+  background:none;border:0;cursor:pointer;
+  font-family:var(--font-sans);font-size:.6875rem;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(239,224,195,.5);
+  transition:color var(--dur) var(--ease);
+  animation:splashFadeUp 800ms var(--ease-out) 1200ms both;
+}
+.splash__skip:hover,.splash__skip:focus-visible{color:var(--cream)}
+.splash__skip:focus-visible{outline:1px solid var(--teal-300);outline-offset:2px}
+
+@keyframes splashFrameIn{
+  from{opacity:0;transform:scale(.96)}
+  to  {opacity:1;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .splash__video,.splash__progress{display:none}
+}
+
+/* Экранным дикторам и поисковикам — заголовок, глазу не виден */
+.visually-hidden{
+  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
 }

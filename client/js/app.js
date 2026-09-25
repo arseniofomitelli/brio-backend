@@ -16,6 +16,9 @@ _heroItems.forEach(function(it) {
   if (el) { el.style.opacity = '0'; el.style.transform = it.dy ? 'translateY('+it.dy+'px)' : ''; el._heroHidden = true; }
 });
 function _revealHero() {
+  /* Заставка ушла — можно включать видео первого экрана */
+  window.__heroGo = true;
+  if (window.__heroKick) window.__heroKick();
   if (REDUCE) {
     _heroItems.forEach(function(it) {
       var el = document.querySelector(it.sel);
@@ -50,9 +53,13 @@ setTimeout(function() {
     var el = document.querySelector(it.sel);
     if (el && el._heroHidden) { el.style.opacity = '1'; el.style.transform = 'none'; el._heroHidden = false; }
   });
-}, 6000);
+}, 11000); /* позже потолка заставки (9 с) + занавеса (1,1 с), иначе съест анимацию */
 
-/* ─── SPLASH INTRO ───────────────────────────────────────── */
+/* ─── SPLASH INTRO ───────────────────────────────────────
+   Заставка — ролик. Уходит, когда ролик доиграл, по клику
+   или по «Пропустить». Если ролик за 3 с так и не пошёл
+   (медленная сеть, нет кодека, запрет автозапуска) — не держим
+   человека: уходим, как раньше уходила текстовая заставка. */
 (function () {
   var splash = document.getElementById('splash');
   if (!splash) { _revealHero(); return; }
@@ -62,15 +69,23 @@ setTimeout(function() {
 
   var panelTop = document.getElementById('splashTop');
   var panelBtm = document.getElementById('splashBtm');
+  var vid      = document.getElementById('splashVideo');
+  var bar      = document.getElementById('splashProgress');
 
   var sb = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.overflow = 'hidden';
   if (sb > 0) document.body.style.paddingRight = sb + 'px';
 
+  var timers = [];
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
   var dismissed = false;
   function dismiss() {
     if (dismissed) return;
     dismissed = true;
+    timers.forEach(clearTimeout);
+    document.removeEventListener('keydown', onKey);
+    if (vid) vid.pause();
 
     if (REDUCE) {
       splash.classList.add('done');
@@ -106,11 +121,45 @@ setTimeout(function() {
     requestAnimationFrame(animatePanels);
   }
 
-  var autoTimer = setTimeout(dismiss, 2800);
-  splash.addEventListener('click', function () {
-    clearTimeout(autoTimer);
-    dismiss();
-  }, { once: true });
+  function onKey(e) { if (e.key === 'Escape') dismiss(); }
+  document.addEventListener('keydown', onKey);
+  /* Клик в любом месте, включая «Пропустить» — всплывает сюда же */
+  splash.addEventListener('click', dismiss, { once: true });
+
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  if (!vid || REDUCE || saveData) {
+    /* Без ролика: кадр-заставка и подписи, как короткая статичная заставка */
+    if (vid) { vid.removeAttribute('autoplay'); vid.preload = 'none'; vid.pause(); }
+    later(dismiss, 2800);
+    return;
+  }
+
+  var started = false;
+  vid.addEventListener('playing', function () { started = true; });
+  /* Конец ролика ловим двумя способами: 'ended' приходит не везде
+     одинаково надёжно, поэтому дублируем проверкой по времени. */
+  var finishing = false;
+  function finish() { if (finishing) return; finishing = true; later(dismiss, 250); }
+  vid.addEventListener('ended', finish);
+  vid.addEventListener('timeupdate', function () {
+    if (vid.duration && vid.currentTime >= vid.duration - 0.15) finish();
+  });
+  var src = vid.querySelector('source');
+  if (src) src.addEventListener('error', function () { later(dismiss, 1200); });
+
+  var p = vid.play();
+  if (p && p.catch) p.catch(function () { later(dismiss, 2200); });
+
+  later(function () { if (!started) dismiss(); }, 3000); /* ролик не пошёл */
+  later(dismiss, 9000);                                   /* потолок на всякий случай */
+
+  if (bar) {
+    (function loop() {
+      if (dismissed) return;
+      if (vid.duration) bar.style.transform = 'scaleX(' + (vid.currentTime / vid.duration).toFixed(4) + ')';
+      requestAnimationFrame(loop);
+    })();
+  }
 })();
 
 /* ─── CONFIG ─────────────────────────────────────────────── */
@@ -777,15 +826,23 @@ document.querySelectorAll('.art__work-shot').forEach(function (btn) {
     v.pause();
     return;
   }
-  function play() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  /* Стартуем только после заставки — чтобы оба ролика не делили канал */
+  var inView = true;
+  function play() {
+    if (!window.__heroGo || !inView || document.hidden) return;
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  }
+  window.__heroKick = play;
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
-      entries[0].isIntersecting ? play() : v.pause();
+      inView = entries[0].isIntersecting;
+      inView ? play() : v.pause();
     }, { threshold: 0.15 }).observe(v);
   }
   document.addEventListener('visibilitychange', function () {
     document.hidden ? v.pause() : play();
   });
+  play();
 })();
 
 /* Скрипт дошёл до конца — страховка из <head> не нужна. */
