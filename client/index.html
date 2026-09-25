@@ -43,30 +43,31 @@
   <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
-  <link rel="stylesheet" href="css/style.css?v=87" />
+  <link rel="stylesheet" href="css/style.css?v=88" />
 </head>
 <body>
 
   <!-- ─── SPLASH INTRO ─────────────────────────────── -->
-  <!-- Ролик играет один раз; по окончании — занавес расходится.
-       Клик в любом месте или «Пропустить» — сразу на сайт. -->
+  <!-- Ролик на весь экран, надписи поверх. Уходит, когда ролик доиграл,
+       по клику, Esc или «Пропустить» — наездом с растворением. -->
   <div id="splash" class="splash" role="presentation">
-    <div id="splashTop" class="splash__panel splash__panel--top"></div>
-    <div id="splashBtm" class="splash__panel splash__panel--btm"></div>
-    <div class="splash__body">
-      <p class="splash__eyebrow">Итальянское кафе</p>
-      <div class="splash__frame">
-        <video class="splash__video" id="splashVideo"
-               autoplay muted playsinline preload="auto"
-               poster="video/splash-spaghetti-poster.jpg"
-               width="720" height="848" aria-hidden="true">
-          <source src="video/splash-spaghetti.mp4" type="video/mp4" />
-        </video>
-        <span class="splash__progress" id="splashProgress" aria-hidden="true"></span>
-      </div>
+    <div class="splash__media" aria-hidden="true">
+      <!-- Телефон: размытое продолжение кадра сверху и снизу от ролика -->
+      <div class="splash__blur"></div>
+      <video class="splash__video" id="splashVideo"
+             autoplay muted playsinline preload="auto"
+             poster="video/splash-spaghetti-poster.jpg"
+             width="1072" height="1262">
+        <source src="video/splash-spaghetti.mp4" type="video/mp4" />
+      </video>
+      <div class="splash__shade"></div>
+    </div>
+    <p class="splash__eyebrow">Итальянское кафе</p>
+    <div class="splash__foot">
       <p class="splash__address">Маросейка, 15 · Москва</p>
       <button class="splash__skip" id="splashSkip" type="button">Пропустить</button>
     </div>
+    <span class="splash__progress" id="splashProgress" aria-hidden="true"></span>
   </div>
   <script>
     /* Уже видели в этой вкладке — убираем заставку, пока ролик не начал качаться */
@@ -897,6 +898,6 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=50" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=51" onerror="window.__brioFallback && window.__brioFallback()"></script>
 </body>
 </html>

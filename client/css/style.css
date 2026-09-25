@@ -746,26 +746,6 @@ ul,ol{list-style:none}
 /* ─── SPLASH ─────────────────────────────────────────── */
 html{ scrollbar-gutter:stable; }
 
-.splash{
-  position:fixed;inset:0;z-index:400;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:var(--sp-4);cursor:pointer;pointer-events:all;
-}
-
-/* Занавесы */
-.splash__panel{
-  position:absolute;left:0;right:0;
-  background:var(--teal-900);
-}
-.splash__panel--top{ top:0;    height:50.5%; }
-.splash__panel--btm{ bottom:0; height:50.5%; }
-
-/* Текст поверх занавесов */
-.splash__body{
-  position:relative;z-index:1;
-  display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);
-}
-
 .splash.done{ display:none!important }
 
 /* ─── АНИМАЦИИ SPLASH ────────────────────────────────── */
@@ -1088,7 +1068,7 @@ body::after{
   /* Останавливаем бесконечную/амбиентную анимацию полностью */
   .orb,.pillar__icon,.hero__scroll-line,
   .cta-band::before,.marquee__track,.skeleton,.api-waking__dot,
-  .splash__eyebrow,.splash__frame,.splash__address,.splash__skip{
+  .splash__eyebrow,.splash__foot{
     animation:none!important;
   }
   .hero__scroll-indicator{animation:none!important;opacity:.6}
@@ -1726,64 +1706,128 @@ body::after{
   font-size:0;line-height:0;color:transparent;opacity:.9;
 }
 
+/* Экранным дикторам и поисковикам — заголовок, глазу не виден */
+.visually-hidden{
+  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
 /* ═══════════════════════════════════════════════════════
-   ЗАСТАВКА v2 — ролик вместо «Brio / Итальянское кафе»
-   Окно с роликом по центру, над ним «Итальянское кафе»,
-   под ним адрес. Логотип Brio вшит в сам ролик.
-   Ширина окна — меньшая из «экран минус поля» и «высота × 720/848»,
-   чтобы пропорции не ломались и логотип (5–84% ширины) не резался.
+   ЗАСТАВКА v3 — ролик на весь экран, надписи поверх
+   Ролик 1072×1262 (почти квадрат): логотип Brio вшит на 5–84% ширины
+   и 35–65% высоты кадра, губы — 15–35%.
+   Просто cover не годится ни на одном экране:
+   • 16:9 — видно лишь 44% высоты, логотип раздувается и уходит
+     за край, картинка мылится (увеличение ×1,8);
+   • телефон — срезается 45% ширины вместе с логотипом.
+   Поэтому резкий ролик идёт полосой (во всю высоту на широких
+   экранах, во всю ширину на телефоне), а остальное заполняет
+   размытое продолжение того же кадра. Экран заполнен целиком.
 ═══════════════════════════════════════════════════════ */
-.splash__body{
-  width:100%;padding:var(--sp-6) var(--sp-4);
-  gap:var(--sp-5);
+.splash{
+  position:fixed;inset:0;z-index:400;overflow:hidden;
+  background:var(--teal-900);cursor:pointer;
+  color:var(--cream);
 }
+.splash__media{
+  position:absolute;inset:0;
+  transform-origin:50% 45%;
+}
+.splash__blur{
+  position:absolute;inset:-60px;
+  background:url("../video/splash-spaghetti-blur.jpg") center / cover no-repeat;
+  filter:blur(28px) saturate(1.1) brightness(.62);
+}
+/* Широкий экран: полоса во всю высоту с запасом 118vh
+   (видно 8–92% кадра), логотип по центру экрана */
+.splash__video{
+  position:absolute;top:-9vh;left:50%;
+  height:118vh;width:auto;aspect-ratio:1072 / 1262;
+  max-width:none;
+  translate:-47% 0;
+  object-fit:cover;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 11%,#000 89%,transparent 100%);
+          mask-image:linear-gradient(to right,transparent 0%,#000 11%,#000 89%,transparent 100%);
+}
+/* Тень сверху под «Итальянское кафе», снизу — под адрес */
+.splash__shade{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(to bottom,rgba(8,20,19,.5) 0%,rgba(8,20,19,0) 20%),
+    linear-gradient(to top,rgba(8,20,19,.65) 0%,rgba(8,20,19,0) 28%);
+}
+
 .splash__eyebrow{
-  font-size:.75rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--teal-300);
-  animation:splashFadeUp 800ms var(--ease-out) 150ms both;
+  position:absolute;left:0;right:0;z-index:1;
+  top:calc(var(--sp-8) + env(safe-area-inset-top,0px));
+  text-align:center;
+  font-size:.75rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(239,224,195,.92);
+  text-shadow:0 1px 12px rgba(0,0,0,.35);
+  animation:splashFadeUp 900ms var(--ease-out) 300ms both;
 }
-.splash__frame{
-  position:relative;
-  width:min(calc(100vw - 2 * var(--sp-4)), calc(min(64svh, 620px) * 720 / 848));
-  aspect-ratio:720 / 848;
-  border-radius:var(--r-lg);overflow:hidden;
-  background:#0d1f1e url("../video/splash-spaghetti-poster.jpg") center / cover no-repeat;
-  box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);
-  animation:splashFrameIn 900ms var(--ease-premium) both;
-}
-.splash__video{display:block;width:100%;height:100%;object-fit:cover}
-.splash__progress{
-  position:absolute;left:0;right:0;bottom:0;height:2px;
-  background:var(--wood-warm);
-  transform:scaleX(0);transform-origin:left center;
+.splash__foot{
+  position:absolute;left:0;right:0;z-index:1;
+  bottom:calc(var(--sp-6) + env(safe-area-inset-bottom,0px));
+  display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);
+  text-align:center;
+  animation:splashFadeUp 900ms var(--ease-out) 550ms both;
 }
 .splash__address{
   font-family:var(--font-serif);font-style:italic;font-weight:500;
-  font-size:clamp(1.3rem,2.6vw,1.7rem);color:var(--cream);
-  animation:splashFadeUp 800ms var(--ease-out) 350ms both;
+  font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.2;
+  color:var(--cream);
+  text-shadow:0 2px 18px rgba(0,0,0,.45);
 }
 .splash__skip{
   min-height:44px;padding:var(--sp-3) var(--sp-5);
   background:none;border:0;cursor:pointer;
   font-family:var(--font-sans);font-size:.6875rem;font-weight:600;
   letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(239,224,195,.5);
+  color:rgba(239,224,195,.62);
   transition:color var(--dur) var(--ease);
-  animation:splashFadeUp 800ms var(--ease-out) 1200ms both;
 }
 .splash__skip:hover,.splash__skip:focus-visible{color:var(--cream)}
 .splash__skip:focus-visible{outline:1px solid var(--teal-300);outline-offset:2px}
 
-@keyframes splashFrameIn{
-  from{opacity:0;transform:scale(.96)}
-  to  {opacity:1;transform:none}
-}
-@media(prefers-reduced-motion:reduce){
-  .splash__video,.splash__progress{display:none}
+.splash__progress{
+  position:absolute;left:0;right:0;bottom:0;z-index:1;height:2px;
+  background:var(--wood-warm);
+  transform:scaleX(0);transform-origin:left center;
 }
 
-/* Экранным дикторам и поисковикам — заголовок, глазу не виден */
-.visually-hidden{
-  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+/* ─── Телефон: полоса во всю ширину с запасом 119vw (видно 4–88%) ─── */
+@media (max-aspect-ratio:3/4){
+  .splash__video{
+    top:50%;left:-4.76vw;
+    width:119vw;height:auto;
+    translate:0 -50%;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 11%,#000 89%,transparent 100%);
+            mask-image:linear-gradient(to bottom,transparent 0%,#000 11%,#000 89%,transparent 100%);
+  }
+  .splash__shade{
+    background:
+      linear-gradient(to bottom,rgba(8,20,19,.35) 0%,rgba(8,20,19,0) 18%),
+      linear-gradient(to top,rgba(8,20,19,.45) 0%,rgba(8,20,19,0) 22%);
+  }
+}
+
+/* ─── Уход: наезд с растворением ─── */
+.splash.is-leaving{
+  opacity:0;pointer-events:none;
+  transition:opacity 900ms cubic-bezier(.4,0,.2,1);
+}
+.splash.is-leaving .splash__media{
+  transform:scale(1.08);
+  transition:transform 1100ms cubic-bezier(.22,1,.36,1);
+}
+.splash.is-leaving .splash__eyebrow,
+.splash.is-leaving .splash__foot{
+  opacity:0;transition:opacity 350ms ease;
+}
+
+@media(prefers-reduced-motion:reduce){
+  /* Ролик не запускается (app.js), остаётся первый кадр */
+  .splash__progress{display:none}
+  .splash.is-leaving,.splash.is-leaving .splash__media{transition:none}
 }

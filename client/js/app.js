@@ -67,10 +67,8 @@ setTimeout(function() {
      и, главное, не блокируем скролл заново. */
   if (window.__brioSkipIntro) { splash.classList.add('done'); _revealHero(); return; }
 
-  var panelTop = document.getElementById('splashTop');
-  var panelBtm = document.getElementById('splashBtm');
-  var vid      = document.getElementById('splashVideo');
-  var bar      = document.getElementById('splashProgress');
+  var vid = document.getElementById('splashVideo');
+  var bar = document.getElementById('splashProgress');
 
   var sb = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.overflow = 'hidden';
@@ -79,6 +77,11 @@ setTimeout(function() {
   var timers = [];
   function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
+  function unlock() {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }
+
   var dismissed = false;
   function dismiss() {
     if (dismissed) return;
@@ -86,40 +89,25 @@ setTimeout(function() {
     try { sessionStorage.setItem('brio:intro', '1'); } catch (e) {}
     timers.forEach(clearTimeout);
     document.removeEventListener('keydown', onKey);
-    if (vid) vid.pause();
 
     if (REDUCE) {
+      if (vid) vid.pause();
       splash.classList.add('done');
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
+      unlock();
       _revealHero();
       return;
     }
 
-    var body = splash.querySelector('.splash__body');
-    if (body) { body.style.transition = 'opacity 300ms ease'; body.style.opacity = '0'; }
-
-    var duration = 1100;
-    var start = null;
-    function easeInOut(t) {
-      return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
-    }
-    function animatePanels(ts) {
-      if (!start) start = ts;
-      var t = Math.min((ts - start) / duration, 1);
-      var e = easeInOut(t);
-      if (panelTop) panelTop.style.transform = 'translateY(' + (-101 * e) + '%)';
-      if (panelBtm) panelBtm.style.transform = 'translateY(' + (101 * e) + '%)';
-      if (t < 1) {
-        requestAnimationFrame(animatePanels);
-      } else {
-        splash.classList.add('done');
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-        _revealHero();
-      }
-    }
-    requestAnimationFrame(animatePanels);
+    /* Наезд с растворением: кадр чуть приближается и тает,
+       первый экран проявляется сквозь него. Ролик доигрывает
+       под растворением — стоп-кадр смотрелся бы как зависание. */
+    splash.classList.add('is-leaving');
+    unlock();
+    setTimeout(_revealHero, 150);
+    setTimeout(function () {
+      splash.classList.add('done');
+      if (vid) vid.pause();
+    }, 1000);
   }
 
   function onKey(e) { if (e.key === 'Escape') dismiss(); }
