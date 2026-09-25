@@ -11,7 +11,7 @@
       h.className = h.className.replace(/\bno-js\b/, 'js');
       window.__brioFallback = function () {
         if (h.className.indexOf('js-failed') > -1) return;
-        h.className += ' js-failed';
+        h.className = h.className.replace(/\s*intro-lock/, '') + ' js-failed';
         window.__brioSkipIntro = true;
         try { d.body.style.overflow = ''; d.body.style.paddingRight = ''; } catch (e) {}
         /* Видео первого экрана без автозапуска — его включает app.js после
@@ -29,6 +29,26 @@
       /* Заставка — один раз за визит (в пределах вкладки) */
       try { window.__introSeen = sessionStorage.getItem('brio:intro') === '1'; } catch (e) {}
       if (!window.__introSeen) {
+        /* Пока идёт заставка, страницу под ней не листаем вообще:
+           overflow:hidden на body мобильный Safari игнорирует, и резкий
+           свайп открывал сайт под заставкой. Гасим сами жесты. Снимает
+           блокировку app.js (класс intro-lock), листать можно сразу. */
+        h.className += ' intro-lock';
+        var locked = function () { return h.className.indexOf('intro-lock') > -1; };
+        var block = function (e) { if (locked()) e.preventDefault(); };
+        var opts = { passive: false };
+        d.addEventListener('touchmove', block, opts);
+        d.addEventListener('wheel', block, opts);
+        d.addEventListener('keydown', function (e) {
+          if (!locked()) return;
+          var k = e.key;
+          if (k === ' ' || k === 'PageDown' || k === 'PageUp' || k === 'ArrowDown' ||
+              k === 'ArrowUp' || k === 'Home' || k === 'End' || k === 'Spacebar') {
+            /* Пробел на кнопке «Пропустить» — это нажатие, его не трогаем */
+            if (!(e.target && e.target.id === 'splashSkip')) e.preventDefault();
+          }
+        });
+
         var pl = d.createElement('link');
         pl.rel = 'preload'; pl.as = 'image';
         pl.href = 'video/splash-spaghetti-poster.jpg';
@@ -43,7 +63,7 @@
   <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
-  <link rel="stylesheet" href="css/style.css?v=88" />
+  <link rel="stylesheet" href="css/style.css?v=89" />
 </head>
 <body>
 
@@ -898,6 +918,6 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=51" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=52" onerror="window.__brioFallback && window.__brioFallback()"></script>
 </body>
 </html>

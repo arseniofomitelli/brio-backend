@@ -1831,3 +1831,20 @@ body::after{
   .splash__progress{display:none}
   .splash.is-leaving,.splash.is-leaving .splash__media{transition:none}
 }
+
+/* ─── Заставка: страница под ней не листается ───────────
+   Класс intro-lock ставит инлайн-скрипт в <head>, снимает app.js.
+   Фон html на это время — тёмный: если браузер всё же дёрнется
+   при отскоке, под заставкой будет её же цвет, а не сайт.
+   scrollbar-gutter держит место под полосу прокрутки, чтобы
+   после снятия блокировки страница не прыгала на её ширину. */
+html{scrollbar-gutter:stable}
+html.intro-lock,
+html.intro-lock body{
+  overflow:hidden;overscroll-behavior:none;
+}
+html.intro-lock{background:var(--teal-900)}
+.splash{
+  touch-action:none;overscroll-behavior:none;
+  box-shadow:0 0 0 100vmax var(--teal-900);
+}

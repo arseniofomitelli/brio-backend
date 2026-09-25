@@ -62,25 +62,19 @@ setTimeout(function() {
    человека: уходим, как раньше уходила текстовая заставка. */
 (function () {
   var splash = document.getElementById('splash');
-  if (!splash) { _revealHero(); return; }
-  /* Страховка из <head> уже показала страницу — заставку не крутим
-     и, главное, не блокируем скролл заново. */
-  if (window.__brioSkipIntro) { splash.classList.add('done'); _revealHero(); return; }
+  function unlock() { document.documentElement.classList.remove('intro-lock'); }
+  if (!splash) { unlock(); _revealHero(); return; }
+  /* Страховка из <head> уже показала страницу — заставку не крутим. */
+  if (window.__brioSkipIntro) { unlock(); splash.classList.add('done'); _revealHero(); return; }
 
   var vid = document.getElementById('splashVideo');
   var bar = document.getElementById('splashProgress');
 
-  var sb = window.innerWidth - document.documentElement.clientWidth;
-  document.body.style.overflow = 'hidden';
-  if (sb > 0) document.body.style.paddingRight = sb + 'px';
+  /* Прокрутку заперла ещё страница (класс intro-lock в <head>) */
+  document.documentElement.classList.add('intro-lock');
 
   var timers = [];
   function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
-
-  function unlock() {
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = '';
-  }
 
   var dismissed = false;
   function dismiss() {
