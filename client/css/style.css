@@ -1724,3 +1724,33 @@ body::after{
 @media(prefers-reduced-motion:reduce){
   .hero__video{display:none} /* остаётся кадр-заставка фоном окна */
 }
+
+/* ═══════════════════════════════════════════════════════
+   БЕГУЩАЯ СТРОКА v2 — продолжение первого экрана
+   Была ярко-бирюзовой полосой (#3ea39e) между двумя молдингами
+   и спорила с тёмным hero. Теперь тот же тёмный тил, кремовый
+   курсив, разделители — ромбы цвета обожжённого дерева.
+═══════════════════════════════════════════════════════ */
+.marquee-band{
+  background:var(--teal-900);
+  padding:var(--sp-6) 0 var(--sp-8);
+  border-top:1px solid rgba(239,224,195,.08);
+  position:relative;
+}
+/* Затухание по краям — градиентом цвета фона (маска прорезала бы сам фон) */
+.marquee-band::before,
+.marquee-band::after{
+  content:'';position:absolute;top:0;bottom:0;width:10%;z-index:1;pointer-events:none;
+}
+.marquee-band::before{left:0;background:linear-gradient(to right,var(--teal-900),rgba(21,47,46,0))}
+.marquee-band::after{right:0;background:linear-gradient(to left,var(--teal-900),rgba(21,47,46,0))}
+.marquee__track{gap:var(--sp-8)}
+.marquee__track span{
+  color:rgba(239,224,195,.82);
+  font-size:clamp(1.2rem,2.2vw,1.55rem);font-weight:400;
+}
+.marquee__track .marquee__sep{
+  width:5px;height:5px;padding:0;flex-shrink:0;
+  background:var(--wood-warm);transform:rotate(45deg);
+  font-size:0;line-height:0;color:transparent;opacity:.9;
+}

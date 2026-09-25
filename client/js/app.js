@@ -593,7 +593,7 @@ document.head.appendChild(style);
   track.style.animation = 'none';
   if (REDUCE) return; /* статичная лента при reduced-motion */
   var pos = 0;          // current position in %
-  var speed = 0.0018;   // % per ms (same as 28s CSS animation)
+  var speed = 0.0012;   // % per ms — полный круг ≈ 42 с, спокойнее прежнего
   var last = null;
   function tick(ts) {
     if (last === null) last = ts;
