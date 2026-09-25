@@ -26,7 +26,7 @@
   <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
-  <link rel="stylesheet" href="css/style.css?v=82" />
+  <link rel="stylesheet" href="css/style.css?v=84" />
 </head>
 <body>
 
@@ -69,35 +69,35 @@
   <section class="hero" id="hero">
     <div class="hero__bg" aria-hidden="true"></div>
 
-    <!-- Медленно плывущие световые орбы на фоне -->
+    <!-- Мягкие световые пятна — только на широком экране, за колонкой текста -->
     <div class="hero__orbs" aria-hidden="true">
       <div class="orb orb--1"></div>
       <div class="orb orb--2"></div>
       <div class="orb orb--3"></div>
-      <div class="orb orb--4"></div>
     </div>
 
-    <!-- Частицы -->
-    <div class="hero__particles" aria-hidden="true">
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-    </div>
+    <div class="hero__inner container">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Маросейка, 15 · Москва</p>
+        <p class="hero__welcome">Benvenuti</p>
+        <span class="hero__rule" aria-hidden="true"></span>
+        <p class="hero__lead">Паста, равиоли, панини — и&nbsp;бизнес‑ланч Pranzo по&nbsp;будням.</p>
+        <div class="hero__actions">
+          <a href="#menu"        class="btn btn--light btn--icon">Смотреть меню<span class="btn__ico" aria-hidden="true">→</span></a>
+          <a href="#contactsMap" class="btn btn--ghost">Как добраться</a>
+        </div>
+      </div>
 
-    <div class="hero__content">
-      <p class="hero__welcome" aria-hidden="true">Benvenuti</p>
-      <span class="molding-line" aria-hidden="true"></span>
-      <div class="hero__logo-wrap">
-        <img src="images/logo.jpg" alt="Brio — Итальянское кафе" class="hero__logo" />
-      </div>
-      <span class="molding-line" aria-hidden="true"></span>
-      <div class="hero__actions">
-        <a href="#menu"     class="btn btn--light btn--icon">Смотреть меню<span class="btn__ico" aria-hidden="true">→</span></a>
-        <a href="#contactsMap" class="btn btn--ghost">Как добраться</a>
-      </div>
+      <!-- Видео: без звука, по кругу. Логотип Brio вшит в сам ролик. -->
+      <figure class="hero__media">
+        <video class="hero__video" id="heroVideo"
+               autoplay muted loop playsinline preload="auto"
+               poster="video/hero-panini-poster.jpg"
+               width="720" height="1280" aria-hidden="true">
+          <source src="video/hero-panini.mp4" type="video/mp4" />
+        </video>
+        <figcaption class="hero__caption">Панини полпетте</figcaption>
+      </figure>
     </div>
 
     <!-- Индикатор скролла -->
@@ -105,7 +105,6 @@
       <span class="hero__scroll-text">Листайте</span>
       <span class="hero__scroll-line"></span>
     </div>
-
   </section>
 
   <div class="molding" aria-hidden="true"></div>
@@ -865,6 +864,6 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=46" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=47" onerror="window.__brioFallback && window.__brioFallback()"></script>
 </body>
 </html>

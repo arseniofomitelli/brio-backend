@@ -5,10 +5,11 @@ var REDUCE = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion:
 
 /* ─── HERO REVEAL via rAF ───────────────────────────────────── */
 var _heroItems = [
-  { sel: '.hero__welcome', dy: 24, delay: 0   },
-  { sel: '.hero__logo',    dy: 0,  delay: 200 },
-  { sel: '.hero__tagline', dy: 24, delay: 400 },
-  { sel: '.hero__actions', dy: 24, delay: 650 },
+  { sel: '.hero__media',   dy: 0,  delay: 0   },
+  { sel: '.hero__eyebrow', dy: 16, delay: 150 },
+  { sel: '.hero__welcome', dy: 24, delay: 250 },
+  { sel: '.hero__lead',    dy: 16, delay: 450 },
+  { sel: '.hero__actions', dy: 16, delay: 600 },
 ];
 _heroItems.forEach(function(it) {
   var el = document.querySelector(it.sel);
@@ -762,6 +763,30 @@ document.querySelectorAll('.art__work-shot').forEach(function (btn) {
     openLightbox(btn.dataset.full, name ? name.textContent.trim() : (img ? img.alt : ''));
   });
 });
+
+/* ─── ВИДЕО В ПЕРВОМ ЭКРАНЕ ─────────────────────────────
+   Играет только когда виден экран. При «уменьшить движение»
+   и при экономии трафика — не играет, остаётся кадр-заставка. */
+(function () {
+  var v = document.getElementById('heroVideo');
+  if (!v) return;
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  if (REDUCE || saveData) {
+    v.removeAttribute('autoplay');
+    v.preload = 'none';
+    v.pause();
+    return;
+  }
+  function play() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries[0].isIntersecting ? play() : v.pause();
+    }, { threshold: 0.15 }).observe(v);
+  }
+  document.addEventListener('visibilitychange', function () {
+    document.hidden ? v.pause() : play();
+  });
+})();
 
 /* Скрипт дошёл до конца — страховка из <head> не нужна. */
 window.__brioReady = true;

@@ -136,12 +136,6 @@ ul,ol{list-style:none}
   66%{transform:translate(20px,-22px)}
   100%{transform:translate(0,0)}
 }
-/* Мерцающие частицы — летят вверх */
-@keyframes particleFly{
-  0%{transform:translateY(0) translateX(0);opacity:.6}
-  70%{opacity:.15}
-  100%{transform:translateY(-80vh) translateX(12px);opacity:0}
-}
 
 /* ─── SCROLL PROGRESS ───────────────────────────────── */
 .scroll-progress{
@@ -295,15 +289,6 @@ ul,ol{list-style:none}
 .orb--2{width:380px;height:380px;background:rgba(255,255,255,.6);bottom:5%;right:5%;animation:orbDrift2 20s ease-in-out infinite}
 .orb--3{width:260px;height:260px;background:var(--teal-500);top:35%;left:58%;animation:orbDrift 13s ease-in-out infinite alternate-reverse}
 
-/* Particles */
-.hero__particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.particle{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);animation:particleFly linear infinite}
-.particle:nth-child(1){width:3px;height:3px;left:12%;bottom:15%;animation-duration:6s;animation-delay:0s}
-.particle:nth-child(2){width:4px;height:4px;left:28%;bottom:22%;animation-duration:8s;animation-delay:1.5s}
-.particle:nth-child(3){width:3px;height:3px;left:48%;bottom:18%;animation-duration:5.5s;animation-delay:3s}
-.particle:nth-child(4){width:5px;height:5px;left:62%;bottom:30%;animation-duration:7s;animation-delay:.8s}
-.particle:nth-child(5){width:3px;height:3px;left:78%;bottom:12%;animation-duration:9s;animation-delay:2s}
-.particle:nth-child(6){width:4px;height:4px;left:90%;bottom:25%;animation-duration:6.5s;animation-delay:4s}
 
 .hero__content{position:relative;z-index:1;padding-top:72px;padding-bottom:var(--sp-20)}
 
@@ -317,49 +302,6 @@ ul,ol{list-style:none}
   margin-bottom: var(--sp-4);
 }
 
-/* Молдинг-линия вокруг лого — такая же как между секциями */
-.molding-line {
-  display: block;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  margin-left: -50vw;
-  height: 8px;
-  background: linear-gradient(
-    to bottom,
-    #8a5030  0px,
-    #8a5030  1px,
-    #4e2810  1px,
-    #4e2810  6px,
-    #1a0e06  6px,
-    #1a0e06  8px
-  );
-  flex-shrink: 0;
-}
-
-/* Логотип — тиловая полоса на всю ширину экрана */
-.hero__logo-wrap {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  margin-left: -50vw;
-  margin-bottom: 0;
-  background-color: #3ea39e;
-  line-height: 0; /* убираем пустой пробел под img */
-}
-.hero__logo {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.hero__tagline {
-  font-size: .8rem;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.7);
-  margin-bottom: var(--sp-10);
-}
 .hero__actions {
   display: flex;
   gap: var(--sp-3);
@@ -909,7 +851,6 @@ html{ scrollbar-gutter:stable; }
   /* Кнопки на мобильном — компактнее, рядом а не столбиком */
   .hero__actions{flex-direction:row;align-items:center;justify-content:center;gap:var(--sp-3)}
   .hero__actions .btn{min-height:44px;padding:0 var(--sp-5);font-size:.75rem}
-  .hero__logo-wrap{width:100vw;left:50%;margin-left:-50vw}
   .gallery__grid{columns:1}
   .stats__grid{grid-template-columns:1fr 1fr}
   .footer__nav{gap:var(--sp-5)}
@@ -1174,7 +1115,7 @@ body::after{
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   /* Останавливаем бесконечную/амбиентную анимацию полностью */
-  .orb,.particle,.pillar__icon,.hero__scroll-line,
+  .orb,.pillar__icon,.hero__scroll-line,
   .cta-band::before,.marquee__track,.skeleton,.api-waking__dot,
   .splash__welcome,.splash__rule,.splash__title,.splash__tagline{
     animation:none!important;
@@ -1674,9 +1615,112 @@ body::after{
 .js-failed .reveal--up,
 .js-failed .reveal--left,
 .js-failed .reveal--right,
+.js-failed .hero__eyebrow,
 .js-failed .hero__welcome,
-.js-failed .hero__logo,
-.js-failed .hero__tagline,
-.js-failed .hero__actions{
+.js-failed .hero__lead,
+.js-failed .hero__actions,
+.js-failed .hero__media{
   opacity:1!important;transform:none!important;filter:none!important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO v5 — видео с кухни вместо растянутого логотипа
+   Телефон: ролик на весь экран, логотип Brio вшит в сам кадр
+   (40–61% высоты), текст и кнопки — в нижней четверти под ним.
+   Компьютер: слева приветствие, справа вертикальное окно на кухню.
+═══════════════════════════════════════════════════════ */
+.hero{align-items:stretch;text-align:left;background:var(--teal-900)}
+.hero__inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;gap:clamp(var(--sp-10),6vw,var(--sp-24));
+  padding-top:112px;padding-bottom:var(--sp-16);
+  min-height:100dvh;
+}
+.hero__content{padding:0;max-width:34rem}
+
+.hero__eyebrow{
+  font-size:.75rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--teal-300);margin-bottom:var(--sp-5);
+}
+.hero .hero__welcome{
+  font-family:var(--font-serif);font-style:italic;font-weight:500;
+  font-size:clamp(4rem,8vw,7.5rem);line-height:.95;letter-spacing:-.01em;
+  color:var(--cream);margin:0;
+}
+.hero__rule{
+  display:block;width:72px;height:1px;background:var(--wood-warm);
+  margin:var(--sp-8) 0 var(--sp-6);
+}
+.hero__lead{
+  font-size:1.0625rem;line-height:1.65;color:rgba(239,224,195,.72);
+  max-width:30ch;margin-bottom:var(--sp-10);text-wrap:pretty;
+}
+.hero .hero__actions{justify-content:flex-start}
+
+/* Окно на кухню */
+.hero__media{
+  position:relative;margin:0;
+  height:min(78vh,780px);aspect-ratio:9 / 16;
+  border-radius:var(--r-lg);overflow:hidden;
+  background:#0d1f1e url("../video/hero-panini-poster.jpg") center / cover no-repeat;
+  box-shadow:0 40px 90px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.07);
+}
+.hero__video{
+  display:block;width:100%;height:100%;
+  object-fit:cover;object-position:46% 50%;
+}
+.hero__caption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:var(--sp-12) var(--sp-5) var(--sp-5);
+  background:linear-gradient(to top,rgba(8,20,19,.78),transparent);
+  font-size:.6875rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+}
+
+/* Орбы — тише и только за текстом */
+.hero .orb{opacity:.09}
+.hero .orb--2{display:none}
+
+/* Средние экраны: окно ниже, текст плотнее */
+@media(max-width:1100px) and (min-width:901px){
+  .hero__media{height:min(70vh,640px)}
+  .hero .hero__welcome{font-size:clamp(3.5rem,7vw,5.5rem)}
+}
+
+/* ─── Телефон и планшет: ролик на весь экран ─── */
+@media(max-width:900px){
+  .hero{min-height:100svh}
+  .hero__orbs{display:none}
+  .hero__media{
+    position:absolute;inset:0;height:auto;aspect-ratio:auto;
+    border-radius:0;box-shadow:none;
+  }
+  /* Вуаль: сверху — под меню, снизу — под текст; середина с логотипом чистая */
+  .hero__media::after{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(to bottom,rgba(8,20,19,.55) 0%,rgba(8,20,19,0) 16%),
+      linear-gradient(to top,rgba(8,20,19,.92) 0%,rgba(8,20,19,.6) 22%,rgba(8,20,19,0) 36%);
+  }
+  .hero__caption{display:none}
+
+  /* static: окно с видео меряется от всего .hero, а не от контейнера с полями */
+  .hero__inner{
+    position:static;
+    grid-template-columns:1fr;align-items:end;
+    min-height:100svh;
+    padding-top:0;
+    padding-bottom:calc(var(--sp-10) + env(safe-area-inset-bottom,0px));
+  }
+  .hero__content{position:relative;z-index:1;max-width:none;text-align:center}
+  .hero__eyebrow{margin-bottom:var(--sp-2);color:rgba(239,224,195,.8)}
+  .hero .hero__welcome{font-size:clamp(2.75rem,12vw,3.75rem)}
+  .hero__rule{margin:var(--sp-4) auto var(--sp-6)}
+  .hero__lead{display:none}
+  .hero .hero__actions{justify-content:center}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero__video{display:none} /* остаётся кадр-заставка фоном окна */
 }
