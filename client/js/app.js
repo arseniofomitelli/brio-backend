@@ -573,7 +573,7 @@ function loadContacts() {
       <div class="contact-item__icon">${ICONS.phone}</div>
       <div>
         <p class="contact-item__label">Телефон</p>
-        <p class="contact-item__value"><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+        <p class="contact-item__value"><a href="tel:+79162524414">+7 (916) 252-44-14</a></p>
       </div>
     </div>
     <div class="contact-item">
