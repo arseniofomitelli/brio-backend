@@ -603,8 +603,8 @@ function loadContacts() {
     tuesday:   { open:'12:00', close:'22:00' },
     wednesday: { open:'12:00', close:'22:00' },
     thursday:  { open:'12:00', close:'22:00' },
-    friday:    { open:'12:00', close:'00:00' },
-    saturday:  { open:'12:00', close:'00:00' },
+    friday:    { open:'12:00', close:'23:00' },
+    saturday:  { open:'12:00', close:'23:00' },
     sunday:    { open:'12:00', close:'22:00' },
   };
   hoursGrid.innerHTML = Object.entries(hours).map(([day, h]) => `

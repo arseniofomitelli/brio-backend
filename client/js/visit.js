@@ -178,8 +178,8 @@ if (today) {
     const parts = Object.fromEntries(clock.formatToParts(new Date()).map(p => [p.type,p.value]));
     const late = ['Fri','Sat'].includes(parts.weekday);
     const hour = Number(parts.hour);
-    const opened = hour >= 12 && hour < (late ? 24 : 22);
-    const close = late ? '00:00' : '22:00';
+    const opened = hour >= 12 && hour < (late ? 23 : 22);
+    const close = late ? '23:00' : '22:00';
     today.querySelector('span').textContent = parts.weekday === 'Mon' ? 'Сегодня в Brio выходной' : opened ? 'Сегодня открыто до ' + close : 'Сегодня в Brio · 12:00–' + close;
     today.querySelector('a').hidden = !(['Tue','Wed','Thu','Fri'].includes(parts.weekday) && hour >= 12 && hour < 15);
     today.hidden = false;
