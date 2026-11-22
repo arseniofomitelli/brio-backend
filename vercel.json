@@ -4,9 +4,6 @@
   "buildCommand": "mkdir -p public && cp -r client/. public/",
   "outputDirectory": "public",
   "installCommand": "echo skip",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",

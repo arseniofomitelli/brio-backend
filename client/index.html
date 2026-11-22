@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <script>
+    const legacySections = ['about', 'menu', 'pranzo', 'rent', 'art', 'gallery', 'contacts'];
+    const oldSection = location.hash.slice(1);
+    if (legacySections.includes(oldSection)) location.replace(oldSection + '.html');
+    if (oldSection === 'contactsMap') location.replace('contacts.html#contactsMap');
+  </script>
+  <script>
     /* Страховка: страница обязана показаться, даже если js/app.js
        не догрузился, был вырезан прокси/провайдером или упал с ошибкой.
        Без неё заставка остаётся висеть, а все .reveal — прозрачными. */
@@ -59,11 +65,11 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brio — Итальянское кафе</title>
-  <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, аренда зала под банкеты и съёмки, галерея, контакты." />
+  <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, банкеты и торжества в итальянском кафе Brio, контакты." />
   <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
-  <link rel="stylesheet" href="css/style.css?v=90" />
+  <link rel="stylesheet" href="css/style.css?v=98" />
 </head>
 <body>
 
@@ -104,13 +110,13 @@
     <nav class="nav container" aria-label="Главная навигация">
       <ul class="nav__links" id="navLinks" role="list">
         <button class="nav__close" id="navClose" aria-label="Закрыть меню">✕</button>
-        <li><a href="#about"    class="nav__link">О нас</a></li>
-        <li><a href="#menu"     class="nav__link">Меню</a></li>
-        <li><a href="#pranzo"   class="nav__link">Pranzo</a></li>
-        <li><a href="#rent"     class="nav__link">Аренда</a></li>
-        <li><a href="#art"      class="nav__link">Картины</a></li>
-        <li><a href="#gallery"  class="nav__link">Галерея</a></li>
-        <li><a href="#contacts" class="nav__link">Контакты</a></li>
+        <li><a href="/" class="nav__link active" aria-current="page">Главная</a></li>
+        <li><a href="about.html"    class="nav__link">О нас</a></li>
+        <li><a href="menu.html"     class="nav__link">Меню</a></li>
+        <li><a href="pranzo.html"   class="nav__link">Обеды</a></li>
+        <li><a href="rent.html"     class="nav__link">Банкеты</a></li>
+        <li><a href="art.html"      class="nav__link">Картины</a></li>
+        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
       </ul>
       <button class="nav__burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">
         <span class="burger__line"></span>
@@ -120,6 +126,7 @@
     </nav>
   </header>
 
+  <main>
   <!-- ─── HERO ──────────────────────────────────────── -->
   <section class="hero" id="hero">
     <div class="hero__bg" aria-hidden="true"></div>
@@ -138,9 +145,10 @@
         <p class="hero__welcome">Benvenuti</p>
         <span class="hero__rule" aria-hidden="true"></span>
         <p class="hero__lead">Паста, равиоли, панини — и&nbsp;бизнес‑ланч Pranzo по&nbsp;будням.</p>
+        <p id="brio-today" hidden><span></span> <a href="pranzo.html" hidden>Меню обедов</a></p>
         <div class="hero__actions">
-          <a href="#menu"        class="btn btn--light btn--icon">Смотреть меню<span class="btn__ico" aria-hidden="true">→</span></a>
-          <a href="#contactsMap" class="btn btn--ghost">Как добраться</a>
+          <a href="menu.html"        class="btn btn--light btn--icon">Смотреть меню<span class="btn__ico" aria-hidden="true">→</span></a>
+          <a href="contacts.html#contactsMap" class="btn btn--ghost">Как добраться</a>
         </div>
       </div>
 
@@ -190,418 +198,6 @@
   </div>
 
   <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── О НАС ─────────────────────────────────────── -->
-  <section class="about" id="about">
-    <div class="container about__grid">
-      <div class="about__aside reveal reveal--left">
-        <div class="about__quote">
-          <span class="about__quote-mark" aria-hidden="true">"</span>
-          <blockquote>
-            Место, где хочется остаться подольше
-          </blockquote>
-        </div>
-        <figure class="about__photo">
-          <img src="images/interior-table.jpg"
-               alt="Зал кафе Brio: столик у стены с картинами, тёплый свет ламп и плющ под деревянным потолком"
-               width="1200" height="2084" loading="lazy" decoding="async" />
-        </figure>
-      </div>
-      <div class="about__body reveal reveal--right">
-        <h2 class="section-title">Brio — быстро,<br/>вкусно, красиво</h2>
-        <p>Brio — это ответ на простой запрос: хочется по-настоящему хорошо поесть без ожидания, без лишнего шума, в красивом месте.</p>
-        <p>Мы верим, что обед в будний день может быть таким же приятным, как ужин в пятницу. Уютный интерьер, внимательный сервис и еда, которая поднимает настроение.</p>
-        <ul class="about__features" role="list">
-          <li class="about__feature reveal reveal--left" style="--i:0">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Быстро — без долгого ожидания
-          </li>
-          <li class="about__feature reveal reveal--left" style="--i:1">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Вкусно — итальянская кухня без компромиссов
-          </li>
-          <li class="about__feature reveal reveal--left" style="--i:2">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Красиво — интерьер, в котором приятно быть
-          </li>
-          <li class="about__feature reveal reveal--left" style="--i:3">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Уютно — как дома, только лучше
-          </li>
-        </ul>
-        <!-- Статистика -->
-        <div class="about__stats reveal reveal--up" style="--i:5">
-          <div class="about__stat">
-            <span class="about__stat-num" data-target="31">31</span>
-            <span class="about__stat-label">блюд и напитков</span>
-          </div>
-          <div class="about__stat-div" aria-hidden="true"></div>
-          <div class="about__stat">
-            <span class="about__stat-num">100%</span>
-            <span class="about__stat-label">итальянские рецепты</span>
-          </div>
-          <div class="about__stat-div" aria-hidden="true"></div>
-          <div class="about__stat">
-            <span class="about__stat-num">0</span>
-            <span class="about__stat-label">компромиссов</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── ФИЛОСОФИЯ ───────────────────────────────────── -->
-  <section class="pillars-section">
-    <div class="container pillars__grid">
-
-      <article class="pillar reveal reveal--up" style="--i:0">
-        <div class="pillar__icon" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 4c0 0-8 6-8 14a8 8 0 0016 0C26 10 18 4 18 4z"/>
-            <path d="M18 14v10M14 18l4-4 4 4"/>
-          </svg>
-        </div>
-        <h3 class="pillar__title">Свежесть</h3>
-        <p class="pillar__desc">Каждый день — новые продукты от местных поставщиков. Паста приготовлена вручную, соусы томятся с утра.</p>
-      </article>
-
-      <article class="pillar reveal reveal--up" style="--i:1">
-        <div class="pillar__icon" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10 6h16v24H10z"/>
-            <path d="M14 12h8M14 17h8M14 22h5"/>
-            <path d="M10 6c0-1.1.9-2 2-2h12a2 2 0 012 2"/>
-          </svg>
-        </div>
-        <h3 class="pillar__title">Традиция</h3>
-        <p class="pillar__desc">Рецепты из Тосканы, Лигурии и Сицилии — собранные поколениями, бережно воссозданные в каждом блюде.</p>
-      </article>
-
-      <article class="pillar reveal reveal--up" style="--i:2">
-        <div class="pillar__icon" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 6c0 6-4 8-4 14a9 9 0 0018 0c0-6-4-8-4-14"/>
-            <path d="M13 6h10"/>
-            <path d="M15 20c0 0 1 3 3 3s3-3 3-3"/>
-          </svg>
-        </div>
-        <h3 class="pillar__title">Атмосфера</h3>
-        <p class="pillar__desc">Тихое место для разговора, уютный свет, итальянская музыка. Здесь время течёт иначе.</p>
-      </article>
-
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── МЕНЮ ──────────────────────────────────────── -->
-  <section class="menu-section" id="menu">
-    <div class="container">
-      <div class="section-header reveal reveal--up">
-        <h2 class="section-title" style="text-align:center">Наше меню</h2>
-      </div>
-
-      <div class="menu__tabs" id="menuTabs" role="tablist" aria-label="Категории меню">
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
-        <div class="skeleton skeleton--tab" aria-hidden="true"></div>
-      </div>
-      <div class="menu__list-wrap" id="menuGrid" role="list">
-        <div class="skeleton skeleton--line" style="height:60px;margin-bottom:12px" aria-hidden="true"></div>
-        <div class="skeleton skeleton--line" style="height:60px;margin-bottom:12px" aria-hidden="true"></div>
-        <div class="skeleton skeleton--line" style="height:60px;margin-bottom:12px" aria-hidden="true"></div>
-      </div>
-      <p class="menu__note">Пробковый сбор за бутылку вина 0,75 л — 1000 ₽</p>
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── PRANZO ────────────────────────────────────── -->
-  <section class="pranzo" id="pranzo">
-    <div class="container">
-      <div class="section-header reveal reveal--up">
-        <h2 class="section-title section-title--light" style="text-align:center">Pranzo</h2>
-        <p class="pranzo__lead">Бизнес-ланч: горячее и закуска на выбор.
-          Вторник&nbsp;—&nbsp;пятница, с 12:00 до 15:00.</p>
-      </div>
-
-      <div class="pranzo__days">
-        <article class="pranzo__day reveal reveal--up" style="--i:0">
-          <h3 class="pranzo__day-name">Вторник <span lang="it">martedì</span></h3>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Горячее на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Паста Болоньезе</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">250 г</span>
-              </p>
-              <p class="pranzo__desc">мясной соус, томаты, пармезан</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Панини Полпетте</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">400 г</span>
-              </p>
-              <p class="pranzo__desc">фрикадельки, томатный соус, моцарелла</p>
-            </div>
-          </div>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Закуска на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Салат Панцанелла</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">220 г</span>
-              </p>
-              <p class="pranzo__desc">томаты, хлеб, огурцы, базилик</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Брускетта с рикоттой</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">160 г</span>
-              </p>
-              <p class="pranzo__desc">рикотта, томаты, базилик</p>
-            </div>
-          </div>
-        </article>
-        <article class="pranzo__day reveal reveal--up" style="--i:1">
-          <h3 class="pranzo__day-name">Среда <span lang="it">mercoledì</span></h3>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Горячее на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Паста Арабьята</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">250 г</span>
-              </p>
-              <p class="pranzo__desc">томаты, чеснок, острый перец чили</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Панини Капрезе</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">400 г</span>
-              </p>
-              <p class="pranzo__desc">моцарелла, томаты, песто</p>
-            </div>
-          </div>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Закуска на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Инсалата Верде</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">300 г</span>
-              </p>
-              <p class="pranzo__desc">авокадо, огурец, сельдерей, микс зелени, лимон</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Брускетта с песто</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">160 г</span>
-              </p>
-              <p class="pranzo__desc">вяленые томаты, песто</p>
-            </div>
-          </div>
-        </article>
-        <article class="pranzo__day reveal reveal--up" style="--i:2">
-          <h3 class="pranzo__day-name">Четверг <span lang="it">giovedì</span></h3>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Горячее на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Паста Полпетте</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">250 г</span>
-              </p>
-              <p class="pranzo__desc">мясные фрикадельки, томатный соус</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Панини Дженовезе</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">400 г</span>
-              </p>
-              <p class="pranzo__desc">рваная говядина, маринованный лук, айоли, моцарелла</p>
-            </div>
-          </div>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Закуска на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Салат Капрезе</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">220 г</span>
-              </p>
-              <p class="pranzo__desc">томаты, моцарелла, базилик</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Брускетта с песто</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">160 г</span>
-              </p>
-              <p class="pranzo__desc">вяленые томаты, песто</p>
-            </div>
-          </div>
-        </article>
-        <article class="pranzo__day reveal reveal--up" style="--i:3">
-          <h3 class="pranzo__day-name">Пятница <span lang="it">venerdì</span></h3>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Горячее на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Паста Дженовезе</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">250 г</span>
-              </p>
-              <p class="pranzo__desc">рваная говядина, лук</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Панини Полла</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">400 г</span>
-              </p>
-              <p class="pranzo__desc">миланский шницель, чесночный соус</p>
-            </div>
-          </div>
-          <div class="pranzo__group">
-            <p class="pranzo__group-label">Закуска на выбор</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Салат Панцанелла</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">220 г</span>
-              </p>
-              <p class="pranzo__desc">томаты, хлеб, огурцы, базилик</p>
-            </div>
-            <p class="pranzo__or" aria-hidden="true">или</p>
-            <div class="pranzo__opt">
-              <p class="pranzo__dish">
-                <span class="pranzo__name">Брускетта с рикоттой</span>
-                <span class="pranzo__leader" aria-hidden="true"></span>
-                <span class="pranzo__weight">160 г</span>
-              </p>
-              <p class="pranzo__desc">рикотта, томаты, базилик</p>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <p class="pranzo__price reveal reveal--up">
-        <span class="pranzo__price-label">Комплекс</span>
-        <span class="pranzo__price-sum">800 ₽</span>
-        <span class="pranzo__price-extra">напиток +100 ₽ · кофе или чай</span>
-      </p>
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── АРЕНДА ЗАЛА ───────────────────────────────── -->
-  <section class="rent" id="rent">
-    <div class="container">
-      <div class="section-header reveal reveal--up">
-        <h2 class="section-title" style="text-align:center">Аренда зала</h2>
-        <p class="rent__lead">Романтический ужин, съёмка или мероприятие — ставка одна, почасовая.
-          Зал целиком, терраса, до двенадцати гостей.</p>
-      </div>
-
-      <button class="rent__shot rent__shot--wide reveal reveal--up" data-full="images/terrace.jpg"
-              aria-label="Терраса Brio вечером — открыть фото">
-        <img src="images/terrace.jpg"
-             alt="Терраса Brio вечером: гирлянды над столиками под маркизой, деревянная мебель и зелень в кашпо"
-             width="1280" height="1008" loading="lazy" decoding="async" />
-      </button>
-
-      <ul class="rent__rates" role="list">
-        <li class="rent__rate reveal reveal--up" style="--i:0">
-          <p class="rent__rate-when">Будни</p>
-          <p class="rent__rate-price">5 000 ₽<span class="rent__rate-unit">/ час</span></p>
-        </li>
-        <li class="rent__rate reveal reveal--up" style="--i:1">
-          <p class="rent__rate-when">Выходные</p>
-          <p class="rent__rate-price">6 000 ₽<span class="rent__rate-unit">/ час</span></p>
-        </li>
-      </ul>
-
-      <button class="rent__shot rent__shot--right reveal reveal--up" data-full="images/decor-setting.jpg"
-              aria-label="Открыть фото">
-        <img src="images/decor-setting.jpg" alt="Вид вдоль накрытого стола: георгины, антуриумы, мятные свечи и зелёная посуда" width="1200" height="1800" loading="lazy" decoding="async" />
-      </button>
-
-      <ul class="rent__formats" role="list">
-        <li class="rent__format reveal reveal--up" style="--i:0">
-          <h3 class="rent__format-name">Романтический ужин</h3>
-          <p class="rent__format-desc">Зал закрыт для остальных гостей. Только вы и терраса.
-            Еда — по основному или банкетному меню, на выбор.</p>
-        </li>
-        <li class="rent__format reveal reveal--up" style="--i:1">
-          <h3 class="rent__format-name">Съёмка</h3>
-          <p class="rent__format-desc">Кино, реклама, фотосессия. Приходите со своей командой и фотографом.</p>
-        </li>
-        <li class="rent__format reveal reveal--up" style="--i:2">
-          <h3 class="rent__format-name">Мероприятие</h3>
-          <p class="rent__format-desc">Корпоратив, день рождения, помолвка, камерная свадьба.
-            Еда — по банкетному меню.</p>
-        </li>
-      </ul>
-
-      <button class="rent__shot rent__shot--left reveal reveal--up" data-full="images/decor-guests.jpg"
-              aria-label="Открыть фото">
-        <img src="images/decor-guests.jpg" alt="Гости за накрытым столом в зале Brio, декор из цветов и свечей" width="1200" height="1800" loading="lazy" decoding="async" />
-      </button>
-
-      <div class="rent__decor reveal reveal--up">
-        <button class="rent__shot rent__shot--tall" data-full="images/decor-flowers.jpg"
-                aria-label="Открыть фото">
-          <img src="images/decor-flowers.jpg"
-               alt="Композиция из оранжевых гербер и георгин на деревянной полке в зале Brio"
-               width="1200" height="1649" loading="lazy" decoding="async" />
-        </button>
-        <div class="rent__decor-body">
-          <h3 class="rent__decor-title">Декор</h3>
-          <p class="rent__decor-text">Флористика, свечи, посуда и текстиль — собираем под повод и рассаживаем стол.</p>
-          <dl class="rent__decor-prices">
-            <div><dt>Стол</dt><dd>от 10 000 ₽</dd></div>
-            <div><dt>Весь зал</dt><dd>от 40 000 ₽</dd></div>
-          </dl>
-        </div>
-      </div>
-
-      <button class="rent__shot rent__shot--right reveal reveal--up" data-full="images/decor-table.jpg"
-              aria-label="Открыть фото">
-        <img src="images/decor-table.jpg" alt="Накрытый стол в Brio: антуриумы, мятные свечи, зелёные тарелки и цитрусы на льняной скатерти" width="853" height="1280" loading="lazy" decoding="async" />
-      </button>
-
-      <p class="rent__note reveal reveal--up">
-        Для съёмок сдаём помещение с декором. Свет, оборудование и фотограф — ваши.
-      </p>
-
-      <div class="rent__cta reveal reveal--up">
-        <a href="#contacts" class="btn btn--teal btn--icon">Узнать свободные даты<span class="btn__ico" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
   <!-- ─── БРОНИРОВАНИЕ ──────────────────────────────── -->
   <section class="cta-band" aria-label="Забронировать стол">
     <div class="cta-band__inner container reveal reveal--up">
@@ -609,7 +205,7 @@
       <h2 class="cta-band__title">Забронируйте<br>стол сегодня</h2>
       <p class="cta-band__sub">Позвоните нам или напишите — мы всегда рады гостям</p>
       <div class="cta-band__actions" id="ctaActions">
-        <a href="#contacts" class="btn btn--light btn--icon">Связаться с нами<span class="btn__ico" aria-hidden="true">→</span></a>
+        <a href="contacts.html" class="btn btn--light btn--icon">Связаться с нами<span class="btn__ico" aria-hidden="true">→</span></a>
       </div>
     </div>
     <div class="cta-band__deco" aria-hidden="true">
@@ -622,286 +218,18 @@
   </section>
 
   <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── КАРТИНЫ ───────────────────────────────────── -->
-  <section class="art" id="art">
-    <div class="container art__grid">
-      <figure class="art__portrait reveal reveal--left">
-        <img src="images/artist.jpg"
-             alt="Екатерина Лямуан в мастерской у мольберта, с кистью в руке"
-             width="852" height="1280" loading="lazy" decoding="async" />
-      </figure>
-
-      <div class="art__body reveal reveal--right">
-        <h2 class="section-title">Картины</h2>
-        <p class="art__name">Екатерина Лямуан</p>
-
-        <p>Родилась в Москве, окончила художественную школу. В 2008 году поступила
-          в Московское академическое художественное училище памяти 1905 года. К театру
-          её подтолкнул наставник Игорь Шумилов — но набора на театральное отделение
-          в тот год не было, и она пошла на педагогическое.</p>
-
-        <p>В конце обучения вместе с однокурсником Артёмом Дживаняном открыла галерею
-          «Подполье» — проект объединил девятнадцать молодых московских художников.</p>
-
-        <p>В 2014 году поступила в Театральную мастерскую МГАХИ. Во время учёбы работала
-          над «Носом» Шостаковича, «Пиковой дамой» Чайковского, «Добрым человеком
-          из Сычуаня» Брехта. Там же научилась делать макеты и находить пластическое
-          решение для литературных образов, заняла первое место в конкурсе живописных
-          постановок. Французская тема с тех пор занимает заметное место в её работах.</p>
-
-        <p>Первая персональная выставка прошла в 2020 году в Культурном центре
-          на Патриарших. В 2023 Екатерина впервые выступила художником-постановщиком —
-          в опере «Кощей Бессмертный». В 2025 году в Гостином Дворе прошла масштабная
-          выставка «Подслушано у картин» в тандеме с Татьяной Анже, по её мотивам вышла
-          одноимённая книга. В июле 2026 — персональная выставка в Серпуховском
-          историко-художественном музее.</p>
-
-        <ul class="art__facts" role="list">
-          <li>Член Московского Союза Художников с 2024 года</li>
-          <li>Преподаёт сценографию в МГАХИ имени В. И. Сурикова</li>
-          <li>Работы в частных коллекциях России, Франции и Испании</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="container art__works">
-      <div class="art__works-head reveal reveal--up">
-        <h3 class="art__works-title">Работы в зале</h3>
-        <p class="art__works-note">Всё, что висит у нас на стенах, — оригиналы, написанные маслом.
-          Любую работу можно приобрести: <a href="#contacts">напишите или позвоните нам</a>.</p>
-      </div>
-
-      <div class="art__gallery">
-        <div class="art__col">
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/marche-aux-fleurs.jpg"
-                    aria-label="Открыть картину «Marché Aux Fleurs. Paris» крупнее">
-              <img src="images/art/marche-aux-fleurs-thumb.jpg" alt="Парижский цветочный рынок: охристый фасад в цвету, зелёные навесы и синее небо"
-                   width="900" height="893" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Marché Aux Fleurs. Paris»</span>
-              <span class="art__work-meta">Холст, масло · 80 × 80 см · 2024</span>
-              <span class="art__work-price">170 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/sen-savinen.jpg"
-                    aria-label="Открыть картину «Сен-Савиньен» крупнее">
-              <img src="images/art/sen-savinen-thumb.jpg" alt="Французский городок Сен-Савиньен: охристые дома у воды и их отражения в реке"
-                   width="900" height="511" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Сен-Савиньен»</span>
-              <span class="art__work-meta">Холст, масло · 40 × 70 см · 2017</span>
-              <span class="art__work-price">63 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/natyurmort-grushi.jpg"
-                    aria-label="Открыть картину «Натюрморт с грушами и черносливом» крупнее">
-              <img src="images/art/natyurmort-grushi-thumb.jpg" alt="Натюрморт: жёлтые груши и тёмный чернослив на круглом столе с белой скатертью"
-                   width="742" height="900" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Натюрморт с грушами и черносливом»</span>
-              <span class="art__work-meta">Холст, масло · 60 × 50 см · 2023</span>
-              <span class="art__work-price">53 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/rybatskaya-hizhina.jpg"
-                    aria-label="Открыть картину «Рыбацкая хижина. Иль Д’Экс» крупнее">
-              <img src="images/art/rybatskaya-hizhina-thumb.jpg" alt="Рыбацкая хижина на сваях у берега острова Экс в пасмурный день"
-                   width="900" height="712" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Рыбацкая хижина. Иль Д’Экс»</span>
-              <span class="art__work-meta">Холст, масло · 40 × 50 см · 2022</span>
-              <span class="art__work-price">52 000 ₽</span>
-            </figcaption>
-          </figure>
-        </div>
-        <div class="art__col">
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/natyurmort-ananas.jpg"
-                    aria-label="Открыть картину «Натюрморт с ананасом» крупнее">
-              <img src="images/art/natyurmort-ananas-thumb.jpg" alt="Яркий натюрморт: ананас, яблоки и лимоны на белой скатерти, пёстрый фон в клетку"
-                   width="900" height="891" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Натюрморт с ананасом»</span>
-              <span class="art__work-meta">Холст, масло · 60 × 60 см · 2022</span>
-              <span class="art__work-price">53 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/pont-neuf-zakat.jpg"
-                    aria-label="Открыть картину «Понт Нёф. Закат» крупнее">
-              <img src="images/art/pont-neuf-zakat-thumb.jpg" alt="Мост Пон-Нёф в Париже на закате, баржа у набережной Сены"
-                   width="888" height="900" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Понт Нёф. Закат»</span>
-              <span class="art__work-meta">Холст, масло · 80 × 80 см · 2022</span>
-              <span class="art__work-price">230 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/ferma-ustrits.jpg"
-                    aria-label="Открыть картину «Ферма по производству устриц» крупнее">
-              <img src="images/art/ferma-ustrits-thumb.jpg" alt="Устричная ферма на побережье Атлантики: золотое поле, вода и низкие домики"
-                   width="900" height="498" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Ферма по производству устриц»</span>
-              <span class="art__work-meta">Холст, масло · 40 × 70 см · 2017</span>
-              <span class="art__work-price">33 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/sentyabrinki.jpg"
-                    aria-label="Открыть картину «Сентябринки» крупнее">
-              <img src="images/art/sentyabrinki-thumb.jpg" alt="Букет малиновых сентябринок в бирюзовой вазе на тёплом охристом фоне"
-                   width="900" height="895" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Сентябринки»</span>
-              <span class="art__work-meta">Холст, масло · 70 × 60 см · 2022</span>
-              <span class="art__work-price">37 000 ₽</span>
-            </figcaption>
-          </figure>
-        </div>
-        <div class="art__col">
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/belaya-siren.jpg"
-                    aria-label="Открыть картину «Белая сирень» крупнее">
-              <img src="images/art/belaya-siren-thumb.jpg" alt="Пышный букет белой сирени в глиняном кувшине на светлом фоне"
-                   width="892" height="900" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Белая сирень»</span>
-              <span class="art__work-meta">Холст, масло · 50 × 50 см · 2022</span>
-              <span class="art__work-price">37 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/gordes-v-sadu.jpg"
-                    aria-label="Открыть картину «Горд. В саду» крупнее">
-              <img src="images/art/gordes-v-sadu-thumb.jpg" alt="Прованский сад в Горде: каменные стены, кипарисы и цветущие кусты на солнце"
-                   width="900" height="813" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Горд. В саду»</span>
-              <span class="art__work-meta">Холст, масло · 45 × 50 см · 2019</span>
-              <span class="art__work-price">35 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/natyurmort-granaty.jpg"
-                    aria-label="Открыть картину «Натюрморт с гранатами» крупнее">
-              <img src="images/art/natyurmort-granaty-thumb.jpg" alt="Натюрморт: алые гранаты и свеча на полосатой скатерти, красная стена за ними"
-                   width="832" height="834" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Натюрморт с гранатами»</span>
-              <span class="art__work-meta">Холст, масло · 60 × 60 см · 2022</span>
-              <span class="art__work-price">47 000 ₽</span>
-            </figcaption>
-          </figure>
-          <figure class="art__work reveal reveal--up">
-            <button class="art__work-shot" type="button"
-                    data-full="images/art/gerande.jpg"
-                    aria-label="Открыть картину «Геранд» крупнее">
-              <img src="images/art/gerande-thumb.jpg" alt="Солевые болота Геранда: белые пирамиды соли под низким пасмурным небом"
-                   width="900" height="717" loading="lazy" decoding="async" />
-            </button>
-            <figcaption class="art__work-cap">
-              <span class="art__work-title">«Геранд»</span>
-              <span class="art__work-meta">Холст, масло · 18 × 24 см · 2017</span>
-              <span class="art__work-price">17 000 ₽</span>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── ГАЛЕРЕЯ ───────────────────────────────────── -->
-  <section class="gallery-section" id="gallery">
-    <div class="container">
-      <div class="section-header reveal reveal--up">
-        <h2 class="section-title section-title--light" style="text-align:center">Галерея</h2>
-      </div>
-      <div class="gallery__grid" id="galleryGrid">
-        <div class="gallery__empty">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".4" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-            <path d="M21 15l-5-5L5 21"/>
-          </svg>
-          <p>Фотографии появятся после добавления через панель управления</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
-  <!-- ─── КОНТАКТЫ ──────────────────────────────────── -->
-  <section class="contacts-section" id="contacts">
-    <div class="container contacts__grid">
-      <div class="contacts__info reveal reveal--left">
-        <h2 class="section-title">Контакты</h2>
-        <address class="contacts__list" id="contactsList">
-          <div class="skeleton skeleton--line" aria-hidden="true"></div>
-          <div class="skeleton skeleton--line" aria-hidden="true"></div>
-          <div class="skeleton skeleton--line" aria-hidden="true"></div>
-        </address>
-        <div class="hours" id="workingHours" hidden>
-          <h3 class="hours__title">Часы работы</h3>
-          <dl class="hours__list" id="hoursGrid"></dl>
-        </div>
-        <nav class="socials" id="socials" aria-label="Мы в соцсетях"></nav>
-      </div>
-      <div class="contacts__map reveal reveal--right" id="contactsMap" aria-label="Карта">
-        <iframe
-          src="https://yandex.ru/map-widget/v1/?ll=37.636592%2C55.758153&z=17&l=map&pt=37.636592%2C55.758153,pm2rdl"
-          title="Кафе Brio на карте"
-          width="100%" height="100%"
-          allowfullscreen loading="lazy"
-          style="border:0;border-radius:inherit"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <div class="molding" aria-hidden="true"></div>
-
+  </main>
   <!-- ─── FOOTER ────────────────────────────────────── -->
   <footer class="footer" role="contentinfo">
     <div class="container footer__inner">
-      <img src="images/logo.jpg" alt="Brio" class="footer__logo-img" />
+      <a href="/" aria-label="Brio — главная"><img src="images/logo.jpg" alt="Brio" class="footer__logo-img" /></a>
       <nav class="footer__nav" aria-label="Навигация в подвале">
-        <a href="#about">О нас</a>
-        <a href="#menu">Меню</a>
-        <a href="#pranzo">Pranzo</a>
-        <a href="#rent">Аренда</a>
-        <a href="#art">Картины</a>
-        <a href="#gallery">Галерея</a>
-        <a href="#contacts">Контакты</a>
+        <a href="about.html">О нас</a>
+        <a href="menu.html">Меню</a>
+        <a href="pranzo.html">Обеды</a>
+        <a href="rent.html">Банкеты</a>
+        <a href="art.html">Картины</a>
+        <a href="contacts.html">Контакты</a>
       </nav>
       <p class="footer__copy">© Brio 2026. Все права защищены.</p>
     </div>
@@ -918,6 +246,7 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=53" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=56" onerror="window.__brioFallback && window.__brioFallback()"></script>
+<script src="js/visit.js"></script>
 </body>
 </html>

@@ -221,6 +221,23 @@ const ICONS = {
   zoom:     `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
 };
 
+/* ─── PAGE TRANSITIONS ─────────────────────────────────── */
+document.addEventListener('click', function (event) {
+  const link = event.target.closest('a[href]');
+  if (!link || event.defaultPrevented || event.button !== 0 ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
+      link.target || link.hasAttribute('download')) return;
+
+  const target = new URL(link.href, location.href);
+  if (target.origin !== location.origin ||
+      (target.pathname === location.pathname && target.search === location.search) ||
+      REDUCE) return;
+
+  event.preventDefault();
+  document.body.classList.add('page-leaving');
+  window.setTimeout(function () { location.assign(target.href); }, 180);
+});
+
 /* ─── RIPPLE ─────────────────────────────────────────────── */
 document.addEventListener('click', e => {
   const btn = e.target.closest('.btn');
@@ -309,19 +326,6 @@ const revealObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-/* ─── ACTIVE NAV ─────────────────────────────────────────── */
-const navAnchors = document.querySelectorAll('.nav__link');
-const activeObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      navAnchors.forEach(a => a.classList.remove('active'));
-      const a = document.querySelector(`.nav__link[href="#${e.target.id}"]`);
-      if (a) a.classList.add('active');
-    }
-  });
-}, { threshold: 0.4 });
-document.querySelectorAll('section[id]').forEach(s => activeObs.observe(s));
 
 /* ─── PARALLAX HERO ──────────────────────────────────────── */
 const heroBg = document.querySelector('.hero__bg');
@@ -640,9 +644,9 @@ document.head.appendChild(style);
 })();
 
 /* ─── INIT ───────────────────────────────────────────────── */
-loadMenu();
-loadGallery();
-loadContacts();
+if (document.getElementById('menuTabs')) loadMenu();
+if (document.getElementById('galleryGrid')) loadGallery();
+if (document.getElementById('contactsList')) loadContacts();
 
 /* ─── ABOUT STATS COUNTER ────────────────────────────── */
 function animateCount(el) {

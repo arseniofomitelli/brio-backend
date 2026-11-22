@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+    /* Страховка: страница обязана показаться, даже если js/app.js
+       не догрузился, был вырезан прокси/провайдером или упал с ошибкой.
+       Без неё заставка остаётся висеть, а все .reveal — прозрачными. */
+    (function (d) {
+      var h = d.documentElement;
+      h.className = h.className.replace(/\bno-js\b/, 'js');
+      window.__brioFallback = function () {
+        if (h.className.indexOf('js-failed') > -1) return;
+        h.className = h.className.replace(/\s*intro-lock/, '') + ' js-failed';
+        window.__brioSkipIntro = true;
+        try { d.body.style.overflow = ''; d.body.style.paddingRight = ''; } catch (e) {}
+        /* Видео первого экрана без автозапуска — его включает app.js после
+           заставки. Раз скрипта нет, включаем сами (кроме «уменьшить движение»). */
+        try {
+          var hv = d.getElementById('heroVideo');
+          var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (hv && !calm) { var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        } catch (e) {}
+      };
+      setTimeout(function () {
+        if (!window.__brioReady) window.__brioFallback();
+      }, 4000);
+
+    })(document);
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Банкеты | Brio — Итальянское кафе</title>
+  <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, банкеты и торжества в итальянском кафе Brio, контакты." />
+  <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/fonts.css?v=1" />
+  <link rel="stylesheet" href="css/style.css?v=102" />
+</head>
+<body class="inner-page">
+
+  <div id="site-wrap">
+
+  <!-- ─── НАВИГАЦИЯ ─────────────────────────────────── -->
+  <header class="header" id="header" role="banner">
+    <nav class="nav container" aria-label="Главная навигация">
+      <ul class="nav__links" id="navLinks" role="list">
+        <button class="nav__close" id="navClose" aria-label="Закрыть меню">✕</button>
+        <li><a href="/" class="nav__link">Главная</a></li>
+        <li><a href="about.html"    class="nav__link">О нас</a></li>
+        <li><a href="menu.html"     class="nav__link">Меню</a></li>
+        <li><a href="pranzo.html"   class="nav__link">Обеды</a></li>
+        <li><a href="rent.html"     class="nav__link active" aria-current="page">Банкеты</a></li>
+        <li><a href="art.html"      class="nav__link">Картины</a></li>
+        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+  <section class="banquets" id="banquets">
+    <div class="container">
+      <header class="banquets__intro reveal reveal--up">
+        <p class="eyebrow">Итальянское кафе · Маросейка, 15</p>
+        <h1 class="section-title">Банкеты в Brio</h1>
+        <p class="banquets__lead">Зал целиком для компании до 12 гостей.<br>Будни — 5 000 ₽/час · выходные — 6 000 ₽/час.</p>
+        <div class="banquets__actions"><a class="banquets__text-link" href="tel:+79162524414">Позвонить · +7 (916) 252-44-14</a></div>
+      </header>
+      <div class="banquets__hero reveal reveal--up">
+        <figure><button class="rent__shot" data-full="images/banquet-room.jpg" aria-label="Увеличить общий вид зала"><img src="images/banquet-room.jpg" alt="Общий вид банкетного зала Brio с накрытым длинным столом" width="1536" height="1152"></button><figcaption>Зал для компании до 12 гостей</figcaption></figure>
+        <figure><button class="rent__shot" data-full="images/banquet-table-flowers.jpg" aria-label="Увеличить фото сервировки"><img src="images/banquet-table-flowers.jpg" alt="Белые цветы и бирюзовые тарелки на праздничном столе" width="1152" height="1536"></button><figcaption>Пример оформления стола</figcaption></figure>
+      </div>
+      <div class="banquets__details">
+        <div class="banquets__detail"><span class="banquets__detail-mark">01</span><div><h2>Камерный зал</h2><p>Для тёплых встреч, дней рождения и семейных праздников. Посадка — до 12 гостей.</p></div></div>
+        <div class="banquets__detail"><span class="banquets__detail-mark">02</span><div><h2>Меню под ваш вечер</h2><p>Выберите блюда и соберите банкетное меню для компании. Горячие блюда заказываются от 5 порций одного вида.</p></div></div>
+        <div class="banquets__detail"><span class="banquets__detail-mark">03</span><div><h2>Сервировка и цветы</h2><p>Подготовим стол с посудой и текстилем Brio. Детали оформления обсудим при бронировании.</p></div></div>
+      </div>
+      <section class="banquet-pricing" aria-labelledby="banquet-pricing-title">
+        <div class="banquet-pricing__heading"><p class="eyebrow">Планирование вечера</p><h2 id="banquet-pricing-title">Стоимость банкета</h2><p>Аренда зала и меню рассчитываются отдельно.</p></div>
+        <div class="banquet-pricing__grid">
+          <article><span>Аренда зала · будни</span><strong>5 000 ₽<small> / час</small></strong></article>
+          <article><span>Аренда зала · выходные</span><strong>6 000 ₽<small> / час</small></strong></article>
+          <article><span>Оформление стола</span><strong>от 10 000 ₽</strong></article>
+          <article><span>Оформление всего зала</span><strong>от 40 000 ₽</strong></article>
+        </div>
+        <section class="banquet-example">
+          <h3>Пример банкета на 12 гостей</h3>
+          <dl>
+            <div><dt>Зал на 4 часа в выходной</dt><dd>24 000 ₽</dd></div>
+            <div><dt>Декор в этом примере</dt><dd>15 000 ₽</dd></div>
+            <div><dt>Меню по выбору гостей</dt><dd>31 000 ₽</dd></div>
+            <div><dt>Итого</dt><dd>70 000 ₽</dd></div>
+          </dl>
+          <p>Примерно 5 800 ₽ на гостя</p>
+        </section>
+        <form id="banquet-budget" class="banquet-example" hidden>
+          <h3>Рассчитать свой банкет</h3>
+          <div class="budget-fields">
+          <label>День<select name="day"><option value="5000">Будни</option><option value="6000" selected>Выходные</option></select></label>
+          <label>Часы<input type="number" name="hours" min="1" max="24" value="4" required></label>
+          <label>Гости<input type="number" name="guests" min="1" max="12" value="12" required></label>
+          <label>Декор, ₽<input type="number" name="decor" min="0" value="15000" required></label>
+          <label>Меню на человека, ₽<input type="number" name="foodPerGuest" min="0" step="0.01" value="2583.33" required><small>При выборе блюд сумма рассчитывается автоматически.</small></label>
+          </div><output aria-live="polite"></output>
+        </form>
+        <p class="banquet-pricing__note">Стоимость оформления зависит от состава декора. Подробности и свободные даты уточняйте у администратора.</p>
+      </section>
+      <section class="banquet-menu" id="banquet-menu" aria-labelledby="banquet-menu-title">
+        <div class="banquet-menu__heading"><p class="eyebrow">Banchetto · меню для мероприятий</p><h2 class="section-title" id="banquet-menu-title">Банкетное меню</h2><p>Соберите свой стол. Выберите блюда и количество, чтобы увидеть стоимость меню на компанию и на гостя.</p></div>
+          <div class="banquet-menu__content">
+        <p class="banquet-menu__order-note">Горячие блюда заказываются от 5 порций одного вида.</p>
+<div class="menu__tabs" role="tablist" aria-label="Категории банкетного меню" hidden>
+<button class="menu__tab" role="tab" id="banquet-category-1-tab" aria-controls="banquet-category-1">Горячее</button>
+<button class="menu__tab" role="tab" id="banquet-category-2-tab" aria-controls="banquet-category-2">Закуски</button>
+<button class="menu__tab" role="tab" id="banquet-category-3-tab" aria-controls="banquet-category-3">Тарелка-конструктор</button>
+<button class="menu__tab" role="tab" id="banquet-category-4-tab" aria-controls="banquet-category-4">Салаты</button>
+<button class="menu__tab" role="tab" id="banquet-category-5-tab" aria-controls="banquet-category-5">Десерты</button>
+<button class="menu__tab" role="tab" id="banquet-category-6-tab" aria-controls="banquet-category-6">Напитки</button></div>
+<section id="banquet-category-1" aria-label="Горячее"><h3>Горячее</h3><ul class="menu-list">
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Лазанья</p><p class="menu-list__desc">мясное рагу, бешамель, пармезан</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="800" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Лазанья" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Лазанья">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">800 ₽</span><span class="menu-list__weight">300 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Оссобуко</p><p class="menu-list__desc">телячья голень, соффритто, гремолата</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="1400" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Оссобуко" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Оссобуко">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 400 ₽</span><span class="menu-list__weight">350 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Курица каччаторе</p><p class="menu-list__desc">курица, томаты, оливки, розмарин</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="750" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Курица каччаторе" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Курица каччаторе">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">750 ₽</span><span class="menu-list__weight">300 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Пармиджана меланцане</p><p class="menu-list__desc">баклажаны, томатный соус, моцарелла, пармезан</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="650" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Пармиджана меланцане" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Пармиджана меланцане">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">650 ₽</span><span class="menu-list__weight">280 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Форель запечённая</p><p class="menu-list__desc">форель, лимон, розмарин, овощи</p><p class="dish-unit">за 1 кг</p><div class="dish-step" hidden data-price="3000" data-min="1" data-unit="кг"><button type="button" aria-label="Уменьшить количество: Форель запечённая" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Форель запечённая">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">3 000 ₽</span><span class="menu-list__weight">за 1 кг</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Треска по-ливорнски</p><p class="menu-list__desc">треска, томаты, оливки, каперсы</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="800" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Треска по-ливорнски" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Треска по-ливорнски">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">800 ₽</span><span class="menu-list__weight">250 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Ньокки алла Соррентина</p><p class="menu-list__desc">картофельные ньокки, томатный соус, моцарелла, базилик</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="700" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Ньокки алла Соррентина" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Ньокки алла Соррентина">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">700 ₽</span><span class="menu-list__weight">280 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Паста Болоньезе</p><p class="menu-list__desc">мясной соус, томаты, пармезан</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="700" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Паста Болоньезе" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Паста Болоньезе">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">700 ₽</span><span class="menu-list__weight">250 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Паста Дженовезе</p><p class="menu-list__desc">рваная говядина, лук</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="750" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Паста Дженовезе" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Паста Дженовезе">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">750 ₽</span><span class="menu-list__weight">250 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Паста Полпетте</p><p class="menu-list__desc">мясные фрикадельки, томатный соус</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="700" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Паста Полпетте" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Паста Полпетте">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">700 ₽</span><span class="menu-list__weight">250 г</span></div>
+</li></ul></section>
+<section id="banquet-category-2" aria-label="Закуски"><h3>Закуски</h3><ul class="menu-list">
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Брускетта с рикоттой</p><p class="menu-list__desc">рикотта, томаты, базилик</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="400" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Брускетта с рикоттой" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Брускетта с рикоттой">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">400 ₽</span><span class="menu-list__weight">160 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Брускетта с песто</p><p class="menu-list__desc">вяленые томаты, песто</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="500" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Брускетта с песто" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Брускетта с песто">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">500 ₽</span><span class="menu-list__weight">160 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Брускетта с лососем</p><p class="menu-list__desc">слабосолёный лосось, авокадо, лимон</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="650" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Брускетта с лососем" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Брускетта с лососем">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">650 ₽</span><span class="menu-list__weight">160 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Карпаччо</p><p class="menu-list__desc">говядина, руккола, пармезан, каперсы</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="2000" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Карпаччо" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Карпаччо">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">2 000 ₽</span><span class="menu-list__weight">400 г</span></div>
+</li></ul></section>
+<section id="banquet-category-3" aria-label="Тарелка-конструктор"><h3>Тарелка-конструктор</h3><ul class="menu-list">
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Вяленые томаты</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="300" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Вяленые томаты" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Вяленые томаты">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">300 ₽</span><span class="menu-list__weight">40 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Грудинка</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="200" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Грудинка" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Грудинка">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">200 ₽</span><span class="menu-list__weight">40 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Пармезан</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="200" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Пармезан" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Пармезан">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">200 ₽</span><span class="menu-list__weight">30 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Тараллини</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="200" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Тараллини" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Тараллини">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">200 ₽</span><span class="menu-list__weight">90 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Оливки</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="200" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Оливки" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Оливки">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">200 ₽</span><span class="menu-list__weight">30 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Гриссини</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="200" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Гриссини" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Гриссини">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">200 ₽</span><span class="menu-list__weight">60 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Салями</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="200" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Салями" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Салями">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">200 ₽</span><span class="menu-list__weight">30 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Перчики с сыром</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="300" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Перчики с сыром" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Перчики с сыром">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">300 ₽</span><span class="menu-list__weight">40 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Прошутто</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="250" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Прошутто" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Прошутто">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">250 ₽</span><span class="menu-list__weight">30 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Маринованный лук</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="100" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Маринованный лук" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Маринованный лук">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">100 ₽</span><span class="menu-list__weight">40 г</span></div>
+</li></ul></section>
+<section id="banquet-category-4" aria-label="Салаты"><h3>Салаты</h3><ul class="menu-list">
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Томаты буррата</p><p class="menu-list__desc">томаты, буррата, базилик, оливковое масло</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="1900" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Томаты буррата" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Томаты буррата">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 900 ₽</span><span class="menu-list__weight">600 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Капрезе</p><p class="menu-list__desc">томаты, моцарелла, базилик</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="1600" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Капрезе" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Капрезе">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 600 ₽</span><span class="menu-list__weight">600 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Панцанелла</p><p class="menu-list__desc">томаты, хлеб, огурцы, базилик</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="1400" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Панцанелла" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Панцанелла">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 400 ₽</span><span class="menu-list__weight">600 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Груша и горгонзола</p><p class="menu-list__desc">груша, радиккио, горгонзола, грецкий орех, мёд</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="1700" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Груша и горгонзола" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Груша и горгонзола">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 700 ₽</span><span class="menu-list__weight">600 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Хурма и прошутто</p><p class="menu-list__desc">хурма, моцарелла, прошутто, руккола, оливковое масло</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="1800" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Хурма и прошутто" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Хурма и прошутто">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 800 ₽</span><span class="menu-list__weight">600 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Свёкла и рикотта</p><p class="menu-list__desc">свёкла, рикотта, апельсин, грецкий орех, руккола</p><p class="dish-unit">за порцию</p><div class="dish-step" hidden data-price="1300" data-min="1" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Свёкла и рикотта" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Свёкла и рикотта">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 300 ₽</span><span class="menu-list__weight">600 г</span></div>
+</li></ul></section>
+<section id="banquet-category-5" aria-label="Десерты"><h3>Десерты</h3><ul class="menu-list">
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Тирамису</p><p class="menu-list__desc">маскарпоне, савоярди, эспрессо, какао</p><p class="dish-unit">за порцию · от 5 порций</p><div class="dish-step" hidden data-price="500" data-min="5" data-unit="порц."><button type="button" aria-label="Уменьшить количество: Тирамису" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Тирамису">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">500 ₽</span><span class="menu-list__weight">150 г</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Торт Капрезе</p><p class="menu-list__desc">шоколадно-миндальный торт без муки</p><p class="dish-unit">за торт на 10 гостей</p><div class="dish-step" hidden data-price="4000" data-min="1" data-unit="шт."><button type="button" aria-label="Уменьшить количество: Торт Капрезе" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Торт Капрезе">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">4 000 ₽</span><span class="menu-list__weight">400 ₽/порция</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Торт ди рикотта</p><p class="menu-list__desc">итальянский чизкейк на рикотте с цедрой</p><p class="dish-unit">за торт на 10 гостей</p><div class="dish-step" hidden data-price="4000" data-min="1" data-unit="шт."><button type="button" aria-label="Уменьшить количество: Торт ди рикотта" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Торт ди рикотта">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">4 000 ₽</span><span class="menu-list__weight">400 ₽/порция</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Сбризолона</p><p class="menu-list__desc">рассыпчатый миндальный пирог</p><p class="dish-unit">за торт на 10 гостей</p><div class="dish-step" hidden data-price="4000" data-min="1" data-unit="шт."><button type="button" aria-label="Уменьшить количество: Сбризолона" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Сбризолона">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">4 000 ₽</span><span class="menu-list__weight">400 ₽/порция</span></div>
+</li></ul></section>
+<section id="banquet-category-6" aria-label="Напитки"><h3>Напитки</h3><ul class="menu-list">
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Лимонад Классико</p><p class="menu-list__desc">лимон, мята, содовая</p><p class="dish-unit">за графин</p><div class="dish-step" hidden data-price="1000" data-min="1" data-unit="граф."><button type="button" aria-label="Уменьшить количество: Лимонад Классико" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Лимонад Классико">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 000 ₽</span><span class="menu-list__weight">1 л</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Лимонад Песка</p><p class="menu-list__desc">персик, лимон, содовая</p><p class="dish-unit">за графин</p><div class="dish-step" hidden data-price="1200" data-min="1" data-unit="граф."><button type="button" aria-label="Уменьшить количество: Лимонад Песка" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Лимонад Песка">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 200 ₽</span><span class="menu-list__weight">1 л</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Лимонад Фрутти ди боско</p><p class="menu-list__desc">лесные ягоды, содовая</p><p class="dish-unit">за графин</p><div class="dish-step" hidden data-price="1200" data-min="1" data-unit="граф."><button type="button" aria-label="Уменьшить количество: Лимонад Фрутти ди боско" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Лимонад Фрутти ди боско">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">1 200 ₽</span><span class="menu-list__weight">1 л</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Пиво</p><p class="menu-list__desc">в ассортименте</p><p class="dish-unit">за указанный объём</p><div class="dish-step" hidden data-price="600" data-min="1" data-unit="шт."><button type="button" aria-label="Уменьшить количество: Пиво" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Пиво">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">600 ₽</span><span class="menu-list__weight">0,33 л</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Сидр 0,33 л</p><p class="menu-list__desc">в ассортименте</p><p class="dish-unit">за указанный объём</p><div class="dish-step" hidden data-price="500" data-min="1" data-unit="шт."><button type="button" aria-label="Уменьшить количество: Сидр 0,33 л" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Сидр 0,33 л">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">500 ₽</span><span class="menu-list__weight">0,33 л</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Сидр 0,5 л</p><p class="menu-list__desc">в ассортименте</p><p class="dish-unit">за указанный объём</p><div class="dish-step" hidden data-price="600" data-min="1" data-unit="шт."><button type="button" aria-label="Уменьшить количество: Сидр 0,5 л" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Сидр 0,5 л">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">600 ₽</span><span class="menu-list__weight">0,5 л</span></div>
+</li>
+<li class="menu-list__item">
+  <div class="menu-list__info"><p class="menu-list__name">Виноградный эль</p><p class="menu-list__desc">в ассортименте</p><p class="dish-unit">за указанный объём</p><div class="dish-step" hidden data-price="500" data-min="1" data-unit="шт."><button type="button" aria-label="Уменьшить количество: Виноградный эль" disabled>−</button><span>0</span><button type="button" aria-label="Добавить: Виноградный эль">+</button></div></div>
+  <div class="menu-list__right"><span class="menu-list__price">500 ₽</span><span class="menu-list__weight">0,33 л</span></div>
+</li></ul></section>
+        <section id="table-summary" hidden><h3>Ваш стол</h3><ul></ul><p aria-live="polite"></p><a href="#banquet-budget">Изменить число гостей и условия</a><button class="btn btn--teal" id="copy-table" type="button">Скопировать расчёт</button><button id="share-table" class="btn btn--teal" type="button">Поделиться столом</button><button id="reset-table" type="button">Начать заново</button><small role="status"></small><textarea hidden readonly aria-label="Текст расчёта"></textarea></section>
+        <aside class="banquet-menu__note"><p>Минимальный заказ уточняйте у администратора. Бронирование банкетного стола — не менее чем за 3 дня.</p><a class="banquet-menu__poster" href="images/banchetto-menu.pdf" target="_blank" rel="noopener">Открыть меню одним листом в PDF ↗</a></aside>
+          </div>
+      </section>
+      <section class="banquets__gallery" aria-label="Фото банкетной сервировки">
+        <figure><button class="rent__shot" data-full="images/banquet-table-flowers.jpg" aria-label="Открыть фото цветочной сервировки"><img src="images/banquet-table-flowers.jpg" alt="Антуриумы и бирюзовые тарелки на праздничном столе Brio" width="1152" height="1536" loading="lazy" decoding="async" /></button></figure>
+        <figure><button class="rent__shot" data-full="images/decor-guests.jpg" aria-label="Открыть фото гостей за банкетным столом"><img src="images/decor-guests.jpg" alt="Гости за накрытым столом в зале Brio" width="1200" height="1800" loading="lazy" decoding="async" /></button></figure>
+        <figure><button class="rent__shot" data-full="images/banquet-table-long.jpg" aria-label="Открыть фото длинного банкетного стола"><img src="images/banquet-table-long.jpg" alt="Длинный стол с праздничной сервировкой в Brio" width="1152" height="1536" loading="lazy" decoding="async" /></button></figure>
+      </section>
+      <div class="banquets__cta"><div><p class="eyebrow">Планируете праздник?</p><h2>Что входит в банкет?</h2><p>Зал целиком для вашей компании, до 12 гостей. Посуда и текстиль Brio для сервировки. Цветы, свечи и стоимость оформления согласуем отдельно.</p><p>Забронируйте зал минимум за 3 дня.</p><p>+7 (916) 252-44-14</p></div><a class="btn btn--teal btn--icon" href="tel:+79162524414">Позвонить в Brio<span class="btn__ico" aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+  <div class="molding" aria-hidden="true"></div>
+  </main>
+  <!-- ─── FOOTER ────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <a href="/" aria-label="Brio — главная"><img src="images/logo.jpg" alt="Brio" class="footer__logo-img" /></a>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="about.html">О нас</a>
+        <a href="menu.html">Меню</a>
+        <a href="pranzo.html">Обеды</a>
+        <a href="rent.html">Банкеты</a>
+        <a href="art.html">Картины</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <p class="footer__copy">© Brio 2026. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- ─── ЛАЙТБОКС ─────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото" hidden>
+    <div class="lightbox__backdrop" id="lightboxBackdrop"></div>
+    <button class="lightbox__close" id="lightboxClose" aria-label="Закрыть">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l16 16M17 1L1 17"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  </div><!-- /#site-wrap -->
+
+  <script src="js/app.js?v=56" onerror="window.__brioFallback && window.__brioFallback()"></script>
+<script src="js/banquet-tabs.js"></script>
+<a id="table-total" href="#table-summary" hidden><strong></strong><span>Посмотреть стол ↑</span></a>
+<script src="js/visit.js?v=5"></script>
+</body>
+</html>

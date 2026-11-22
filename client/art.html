@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+    /* Страховка: страница обязана показаться, даже если js/app.js
+       не догрузился, был вырезан прокси/провайдером или упал с ошибкой.
+       Без неё заставка остаётся висеть, а все .reveal — прозрачными. */
+    (function (d) {
+      var h = d.documentElement;
+      h.className = h.className.replace(/\bno-js\b/, 'js');
+      window.__brioFallback = function () {
+        if (h.className.indexOf('js-failed') > -1) return;
+        h.className = h.className.replace(/\s*intro-lock/, '') + ' js-failed';
+        window.__brioSkipIntro = true;
+        try { d.body.style.overflow = ''; d.body.style.paddingRight = ''; } catch (e) {}
+        /* Видео первого экрана без автозапуска — его включает app.js после
+           заставки. Раз скрипта нет, включаем сами (кроме «уменьшить движение»). */
+        try {
+          var hv = d.getElementById('heroVideo');
+          var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (hv && !calm) { var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        } catch (e) {}
+      };
+      setTimeout(function () {
+        if (!window.__brioReady) window.__brioFallback();
+      }, 4000);
+
+    })(document);
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Картины | Brio — Итальянское кафе</title>
+  <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, банкеты и торжества в итальянском кафе Brio, контакты." />
+  <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/fonts.css?v=1" />
+  <link rel="stylesheet" href="css/style.css?v=93" />
+</head>
+<body class="inner-page">
+
+  <div id="site-wrap">
+
+  <!-- ─── НАВИГАЦИЯ ─────────────────────────────────── -->
+  <header class="header" id="header" role="banner">
+    <nav class="nav container" aria-label="Главная навигация">
+      <ul class="nav__links" id="navLinks" role="list">
+        <button class="nav__close" id="navClose" aria-label="Закрыть меню">✕</button>
+        <li><a href="/" class="nav__link">Главная</a></li>
+        <li><a href="about.html"    class="nav__link">О нас</a></li>
+        <li><a href="menu.html"     class="nav__link">Меню</a></li>
+        <li><a href="pranzo.html"   class="nav__link">Обеды</a></li>
+        <li><a href="rent.html"     class="nav__link">Банкеты</a></li>
+        <li><a href="art.html"      class="nav__link active" aria-current="page">Картины</a></li>
+        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+  <section class="art" id="art">
+    <div class="container art__grid">
+      <figure class="art__portrait reveal reveal--left">
+        <img src="images/artist.jpg"
+             alt="Екатерина Лямуан в мастерской у мольберта, с кистью в руке"
+             width="852" height="1280" loading="lazy" decoding="async" />
+      </figure>
+
+      <div class="art__body reveal reveal--right">
+        <h1 class="section-title">Картины</h1>
+        <p class="art__name">Екатерина Лямуан</p>
+
+        <p>Родилась в Москве, окончила художественную школу. В 2008 году поступила
+          в Московское академическое художественное училище памяти 1905 года. К театру
+          её подтолкнул наставник Игорь Шумилов — но набора на театральное отделение
+          в тот год не было, и она пошла на педагогическое.</p>
+
+        <p>В конце обучения вместе с однокурсником Артёмом Дживаняном открыла галерею
+          «Подполье» — проект объединил девятнадцать молодых московских художников.</p>
+
+        <p>В 2014 году поступила в Театральную мастерскую МГАХИ. Во время учёбы работала
+          над «Носом» Шостаковича, «Пиковой дамой» Чайковского, «Добрым человеком
+          из Сычуаня» Брехта. Там же научилась делать макеты и находить пластическое
+          решение для литературных образов, заняла первое место в конкурсе живописных
+          постановок. Французская тема с тех пор занимает заметное место в её работах.</p>
+
+        <p>Первая персональная выставка прошла в 2020 году в Культурном центре
+          на Патриарших. В 2023 Екатерина впервые выступила художником-постановщиком —
+          в опере «Кощей Бессмертный». В 2025 году в Гостином Дворе прошла масштабная
+          выставка «Подслушано у картин» в тандеме с Татьяной Анже, по её мотивам вышла
+          одноимённая книга. В июле 2026 — персональная выставка в Серпуховском
+          историко-художественном музее.</p>
+
+        <ul class="art__facts" role="list">
+          <li>Член Московского Союза Художников с 2024 года</li>
+          <li>Преподаёт сценографию в МГАХИ имени В. И. Сурикова</li>
+          <li>Работы в частных коллекциях России, Франции и Испании</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container art__works">
+      <div class="art__works-head reveal reveal--up">
+        <h3 class="art__works-title">Работы в зале</h3>
+        <p class="art__works-note">Всё, что висит у нас на стенах, — оригиналы, написанные маслом.
+          Любую работу можно приобрести: <a href="contacts.html">напишите или позвоните нам</a>.</p>
+      </div>
+
+      <div class="art__gallery">
+        <div class="art__col">
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/marche-aux-fleurs.jpg"
+                    aria-label="Открыть картину «Marché Aux Fleurs. Paris» крупнее">
+              <img src="images/art/marche-aux-fleurs-thumb.jpg" alt="Парижский цветочный рынок: охристый фасад в цвету, зелёные навесы и синее небо"
+                   width="900" height="893" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Marché Aux Fleurs. Paris»</span>
+              <span class="art__work-meta">Холст, масло · 80 × 80 см · 2024</span>
+              <span class="art__work-price">170 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/sen-savinen.jpg"
+                    aria-label="Открыть картину «Сен-Савиньен» крупнее">
+              <img src="images/art/sen-savinen-thumb.jpg" alt="Французский городок Сен-Савиньен: охристые дома у воды и их отражения в реке"
+                   width="900" height="511" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Сен-Савиньен»</span>
+              <span class="art__work-meta">Холст, масло · 40 × 70 см · 2017</span>
+              <span class="art__work-price">63 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/natyurmort-grushi.jpg"
+                    aria-label="Открыть картину «Натюрморт с грушами и черносливом» крупнее">
+              <img src="images/art/natyurmort-grushi-thumb.jpg" alt="Натюрморт: жёлтые груши и тёмный чернослив на круглом столе с белой скатертью"
+                   width="742" height="900" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Натюрморт с грушами и черносливом»</span>
+              <span class="art__work-meta">Холст, масло · 60 × 50 см · 2023</span>
+              <span class="art__work-price">53 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/rybatskaya-hizhina.jpg"
+                    aria-label="Открыть картину «Рыбацкая хижина. Иль Д’Экс» крупнее">
+              <img src="images/art/rybatskaya-hizhina-thumb.jpg" alt="Рыбацкая хижина на сваях у берега острова Экс в пасмурный день"
+                   width="900" height="712" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Рыбацкая хижина. Иль Д’Экс»</span>
+              <span class="art__work-meta">Холст, масло · 40 × 50 см · 2022</span>
+              <span class="art__work-price">52 000 ₽</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="art__col">
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/natyurmort-ananas.jpg"
+                    aria-label="Открыть картину «Натюрморт с ананасом» крупнее">
+              <img src="images/art/natyurmort-ananas-thumb.jpg" alt="Яркий натюрморт: ананас, яблоки и лимоны на белой скатерти, пёстрый фон в клетку"
+                   width="900" height="891" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Натюрморт с ананасом»</span>
+              <span class="art__work-meta">Холст, масло · 60 × 60 см · 2022</span>
+              <span class="art__work-price">53 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/pont-neuf-zakat.jpg"
+                    aria-label="Открыть картину «Понт Нёф. Закат» крупнее">
+              <img src="images/art/pont-neuf-zakat-thumb.jpg" alt="Мост Пон-Нёф в Париже на закате, баржа у набережной Сены"
+                   width="888" height="900" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Понт Нёф. Закат»</span>
+              <span class="art__work-meta">Холст, масло · 80 × 80 см · 2022</span>
+              <span class="art__work-price">230 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/ferma-ustrits.jpg"
+                    aria-label="Открыть картину «Ферма по производству устриц» крупнее">
+              <img src="images/art/ferma-ustrits-thumb.jpg" alt="Устричная ферма на побережье Атлантики: золотое поле, вода и низкие домики"
+                   width="900" height="498" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Ферма по производству устриц»</span>
+              <span class="art__work-meta">Холст, масло · 40 × 70 см · 2017</span>
+              <span class="art__work-price">33 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/sentyabrinki.jpg"
+                    aria-label="Открыть картину «Сентябринки» крупнее">
+              <img src="images/art/sentyabrinki-thumb.jpg" alt="Букет малиновых сентябринок в бирюзовой вазе на тёплом охристом фоне"
+                   width="900" height="895" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Сентябринки»</span>
+              <span class="art__work-meta">Холст, масло · 70 × 60 см · 2022</span>
+              <span class="art__work-price">37 000 ₽</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="art__col">
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/belaya-siren.jpg"
+                    aria-label="Открыть картину «Белая сирень» крупнее">
+              <img src="images/art/belaya-siren-thumb.jpg" alt="Пышный букет белой сирени в глиняном кувшине на светлом фоне"
+                   width="892" height="900" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Белая сирень»</span>
+              <span class="art__work-meta">Холст, масло · 50 × 50 см · 2022</span>
+              <span class="art__work-price">37 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/gordes-v-sadu.jpg"
+                    aria-label="Открыть картину «Горд. В саду» крупнее">
+              <img src="images/art/gordes-v-sadu-thumb.jpg" alt="Прованский сад в Горде: каменные стены, кипарисы и цветущие кусты на солнце"
+                   width="900" height="813" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Горд. В саду»</span>
+              <span class="art__work-meta">Холст, масло · 45 × 50 см · 2019</span>
+              <span class="art__work-price">35 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/natyurmort-granaty.jpg"
+                    aria-label="Открыть картину «Натюрморт с гранатами» крупнее">
+              <img src="images/art/natyurmort-granaty-thumb.jpg" alt="Натюрморт: алые гранаты и свеча на полосатой скатерти, красная стена за ними"
+                   width="832" height="834" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Натюрморт с гранатами»</span>
+              <span class="art__work-meta">Холст, масло · 60 × 60 см · 2022</span>
+              <span class="art__work-price">47 000 ₽</span>
+            </figcaption>
+          </figure>
+          <figure class="art__work reveal reveal--up">
+            <button class="art__work-shot" type="button"
+                    data-full="images/art/gerande.jpg"
+                    aria-label="Открыть картину «Геранд» крупнее">
+              <img src="images/art/gerande-thumb.jpg" alt="Солевые болота Геранда: белые пирамиды соли под низким пасмурным небом"
+                   width="900" height="717" loading="lazy" decoding="async" />
+            </button>
+            <figcaption class="art__work-cap">
+              <span class="art__work-title">«Геранд»</span>
+              <span class="art__work-meta">Холст, масло · 18 × 24 см · 2017</span>
+              <span class="art__work-price">17 000 ₽</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="molding" aria-hidden="true"></div>
+  </main>
+  <!-- ─── FOOTER ────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <a href="/" aria-label="Brio — главная"><img src="images/logo.jpg" alt="Brio" class="footer__logo-img" /></a>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="about.html">О нас</a>
+        <a href="menu.html">Меню</a>
+        <a href="pranzo.html">Обеды</a>
+        <a href="rent.html">Банкеты</a>
+        <a href="art.html">Картины</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <p class="footer__copy">© Brio 2026. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- ─── ЛАЙТБОКС ─────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото" hidden>
+    <div class="lightbox__backdrop" id="lightboxBackdrop"></div>
+    <button class="lightbox__close" id="lightboxClose" aria-label="Закрыть">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l16 16M17 1L1 17"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  </div><!-- /#site-wrap -->
+
+  <script src="js/app.js?v=56" onerror="window.__brioFallback && window.__brioFallback()"></script>
+</body>
+</html>

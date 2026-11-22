@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+    /* Страховка: страница обязана показаться, даже если js/app.js
+       не догрузился, был вырезан прокси/провайдером или упал с ошибкой.
+       Без неё заставка остаётся висеть, а все .reveal — прозрачными. */
+    (function (d) {
+      var h = d.documentElement;
+      h.className = h.className.replace(/\bno-js\b/, 'js');
+      window.__brioFallback = function () {
+        if (h.className.indexOf('js-failed') > -1) return;
+        h.className = h.className.replace(/\s*intro-lock/, '') + ' js-failed';
+        window.__brioSkipIntro = true;
+        try { d.body.style.overflow = ''; d.body.style.paddingRight = ''; } catch (e) {}
+        /* Видео первого экрана без автозапуска — его включает app.js после
+           заставки. Раз скрипта нет, включаем сами (кроме «уменьшить движение»). */
+        try {
+          var hv = d.getElementById('heroVideo');
+          var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (hv && !calm) { var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        } catch (e) {}
+      };
+      setTimeout(function () {
+        if (!window.__brioReady) window.__brioFallback();
+      }, 4000);
+
+    })(document);
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pranzo | Brio — Итальянское кафе</title>
+  <meta name="description" content="Brio — итальянское кафе на Маросейке, 15. Меню, бизнес-ланч Pranzo, банкеты и торжества в итальянском кафе Brio, контакты." />
+  <link rel="preload" href="fonts/Raleway-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/fonts.css?v=1" />
+  <link rel="stylesheet" href="css/style.css?v=93" />
+</head>
+<body class="inner-page">
+
+  <div id="site-wrap">
+
+  <!-- ─── НАВИГАЦИЯ ─────────────────────────────────── -->
+  <header class="header" id="header" role="banner">
+    <nav class="nav container" aria-label="Главная навигация">
+      <ul class="nav__links" id="navLinks" role="list">
+        <button class="nav__close" id="navClose" aria-label="Закрыть меню">✕</button>
+        <li><a href="/" class="nav__link">Главная</a></li>
+        <li><a href="about.html"    class="nav__link">О нас</a></li>
+        <li><a href="menu.html"     class="nav__link">Меню</a></li>
+        <li><a href="pranzo.html"   class="nav__link active" aria-current="page">Обеды</a></li>
+        <li><a href="rent.html"     class="nav__link">Банкеты</a></li>
+        <li><a href="art.html"      class="nav__link">Картины</a></li>
+        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+  <section class="pranzo" id="pranzo">
+    <div class="container">
+      <div class="section-header reveal reveal--up">
+        <h1 class="section-title section-title--light" style="text-align:center">Pranzo</h1>
+        <p class="pranzo__lead">Бизнес-ланч: горячее и закуска на выбор.
+          Вторник&nbsp;—&nbsp;пятница, с 12:00 до 15:00.</p>
+      </div>
+
+      <div class="pranzo__days">
+        <article class="pranzo__day reveal reveal--up" style="--i:0">
+          <h3 class="pranzo__day-name">Вторник <span lang="it">martedì</span></h3>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Горячее на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Паста Болоньезе</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">250 г</span>
+              </p>
+              <p class="pranzo__desc">мясной соус, томаты, пармезан</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Панини Полпетте</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">400 г</span>
+              </p>
+              <p class="pranzo__desc">фрикадельки, томатный соус, моцарелла</p>
+            </div>
+          </div>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Закуска на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Салат Панцанелла</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">220 г</span>
+              </p>
+              <p class="pranzo__desc">томаты, хлеб, огурцы, базилик</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Брускетта с рикоттой</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">160 г</span>
+              </p>
+              <p class="pranzo__desc">рикотта, томаты, базилик</p>
+            </div>
+          </div>
+        </article>
+        <article class="pranzo__day reveal reveal--up" style="--i:1">
+          <h3 class="pranzo__day-name">Среда <span lang="it">mercoledì</span></h3>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Горячее на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Паста Арабьята</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">250 г</span>
+              </p>
+              <p class="pranzo__desc">томаты, чеснок, острый перец чили</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Панини Капрезе</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">400 г</span>
+              </p>
+              <p class="pranzo__desc">моцарелла, томаты, песто</p>
+            </div>
+          </div>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Закуска на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Инсалата Верде</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">300 г</span>
+              </p>
+              <p class="pranzo__desc">авокадо, огурец, сельдерей, микс зелени, лимон</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Брускетта с песто</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">160 г</span>
+              </p>
+              <p class="pranzo__desc">вяленые томаты, песто</p>
+            </div>
+          </div>
+        </article>
+        <article class="pranzo__day reveal reveal--up" style="--i:2">
+          <h3 class="pranzo__day-name">Четверг <span lang="it">giovedì</span></h3>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Горячее на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Паста Полпетте</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">250 г</span>
+              </p>
+              <p class="pranzo__desc">мясные фрикадельки, томатный соус</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Панини Дженовезе</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">400 г</span>
+              </p>
+              <p class="pranzo__desc">рваная говядина, маринованный лук, айоли, моцарелла</p>
+            </div>
+          </div>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Закуска на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Салат Капрезе</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">220 г</span>
+              </p>
+              <p class="pranzo__desc">томаты, моцарелла, базилик</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Брускетта с песто</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">160 г</span>
+              </p>
+              <p class="pranzo__desc">вяленые томаты, песто</p>
+            </div>
+          </div>
+        </article>
+        <article class="pranzo__day reveal reveal--up" style="--i:3">
+          <h3 class="pranzo__day-name">Пятница <span lang="it">venerdì</span></h3>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Горячее на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Паста Дженовезе</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">250 г</span>
+              </p>
+              <p class="pranzo__desc">рваная говядина, лук</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Панини Полла</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">400 г</span>
+              </p>
+              <p class="pranzo__desc">миланский шницель, чесночный соус</p>
+            </div>
+          </div>
+          <div class="pranzo__group">
+            <p class="pranzo__group-label">Закуска на выбор</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Салат Панцанелла</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">220 г</span>
+              </p>
+              <p class="pranzo__desc">томаты, хлеб, огурцы, базилик</p>
+            </div>
+            <p class="pranzo__or" aria-hidden="true">или</p>
+            <div class="pranzo__opt">
+              <p class="pranzo__dish">
+                <span class="pranzo__name">Брускетта с рикоттой</span>
+                <span class="pranzo__leader" aria-hidden="true"></span>
+                <span class="pranzo__weight">160 г</span>
+              </p>
+              <p class="pranzo__desc">рикотта, томаты, базилик</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="pranzo__price reveal reveal--up">
+        <span class="pranzo__price-label">Комплекс</span>
+        <span class="pranzo__price-sum">800 ₽</span>
+        <span class="pranzo__price-extra">напиток +100 ₽ · кофе или чай</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="molding" aria-hidden="true"></div>
+  </main>
+  <!-- ─── FOOTER ────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <a href="/" aria-label="Brio — главная"><img src="images/logo.jpg" alt="Brio" class="footer__logo-img" /></a>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="about.html">О нас</a>
+        <a href="menu.html">Меню</a>
+        <a href="pranzo.html">Обеды</a>
+        <a href="rent.html">Банкеты</a>
+        <a href="art.html">Картины</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <p class="footer__copy">© Brio 2026. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- ─── ЛАЙТБОКС ─────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото" hidden>
+    <div class="lightbox__backdrop" id="lightboxBackdrop"></div>
+    <button class="lightbox__close" id="lightboxClose" aria-label="Закрыть">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l16 16M17 1L1 17"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  </div><!-- /#site-wrap -->
+
+  <script src="js/app.js?v=56" onerror="window.__brioFallback && window.__brioFallback()"></script>
+</body>
+</html>
