@@ -2101,7 +2101,8 @@ body.page-leaving {
 .budget-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(145px,100%),1fr)); gap:1rem; margin:1rem 0; }
 .budget-fields label { display:grid; gap:.3rem; }
 .budget-fields :is(input,select) { width:100%; min-height:44px; font:inherit; padding:.5rem; border-radius:6px; background:#d4edf5; color:#173c49; border:1px solid #8dbbc9; }
-.budget-fields input[type="number"] { background:var(--cream); }
+.budget-fields input[type="number"],
+.budget-fields select[name="day"] { background:var(--cream); }
 @media(max-width:600px){.entrance{flex-direction:column;align-items:stretch}.entrance img{width:100%;max-height:65vh;object-fit:contain}}
 .dish-unit {font-size:.8rem;margin:.4rem 0;color:var(--text-2)}
 .dish-step {display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--gray-200);border-radius:24px}
