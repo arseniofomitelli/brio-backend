@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <script>
-    const legacySections = ['about', 'menu', 'pranzo', 'rent', 'art', 'gallery', 'contacts'];
+    const legacySections = ['menu', 'pranzo', 'rent', 'art', 'gallery', 'contacts'];
     const oldSection = location.hash.slice(1);
     if (legacySections.includes(oldSection)) location.replace(oldSection + '.html');
     if (oldSection === 'contactsMap') location.replace('contacts.html#contactsMap');
@@ -34,6 +34,7 @@
 
       /* Заставка — один раз за визит (в пределах вкладки) */
       try { window.__introSeen = sessionStorage.getItem('brio:intro') === '1'; } catch (e) {}
+      if (location.hash === '#about') window.__introSeen = true;
       if (!window.__introSeen) {
         /* Пока идёт заставка, страницу под ней не листаем вообще:
            overflow:hidden на body мобильный Safari игнорирует, и резкий
@@ -110,7 +111,6 @@
       <ul class="nav__links" id="navLinks" role="list">
         <button class="nav__close" id="navClose" aria-label="Закрыть меню">✕</button>
         <li><a href="/" class="nav__link active" aria-current="page">Главная</a></li>
-        <li><a href="about.html"    class="nav__link">О нас</a></li>
         <li><a href="menu.html"     class="nav__link">Меню</a></li>
         <li><a href="pranzo.html"   class="nav__link">Обеды</a></li>
         <li><a href="rent.html"     class="nav__link">Банкеты</a></li>
@@ -195,6 +195,109 @@
   </div>
 
   <div class="molding" aria-hidden="true"></div>
+  <section class="about" id="about">
+    <div class="container about__grid">
+      <div class="about__aside reveal reveal--left">
+        <div class="about__quote">
+          <span class="about__quote-mark" aria-hidden="true">"</span>
+          <blockquote>
+            Место, где хочется остаться подольше
+          </blockquote>
+        </div>
+        <figure class="about__photo">
+          <img src="images/interior-table.jpg"
+               alt="Зал кафе Brio: столик у стены с картинами, тёплый свет ламп и плющ под деревянным потолком"
+               width="1200" height="2084" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+      <div class="about__body reveal reveal--right">
+        <h2 class="section-title">Brio — быстро,<br/>вкусно, красиво</h2>
+        <p>Brio — это ответ на простой запрос: хочется по-настоящему хорошо поесть без ожидания, без лишнего шума, в красивом месте.</p>
+        <p>Мы верим, что обед в будний день может быть таким же приятным, как ужин в пятницу. Уютный интерьер, внимательный сервис и еда, которая поднимает настроение.</p>
+        <ul class="about__features" role="list">
+          <li class="about__feature reveal reveal--left" style="--i:0">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Быстро — без долгого ожидания
+          </li>
+          <li class="about__feature reveal reveal--left" style="--i:1">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Вкусно — итальянская кухня без компромиссов
+          </li>
+          <li class="about__feature reveal reveal--left" style="--i:2">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Красиво — интерьер, в котором приятно быть
+          </li>
+          <li class="about__feature reveal reveal--left" style="--i:3">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Уютно — как дома, только лучше
+          </li>
+        </ul>
+        <!-- Статистика -->
+        <div class="about__stats reveal reveal--up" style="--i:5">
+          <div class="about__stat">
+            <span class="about__stat-num" data-target="31">31</span>
+            <span class="about__stat-label">блюд и напитков</span>
+          </div>
+          <div class="about__stat-div" aria-hidden="true"></div>
+          <div class="about__stat">
+            <span class="about__stat-num">100%</span>
+            <span class="about__stat-label">итальянские рецепты</span>
+          </div>
+          <div class="about__stat-div" aria-hidden="true"></div>
+          <div class="about__stat">
+            <span class="about__stat-num">0</span>
+            <span class="about__stat-label">компромиссов</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="molding" aria-hidden="true"></div>
+
+  <!-- ─── ФИЛОСОФИЯ ───────────────────────────────────── -->
+  <section class="pillars-section">
+    <div class="container pillars__grid">
+
+      <article class="pillar reveal reveal--up" style="--i:0">
+        <div class="pillar__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 4c0 0-8 6-8 14a8 8 0 0016 0C26 10 18 4 18 4z"/>
+            <path d="M18 14v10M14 18l4-4 4 4"/>
+          </svg>
+        </div>
+        <h3 class="pillar__title">Свежесть</h3>
+        <p class="pillar__desc">Каждый день — новые продукты от местных поставщиков. Паста приготовлена вручную, соусы томятся с утра.</p>
+      </article>
+
+      <article class="pillar reveal reveal--up" style="--i:1">
+        <div class="pillar__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 6h16v24H10z"/>
+            <path d="M14 12h8M14 17h8M14 22h5"/>
+            <path d="M10 6c0-1.1.9-2 2-2h12a2 2 0 012 2"/>
+          </svg>
+        </div>
+        <h3 class="pillar__title">Традиция</h3>
+        <p class="pillar__desc">Рецепты из Тосканы, Лигурии и Сицилии — собранные поколениями, бережно воссозданные в каждом блюде.</p>
+      </article>
+
+      <article class="pillar reveal reveal--up" style="--i:2">
+        <div class="pillar__icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 6c0 6-4 8-4 14a9 9 0 0018 0c0-6-4-8-4-14"/>
+            <path d="M13 6h10"/>
+            <path d="M15 20c0 0 1 3 3 3s3-3 3-3"/>
+          </svg>
+        </div>
+        <h3 class="pillar__title">Атмосфера</h3>
+        <p class="pillar__desc">Тихое место для разговора, уютный свет, итальянская музыка. Здесь время течёт иначе.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="molding" aria-hidden="true"></div>
   <!-- ─── БРОНИРОВАНИЕ ──────────────────────────────── -->
   <section class="cta-band" aria-label="Забронировать стол">
     <div class="cta-band__inner container reveal reveal--up">
@@ -221,7 +324,7 @@
     <div class="container footer__inner">
       <a href="/" aria-label="Brio — главная"><img src="images/logo.jpg" alt="Brio" class="footer__logo-img" /></a>
       <nav class="footer__nav" aria-label="Навигация в подвале">
-        <a href="about.html">О нас</a>
+        <a href="/#about">О нас</a>
         <a href="menu.html">Меню</a>
         <a href="pranzo.html">Обеды</a>
         <a href="rent.html">Банкеты</a>
