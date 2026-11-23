@@ -221,23 +221,6 @@ const ICONS = {
   zoom:     `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
 };
 
-/* ─── PAGE TRANSITIONS ─────────────────────────────────── */
-document.addEventListener('click', function (event) {
-  const link = event.target.closest('a[href]');
-  if (!link || event.defaultPrevented || event.button !== 0 ||
-      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
-      link.target || link.hasAttribute('download')) return;
-
-  const target = new URL(link.href, location.href);
-  if (target.origin !== location.origin ||
-      (target.pathname === location.pathname && target.search === location.search) ||
-      REDUCE) return;
-
-  event.preventDefault();
-  document.body.classList.add('page-leaving');
-  window.setTimeout(function () { location.assign(target.href); }, 180);
-});
-
 /* ─── RIPPLE ─────────────────────────────────────────────── */
 document.addEventListener('click', e => {
   const btn = e.target.closest('.btn');
