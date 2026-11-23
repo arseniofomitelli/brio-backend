@@ -70,6 +70,7 @@
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
   <link rel="stylesheet" href="css/style.css?v=98" />
+  <style>#splashPlay[hidden], #heroPlay[hidden] { display: none; }</style>
 </head>
 <body>
 
@@ -84,12 +85,14 @@
              autoplay muted playsinline preload="auto"
              poster="video/splash-spaghetti-poster.jpg"
              width="1072" height="1262">
+        <source src="video/splash-spaghetti.webm" type="video/webm" />
         <source src="video/splash-spaghetti.mp4" type="video/mp4" />
       </video>
       <div class="splash__shade"></div>
     </div>
     <p class="splash__eyebrow">Итальянское кафе</p>
     <div class="splash__foot">
+      <button id="splashPlay" type="button" class="btn btn--ghost" hidden>Включить заставку</button>
       <button class="splash__skip" id="splashSkip" type="button">Пропустить</button>
     </div>
     <span class="splash__progress" id="splashProgress" aria-hidden="true"></span>
@@ -142,6 +145,7 @@
         <span class="hero__rule" aria-hidden="true"></span>
         <p class="hero__lead">Паста, равиоли, панини — и&nbsp;бизнес‑ланч Pranzo по&nbsp;будням.</p>
         <div class="hero__actions">
+          <button id="heroPlay" type="button" class="btn btn--ghost" hidden>Включить видео</button>
           <a href="menu.html"        class="btn btn--light btn--icon">Смотреть меню<span class="btn__ico" aria-hidden="true">→</span></a>
           <a href="/#contactsMap" class="btn btn--ghost">Как добраться</a>
         </div>
@@ -153,6 +157,7 @@
                muted loop playsinline preload="metadata"
                poster="video/hero-panini-poster.jpg"
                width="720" height="1280" aria-hidden="true">
+          <source src="video/hero-panini.webm" type="video/webm" />
           <source src="video/hero-panini.mp4" type="video/mp4" />
         </video>
         <figcaption class="hero__caption">Панини полпетте</figcaption>
@@ -371,7 +376,7 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=57" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=58" onerror="window.__brioFallback && window.__brioFallback()"></script>
 <script src="js/visit.js"></script>
 </body>
 </html>

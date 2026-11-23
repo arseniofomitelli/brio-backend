@@ -107,7 +107,9 @@ setTimeout(function() {
   function onKey(e) { if (e.key === 'Escape') dismiss(); }
   document.addEventListener('keydown', onKey);
   /* Клик в любом месте, включая «Пропустить» — всплывает сюда же */
-  splash.addEventListener('click', dismiss, { once: true });
+  splash.addEventListener('click', function (event) {
+    if (!event.target.closest('#splashPlay')) dismiss();
+  });
 
   var saveData = !!(navigator.connection && navigator.connection.saveData);
   if (!vid || REDUCE || saveData) {
@@ -127,13 +129,28 @@ setTimeout(function() {
   vid.addEventListener('timeupdate', function () {
     if (vid.duration && vid.currentTime >= vid.duration - 0.15) finish();
   });
-  var src = vid.querySelector('source');
-  if (src) src.addEventListener('error', function () { later(dismiss, 1200); });
-
-  var p = vid.play();
-  if (p && p.catch) p.catch(function () { later(dismiss, 2200); });
-
-  later(function () { if (!started) dismiss(); }, 3000); /* ролик не пошёл */
+  var startButton = document.getElementById('splashPlay');
+  var needsTap = false;
+  vid.muted = true;
+  vid.addEventListener('error', dismiss);
+  function startSplash() {
+    var attempt = vid.play();
+    if (attempt) attempt.catch(function (error) {
+      if (dismissed || error.name === 'AbortError') return;
+      if (error.name === 'NotAllowedError' && startButton) {
+        needsTap = true;
+        startButton.hidden = false;
+      } else dismiss();
+    });
+  }
+  if (startButton) startButton.addEventListener('click', function () {
+    startButton.hidden = true;
+    timers.forEach(clearTimeout);
+    later(dismiss, 9000);
+    startSplash();
+  });
+  startSplash();
+  later(function () { if (!started && !needsTap) dismiss(); }, 3000);
   later(dismiss, 9000);                                   /* потолок на всякий случай */
 
   if (bar) {
@@ -790,17 +807,32 @@ document.querySelectorAll('.art__work-shot').forEach(function (btn) {
   var v = document.getElementById('heroVideo');
   if (!v) return;
   var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var playButton = document.getElementById('heroPlay');
+  var manual = false;
+  v.muted = true;
   if (REDUCE || saveData) {
     v.removeAttribute('autoplay');
     v.preload = 'none';
     v.pause();
-    return;
+    if (playButton) playButton.hidden = false;
   }
   /* Стартуем только после заставки — чтобы оба ролика не делили канал */
   var inView = true;
   function play() {
     if (!window.__heroGo || !inView || document.hidden) return;
-    var p = v.play(); if (p && p.catch) p.catch(function () {});
+    if (!manual && (REDUCE || saveData)) return;
+    var p = v.play();
+    if (p) p.catch(function (error) {
+      if (playButton && error.name !== 'AbortError') playButton.hidden = false;
+    });
+  }
+  if (playButton) {
+    playButton.addEventListener('click', function () {
+      manual = true;
+      v.style.display = 'block';
+      play();
+    });
+    v.addEventListener('playing', function () { playButton.hidden = true; });
   }
   window.__heroKick = play;
   if ('IntersectionObserver' in window) {
