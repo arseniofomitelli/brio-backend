@@ -1,7 +1,7 @@
 /* ─── ДОСТУПНОСТЬ: prefers-reduced-motion ──────────────────
    Emil/review-animations: уважаем настройку — гасим движение,
    но контент сразу показываем (не «ноль», а мягче). */
-var REDUCE = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+var REDUCE = !document.documentElement.classList.contains('brio-full-motion') && !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
 /* ─── HERO REVEAL via rAF ───────────────────────────────────── */
 var _heroItems = [

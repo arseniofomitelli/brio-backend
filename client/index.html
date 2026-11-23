@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <script>
+    const motionChoice = new URLSearchParams(location.search).get('motion');
+    let fullMotion = motionChoice === 'on';
+    try {
+      if (fullMotion) localStorage.setItem('brio:motion', 'on');
+      else if (motionChoice === 'system') localStorage.removeItem('brio:motion');
+      else fullMotion = localStorage.getItem('brio:motion') === 'on';
+    } catch (_) {}
+    document.documentElement.classList.toggle('brio-full-motion', fullMotion);
     const legacySections = ['menu', 'pranzo', 'rent', 'art', 'gallery'];
     const oldSection = location.hash.slice(1);
     if (legacySections.includes(oldSection)) location.replace(oldSection + '.html');
@@ -24,7 +32,7 @@
         try {
           var hv = d.getElementById('heroVideo');
           var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (hv && !calm) { var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+          if (hv && (!calm || fullMotion)) { var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
         } catch (e) {}
       };
       setTimeout(function () {
@@ -32,7 +40,7 @@
       }, 4000);
 
       /* Заставка — один раз за визит (в пределах вкладки) */
-      try { window.__introSeen = sessionStorage.getItem('brio:intro') === '1'; } catch (e) {}
+      try { window.__introSeen = motionChoice !== 'on' && sessionStorage.getItem('brio:intro') === '1'; } catch (e) {}
       if (['#about', '#contacts', '#contactsMap'].includes(location.hash)) window.__introSeen = true;
       if (!window.__introSeen) {
         /* Пока идёт заставка, страницу под ней не листаем вообще:
@@ -70,6 +78,12 @@
   <link rel="preload" href="fonts/CormorantGaramond-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/fonts.css?v=1" />
   <link rel="stylesheet" href="css/style.css?v=98" />
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      .brio-full-motion .hero__video { display:block; }
+      .brio-full-motion .reveal { transition-duration:650ms,750ms!important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -373,7 +387,7 @@
 
   </div><!-- /#site-wrap -->
 
-  <script src="js/app.js?v=59" onerror="window.__brioFallback && window.__brioFallback()"></script>
+  <script src="js/app.js?v=60" onerror="window.__brioFallback && window.__brioFallback()"></script>
 <script src="js/visit.js"></script>
 <script>
   // Local playback diagnostics, only when opened from the support link.
