@@ -55,6 +55,22 @@ setTimeout(function() {
   });
 }, 11000); /* позже потолка заставки (9 с) + занавеса (1,1 с), иначе съест анимацию */
 
+// An animated copy of the same clip can play when media autoplay is blocked.
+function showMotionImage(video, url) {
+  if (video.nextElementSibling && video.nextElementSibling.dataset.motionFallback) return;
+  var image = new Image();
+  image.className = video.className;
+  image.alt = '';
+  image.dataset.motionFallback = 'true';
+  image.onload = function () {
+    video.pause();
+    video.style.display = 'none';
+  };
+  image.onerror = function () { image.remove(); };
+  video.insertAdjacentElement('afterend', image);
+  image.src = url;
+}
+
 /* ─── SPLASH INTRO ───────────────────────────────────────
    Заставка — ролик. Уходит, когда ролик доиграл, по клику
    или по «Пропустить». Если ролик за 3 с так и не пошёл
@@ -107,12 +123,9 @@ setTimeout(function() {
   function onKey(e) { if (e.key === 'Escape') dismiss(); }
   document.addEventListener('keydown', onKey);
   /* Клик в любом месте, включая «Пропустить» — всплывает сюда же */
-  splash.addEventListener('click', function (event) {
-    if (!event.target.closest('#splashPlay')) dismiss();
-  });
+  splash.addEventListener('click', dismiss, { once: true });
 
-  var saveData = !!(navigator.connection && navigator.connection.saveData);
-  if (!vid || REDUCE || saveData) {
+  if (!vid || REDUCE) {
     /* Без ролика: кадр-заставка и подписи, как короткая статичная заставка */
     if (vid) { vid.removeAttribute('autoplay'); vid.preload = 'none'; vid.pause(); }
     later(dismiss, 2800);
@@ -129,28 +142,18 @@ setTimeout(function() {
   vid.addEventListener('timeupdate', function () {
     if (vid.duration && vid.currentTime >= vid.duration - 0.15) finish();
   });
-  var startButton = document.getElementById('splashPlay');
-  var needsTap = false;
-  vid.muted = true;
-  vid.addEventListener('error', dismiss);
-  function startSplash() {
-    var attempt = vid.play();
-    if (attempt) attempt.catch(function (error) {
-      if (dismissed || error.name === 'AbortError') return;
-      if (error.name === 'NotAllowedError' && startButton) {
-        needsTap = true;
-        startButton.hidden = false;
-      } else dismiss();
-    });
+  var usingImage = false;
+  function splashFallback() {
+    if (dismissed || usingImage) return;
+    usingImage = true;
+    showMotionImage(vid, 'video/splash-spaghetti-motion.webp');
+    later(dismiss, 5800);
   }
-  if (startButton) startButton.addEventListener('click', function () {
-    startButton.hidden = true;
-    timers.forEach(clearTimeout);
-    later(dismiss, 9000);
-    startSplash();
-  });
-  startSplash();
-  later(function () { if (!started && !needsTap) dismiss(); }, 3000);
+  vid.muted = true;
+  vid.addEventListener('error', splashFallback);
+  var attempt = vid.play();
+  if (attempt) attempt.catch(splashFallback);
+  later(function () { if (!started || vid.currentTime === 0) splashFallback(); }, 2400);
   later(dismiss, 9000);                                   /* потолок на всякий случай */
 
   if (bar) {
@@ -289,43 +292,20 @@ navLinks.querySelectorAll('.nav__link').forEach(l => l.addEventListener('click',
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
 
 /* ─── JS ANIMATIONS (bypass prefers-reduced-motion) ─────────────────── */
-function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
-
-function revealAnimate(el, dx, dy, duration, delay) {
-  if (REDUCE) { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; el.classList.add('visible'); return; }
-  el.style.transition = 'none';
-  el.style.opacity = '0';
-  el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
-  el.style.filter = 'blur(6px)';
-  setTimeout(function () {
-    var start = null;
-    function frame(ts) {
-      if (!start) start = ts;
-      var t = Math.min((ts - start) / duration, 1);
-      var p = easeOut3(t);
-      el.style.opacity = String(p);
-      el.style.transform = 'translate(' + dx*(1-p) + 'px,' + dy*(1-p) + 'px)';
-      el.style.filter = p < 1 ? 'blur(' + (6 * (1 - p)).toFixed(2) + 'px)' : 'none';
-      if (t < 1) { requestAnimationFrame(frame); }
-      else { el.style.cssText = ''; el.classList.add('visible'); }
-    }
-    requestAnimationFrame(frame);
-  }, delay || 0);
+// Use the stylesheet's reveal transitions as soon as text enters the viewport.
+const revealItems = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window && !REDUCE) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0 });
+  revealItems.forEach(el => observer.observe(el));
+} else {
+  revealItems.forEach(el => el.classList.add('visible'));
 }
-
-/* ─── SCROLL REVEAL ──────────────────────────────────────── */
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    revealObs.unobserve(el);
-    const delay = parseFloat(getComputedStyle(el).getPropertyValue('--i') || 0) * 100;
-    const dx = el.classList.contains('reveal--left') ? -32 : el.classList.contains('reveal--right') ? 32 : 0;
-    const dy = (!dx) ? 32 : 0;
-    revealAnimate(el, dx, dy, 650, delay);
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 /* ─── PARALLAX HERO ──────────────────────────────────────── */
 const heroBg = document.querySelector('.hero__bg');
@@ -806,34 +786,27 @@ document.querySelectorAll('.art__work-shot').forEach(function (btn) {
 (function () {
   var v = document.getElementById('heroVideo');
   if (!v) return;
-  var saveData = !!(navigator.connection && navigator.connection.saveData);
-  var playButton = document.getElementById('heroPlay');
-  var manual = false;
-  v.muted = true;
-  if (REDUCE || saveData) {
-    v.removeAttribute('autoplay');
-    v.preload = 'none';
-    v.pause();
-    if (playButton) playButton.hidden = false;
-  }
-  /* Стартуем только после заставки — чтобы оба ролика не делили канал */
+  if (REDUCE) { v.pause(); return; }
   var inView = true;
+  var usingImage = false;
+  var watchdog;
+  v.muted = true;
+  function heroFallback() {
+    if (usingImage || !inView || document.hidden || !window.__heroGo) return;
+    usingImage = true;
+    showMotionImage(v, 'video/hero-panini-motion.webp');
+  }
   function play() {
-    if (!window.__heroGo || !inView || document.hidden) return;
-    if (!manual && (REDUCE || saveData)) return;
-    var p = v.play();
-    if (p) p.catch(function (error) {
-      if (playButton && error.name !== 'AbortError') playButton.hidden = false;
+    if (usingImage || !window.__heroGo || !inView || document.hidden) return;
+    clearTimeout(watchdog);
+    var initialTime = v.currentTime;
+    var attempt = v.play();
+    if (attempt) attempt.catch(function (error) {
+      if (error.name !== 'AbortError') heroFallback();
     });
+    watchdog = setTimeout(function () { if (v.currentTime === initialTime) heroFallback(); }, 2500);
   }
-  if (playButton) {
-    playButton.addEventListener('click', function () {
-      manual = true;
-      v.style.display = 'block';
-      play();
-    });
-    v.addEventListener('playing', function () { playButton.hidden = true; });
-  }
+  v.addEventListener('error', heroFallback);
   window.__heroKick = play;
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
@@ -849,3 +822,4 @@ document.querySelectorAll('.art__work-shot').forEach(function (btn) {
 
 /* Скрипт дошёл до конца — страховка из <head> не нужна. */
 window.__brioReady = true;
+document.documentElement.classList.remove('js-failed');
