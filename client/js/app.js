@@ -288,7 +288,12 @@ function toggleNav() {
 burger.addEventListener('click', toggleNav);
 const navClose = document.getElementById('navClose');
 if (navClose) navClose.addEventListener('click', closeNav);
-navLinks.querySelectorAll('.nav__link').forEach(l => l.addEventListener('click', closeNav));
+navLinks.addEventListener('click', event => {
+  const link = event.target.closest('.nav__link');
+  if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  if (link.getAttribute('aria-current') === 'page') event.preventDefault();
+  closeNav();
+});
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
 
 /* ─── JS ANIMATIONS (bypass prefers-reduced-motion) ─────────────────── */
