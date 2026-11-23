@@ -375,5 +375,31 @@
 
   <script src="js/app.js?v=59" onerror="window.__brioFallback && window.__brioFallback()"></script>
 <script src="js/visit.js"></script>
+<script>
+  // Local playback diagnostics, only when opened from the support link.
+  if (new URLSearchParams(location.search).get('check') === 'motion') {
+    const panel = document.createElement('pre');
+    panel.style.cssText = 'position:fixed;bottom:8px;left:8px;right:8px;z-index:2147483647;margin:0;padding:8px 12px;border-radius:8px;background:#143e3e;color:white;font:13px/1.4 system-ui;white-space:pre-wrap;pointer-events:none';
+    document.body.appendChild(panel);
+    const describe = (id) => {
+      const v = document.getElementById(id);
+      if (!v) return 'пропущена в этой вкладке';
+      const image = v.nextElementSibling;
+      if (image && image.dataset.motionFallback) return image.naturalWidth ? 'анимированное изображение загружено' : 'загрузка анимации';
+      if (v.error) return 'ошибка ' + v.error.code;
+      return (v.paused ? 'пауза' : 'воспроизведение') + ', ' + v.currentTime.toFixed(1) + ' с, готовность ' + v.readyState;
+    };
+    const report = () => {
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      panel.textContent = ['Проверка Brio · только на этом экране',
+        'Уменьшение движения: ' + (reduced ? 'включено' : 'выключено'),
+        'Скрипт: ' + (window.__brioReady ? 'готов' : 'не запущен'),
+        'Заставка: ' + describe('splashVideo'), 'Главная: ' + describe('heroVideo'),
+        'Появились блоки текста: ' + document.querySelectorAll('.reveal.visible').length + '/' + document.querySelectorAll('.reveal').length].join('\n');
+    };
+    report();
+    setInterval(report, 500);
+  }
+</script>
 </body>
 </html>
