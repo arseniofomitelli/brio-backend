@@ -19,17 +19,14 @@ function _revealHero() {
   /* Заставка ушла — можно включать видео первого экрана */
   window.__heroGo = true;
   if (window.__heroKick) window.__heroKick();
-  if (REDUCE) {
-    _heroItems.forEach(function(it) {
-      var el = document.querySelector(it.sel);
-      if (el) { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; el._heroHidden = false; }
-    });
-    return;
-  }
   _heroItems.forEach(function(it) {
     var el = document.querySelector(it.sel);
     if (!el || !el._heroHidden) return;
     el._heroHidden = false;
+    if (REDUCE && it.sel === '.hero__media') {
+      el.style.opacity = '1';
+      return;
+    }
     (function(el, dy, delay) {
       setTimeout(function() {
         var start = null;
@@ -296,15 +293,45 @@ navLinks.addEventListener('click', event => {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
 
-/* ─── JS ANIMATIONS (bypass prefers-reduced-motion) ─────────────────── */
-// Use the stylesheet's reveal transitions as soon as text enters the viewport.
+// Drive text entrances with the frame clock, including browsers that
+// shorten CSS transitions. Each element returns to its stylesheet afterward.
+function revealText(el, x, y, duration, delay, blur = 0) {
+  el.style.setProperty('transition', 'none', 'important');
+  function paint(progress) {
+    const remaining = (1 - progress) ** 3;
+    el.style.opacity = String(1 - remaining);
+    el.style.transform = `translate(${x * remaining}px,${y * remaining}px)`;
+    if (blur) el.style.filter = `blur(${blur * remaining}px)`;
+  }
+  paint(0);
+  const start = performance.now() + delay;
+  function frame(now) {
+    if (!el.isConnected) return;
+    const progress = Math.max(0, Math.min(1, (now - start) / duration));
+    if (progress < 1) {
+      paint(progress);
+      requestAnimationFrame(frame);
+      return;
+    }
+    el.style.removeProperty('opacity');
+    el.style.removeProperty('transform');
+    if (blur) el.style.removeProperty('filter');
+    el.style.removeProperty('transition');
+  }
+  requestAnimationFrame(frame);
+}
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+      const el = entry.target;
+      const left = el.classList.contains('reveal--left');
+      const right = el.classList.contains('reveal--right');
+      const delay = Number(el.style.getPropertyValue('--i')) * 100;
+      revealText(el, left ? -32 : right ? 32 : 0, left || right ? 0 : 32, 750, delay);
+      el.classList.add('visible');
+      observer.unobserve(el);
     });
   }, { threshold: 0 });
   revealItems.forEach(el => observer.observe(el));
@@ -446,18 +473,8 @@ function renderPriceList(cat, gridEl) {
 
   gridEl.innerHTML = `<ul class="menu-list" role="list">${items}</ul>`;
 
-  // Stagger entrance — пружинный ease-out + лёгкий blur (Emil-grade)
-  if (REDUCE) return; // блюда уже видимы по умолчанию
   gridEl.querySelectorAll('.menu-list__item').forEach((item, i) => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(16px)';
-    item.style.filter = 'blur(4px)';
-    setTimeout(() => {
-      item.style.transition = 'opacity 420ms cubic-bezier(.23,1,.32,1), transform 420ms cubic-bezier(.23,1,.32,1), filter 420ms ease, background 180ms, color 180ms';
-      item.style.opacity = '1';
-      item.style.transform = 'none';
-      item.style.filter = 'none';
-    }, i * 45);
+    revealText(item, 0, 16, 420, i * 45, 4);
   });
 }
 
