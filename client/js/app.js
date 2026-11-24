@@ -299,7 +299,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); 
 /* ─── JS ANIMATIONS (bypass prefers-reduced-motion) ─────────────────── */
 // Use the stylesheet's reveal transitions as soon as text enters the viewport.
 const revealItems = document.querySelectorAll('.reveal');
-if ('IntersectionObserver' in window && !REDUCE) {
+if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;

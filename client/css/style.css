@@ -1879,48 +1879,23 @@ html.intro-lock #site-wrap{visibility:hidden}
 .inner-page .header { background: var(--teal-900); }
 .inner-page main { padding-top: 4.75rem; }
 
-/* Keep page navigation visible on compact screens. */
-@media(max-width:768px){
-  .inner-page .nav{gap:0}
-  .inner-page .nav__brand,.inner-page .nav__burger,.inner-page .nav__close{display:none}
-  .inner-page .nav__links{
-    position:static;inset:auto;width:100%;height:auto;
-    flex-direction:row;justify-content:flex-start;align-items:center;
-    gap:var(--sp-2);padding:0 0 4px;margin:0;
-    overflow-x:auto;overflow-y:hidden;white-space:nowrap;
-    transform:none;transition:none;box-shadow:none;background:transparent;
-    scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  }
-  .inner-page .nav__links::-webkit-scrollbar{display:none}
+/* Fade the content in place. The header and viewport keep their geometry. */
+@keyframes brio-content-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-
-/* Seamless page changes with a short, restrained crossfade. */
-@view-transition { navigation: auto; }
-::view-transition-old(root) {
-  animation: brio-page-out 180ms ease both;
-}
-::view-transition-new(root) {
-  animation: brio-page-in 420ms cubic-bezier(.22,1,.36,1) both;
-}
-@keyframes brio-page-out {
-  to { opacity: 0; transform: translateY(-6px); }
-}
-@keyframes brio-page-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
-}
-body.page-leaving {
-  opacity: 0;
-  transform: translateY(-5px);
-  transition: opacity 180ms ease, transform 180ms ease;
-}
+.inner-page main { animation: brio-content-in 200ms ease-out; }
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 1ms; }
-  body.page-leaving { transition-duration: 1ms; }
+  html.brio-full-motion .reveal { transition-duration:650ms,750ms!important; }
+  html:not(.brio-full-motion) .reveal {
+    transform:none;
+    transition:opacity 320ms ease-out!important;
+  }
 }
 
 /* A visible, touch-scrollable page menu on phones. */
 @media(max-width:768px) {
+  main { overflow-x:clip; }
   .header:not(.scrolled) { background:var(--teal-900); padding:8px 0; }
   .nav { gap:0; }
   .nav__brand,.nav__burger,.nav__close { display:none !important; }
