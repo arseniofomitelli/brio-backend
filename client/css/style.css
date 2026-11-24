@@ -2047,8 +2047,26 @@ html.intro-lock #site-wrap{visibility:hidden}
  .banquet-menu__compact li{display:grid;grid-template-columns:minmax(0,1fr) max-content;column-gap:12px}
 }
 
-#banquet-menu { background: var(--bg); }
-#banquet-menu .banquet-menu__content { background: var(--bg); }
+#banquet-menu {
+  --text: var(--white);
+  --text-2: #d5e2e1;
+  --text-3: var(--teal-200);
+  --surface: var(--sage-dark);
+  --gray-100: rgba(255,255,255,.18);
+  --gray-200: rgba(255,255,255,.35);
+  background: var(--teal-900);
+  color: var(--text);
+}
+#banquet-menu .menu-list__price,
+#banquet-menu .eyebrow,
+#banquet-menu .banquet-menu__poster,
+#banquet-menu .dish-step button,
+#banquet-menu .remove-dish,
+#banquet-menu #reset-table { color: var(--teal-200); }
+#banquet-menu .menu__tab:hover { color:var(--white); border-color:var(--teal-300); }
+#banquet-menu .menu__tab[aria-selected="true"] { background:var(--teal-300); color:var(--teal-900); }
+#banquet-menu .dish-step button:enabled:active { color:var(--teal-900); }
+#banquet-menu :focus-visible { outline-color:var(--teal-300); }
 #banquet-menu [hidden] { display: none; }
 #banquet-menu .menu-list__name { overflow-wrap: anywhere; }
 @media (max-width: 760px) {
